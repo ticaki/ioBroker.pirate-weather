@@ -82,8 +82,10 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "apiToken": "",
+        "position": "",
+        "pollInterval": 1,
+        "units": "si"
     },
     "objects": [],
     "instanceObjects": [
