@@ -61,10 +61,10 @@ class PirateWeather extends utils.Adapter {
         } catch (error) {
             this.log.error(`Error in getPirateWeatherLoop: ${error}`);
         } finally {
-            const loopTime = new Date().setHours(new Date().getHours() + this.config.pollInterval);
+            const loopTime = new Date().setHours(new Date().getHours() + this.config.pollInterval) + 100 + Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
             this.getWeatherLoopTimeout = this.setTimeout(() => {
                 this.getPirateWeatherLoop();
-            }, loopTime - Date.now()); // Convert hours to milliseconds
+            }, loopTime - Date.now());
         }
     }
 
