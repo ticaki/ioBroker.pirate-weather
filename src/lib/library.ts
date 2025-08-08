@@ -1,6 +1,6 @@
 import _fs from 'fs';
-import {genericStateObjects} from './definition';
-import {PirateWeather} from './PirateWeather';
+import { genericStateObjects } from './definition';
+import type { PirateWeather } from './PirateWeather';
 
 // only change this for other adapters
 export type AdapterClassDefinition = PirateWeather;
@@ -36,7 +36,7 @@ export class BaseClass {
         this.adapter = adapter;
         this.library = adapter.library;
     }
-    async delete (): Promise<void> {
+    async delete(): Promise<void> {
         this.unload = true;
     }
 }
@@ -48,30 +48,30 @@ class CustomLog {
         this.#adapter = adapter;
         this.#prefix = text;
     }
-    getName (): string {
+    getName(): string {
         return this.#prefix;
     }
-    debug (log: string, log2: string = ''): void {
+    debug(log: string, log2: string = ''): void {
         this.#adapter.log.debug(log2 ? `[${log}] ${log2}` : `[${this.#prefix}] ${log}`);
     }
-    info (log: string, log2: string = ''): void {
+    info(log: string, log2: string = ''): void {
         this.#adapter.log.info(log2 ? `[${log}] ${log2}` : `[${this.#prefix}] ${log}`);
     }
-    warn (log: string, log2: string = ''): void {
+    warn(log: string, log2: string = ''): void {
         this.#adapter.log.warn(log2 ? `[${log}] ${log2}` : `[${this.#prefix}] ${log}`);
     }
-    error (log: string, log2: string = ''): void {
+    error(log: string, log2: string = ''): void {
         this.#adapter.log.error(log2 ? `[${log}] ${log2}` : `[${this.#prefix}] ${log}`);
     }
-    setLogPrefix (text: string): void {
+    setLogPrefix(text: string): void {
         this.#prefix = text;
     }
 }
 
 export class Library extends BaseClass {
-    private stateDataBase: {[key: string]: LibraryStateVal} = {};
+    private stateDataBase: { [key: string]: LibraryStateVal } = {};
     private forbiddenDirs: string[] = [];
-    private translation: {[key: string]: string} = {};
+    private translation: { [key: string]: string } = {};
     private unknownTokens: Record<string, string> = {};
     private unknownTokensInterval: ioBroker.Interval | undefined;
     defaults = {
@@ -83,7 +83,7 @@ export class Library extends BaseClass {
         this.stateDataBase = {};
     }
 
-    async init (): Promise<void> {
+    async init(): Promise<void> {
         await this.checkLanguage();
         /*if (this.adapter.config.logUnknownTokens) {
             this.unknownTokensInterval = this.adapter.setInterval(() => {
@@ -102,7 +102,7 @@ export class Library extends BaseClass {
      * @param expandTree expand arrays up to 99
      * @returns  void
      */
-    async writeFromJson (
+    async writeFromJson(
         // provider.dwd.*warncellid*.warnung*1-5*
         prefix: string,
         objNode: string, // the json path to object def for jsonata
@@ -177,7 +177,7 @@ export class Library extends BaseClass {
      * @param data  is the definition dataset
      * @returns ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.StateObject
      */
-    async getObjectDefFromJson (key: string, def: any, data: any): Promise<ioBroker.Object> {
+    async getObjectDefFromJson(key: string, def: any, data: any): Promise<ioBroker.Object> {
         //let result = await jsonata(`${key}`).evaluate(data);
         let result = this.deepJsonValue(key, def);
         if (result === null || result === undefined) {
@@ -222,7 +222,7 @@ export class Library extends BaseClass {
         return result;
     }
 
-    deepJsonValue (key: string, data: any): any {
+    deepJsonValue(key: string, data: any): any {
         if (!key || !data || typeof data !== 'object' || typeof key !== 'string') {
             throw new Error(`Error(222) data or key are missing/wrong type!`);
         }
@@ -244,8 +244,8 @@ export class Library extends BaseClass {
      * @param definition the definition object
      * @returns ioBroker.ChannelObject | ioBroker.DeviceObject or a default channel obj
      */
-    getChannelObject (
-        definition: (ioBroker.Object & {_channel?: ioBroker.Object}) | null = null,
+    getChannelObject(
+        definition: (ioBroker.Object & { _channel?: ioBroker.Object }) | null = null,
     ): ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.FolderObject {
         const def = (definition && definition._channel) || null;
         const result: ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.FolderObject = {
@@ -269,7 +269,7 @@ export class Library extends BaseClass {
      * @param forceWrite write the value even if it is the same as the old value
      * @returns void
      */
-    async writedp (
+    async writedp(
         dp: string,
         val: ioBroker.StateValue | undefined,
         obj: ioBroker.Object | null = null,
@@ -345,11 +345,11 @@ export class Library extends BaseClass {
         }
     }
 
-    setForbiddenDirs (dirs: any[]): void {
+    setForbiddenDirs(dirs: any[]): void {
         this.forbiddenDirs = this.forbiddenDirs.concat(dirs);
     }
 
-    isDirAllowed (dp: string): boolean {
+    isDirAllowed(dp: string): boolean {
         if (dp && dp.split('.').length <= 2) {
             return true;
         }
@@ -361,8 +361,8 @@ export class Library extends BaseClass {
         return true;
     }
 
-    getStates (str: string): {[key: string]: LibraryStateVal} {
-        const result: {[key: string]: LibraryStateVal} = {};
+    getStates(str: string): { [key: string]: LibraryStateVal } {
+        const result: { [key: string]: LibraryStateVal } = {};
         for (const dp in this.stateDataBase) {
             if (dp.search(new RegExp(str, 'g')) != -1) {
                 result[dp] = this.stateDataBase[dp];
@@ -371,7 +371,7 @@ export class Library extends BaseClass {
         return result;
     }
 
-    async cleanUpTree (hold: string[], filter: string[] | null, deep: number): Promise<void> {
+    async cleanUpTree(hold: string[], filter: string[] | null, deep: number): Promise<void> {
         let del = [];
         for (const dp in this.stateDataBase) {
             if (filter && filter.filter(a => dp.startsWith(a) || a.startsWith(dp)).length == 0) {
@@ -387,7 +387,7 @@ export class Library extends BaseClass {
             return arr.indexOf(item) == pos;
         });
         for (const a of del) {
-            await this.adapter.delObjectAsync(a, {recursive: true});
+            await this.adapter.delObjectAsync(a, { recursive: true });
             this.log.debug(`Clean up tree delete: ${a}`);
         }
     }
@@ -400,7 +400,7 @@ export class Library extends BaseClass {
      * @param removePoints remove . from dp
      * @returns void
      */
-    cleandp (string: string, lowerCase: boolean = false, removePoints: boolean = false): string {
+    cleandp(string: string, lowerCase: boolean = false, removePoints: boolean = false): string {
         if (!string && typeof string != 'string') {
             return string;
         }
@@ -420,7 +420,7 @@ export class Library extends BaseClass {
      * @param {string}   type  					the target type
      * @returns
      */
-    convertToType (value: ioBroker.StateValue | Array<any> | JSON, type: string): ioBroker.StateValue {
+    convertToType(value: ioBroker.StateValue | Array<any> | JSON, type: string): ioBroker.StateValue {
         if (value === null) {
             return null;
         }
@@ -455,11 +455,11 @@ export class Library extends BaseClass {
         return newValue;
     }
 
-    readdb (dp: string): LibraryStateVal {
+    readdb(dp: string): LibraryStateVal {
         return this.stateDataBase[this.cleandp(dp)];
     }
 
-    setdb (
+    setdb(
         dp: string,
         type: ioBroker.ObjectType | LibraryStateVal,
         val: ioBroker.StateValue | undefined = undefined,
@@ -480,8 +480,8 @@ export class Library extends BaseClass {
                     stateType !== undefined
                         ? stateType
                         : this.stateDataBase[dp] !== undefined && this.stateDataBase[dp].stateTyp !== undefined
-                            ? this.stateDataBase[dp].stateTyp
-                            : undefined,
+                          ? this.stateDataBase[dp].stateTyp
+                          : undefined,
                 val: val,
                 ack: ack,
                 ts: ts ? ts : Date.now(),
@@ -489,15 +489,15 @@ export class Library extends BaseClass {
                     obj !== undefined
                         ? obj
                         : this.stateDataBase[dp] !== undefined && this.stateDataBase[dp].obj !== undefined
-                            ? this.stateDataBase[dp].obj
-                            : undefined,
+                          ? this.stateDataBase[dp].obj
+                          : undefined,
                 init: init,
             };
         }
         return this.stateDataBase[dp];
     }
 
-    async memberDeleteAsync (data: any[]): Promise<void> {
+    async memberDeleteAsync(data: any[]): Promise<void> {
         if (this.unknownTokensInterval) {
             this.adapter.clearInterval(this.unknownTokensInterval);
         }
@@ -506,7 +506,7 @@ export class Library extends BaseClass {
         }
     }
 
-    cloneObject (obj: ioBroker.Object): ioBroker.Object {
+    cloneObject(obj: ioBroker.Object): ioBroker.Object {
         if (typeof obj !== 'object') {
             this.log.error(`Error clone object target is type: ${typeof obj}`);
             return obj;
@@ -514,7 +514,7 @@ export class Library extends BaseClass {
         return JSON.parse(JSON.stringify(obj));
     }
 
-    cloneGenericObject (obj: object): object {
+    cloneGenericObject(obj: object): object {
         if (typeof obj !== 'object') {
             this.log.error(`Error clone object target is type: ${typeof obj}`);
             return obj;
@@ -522,7 +522,7 @@ export class Library extends BaseClass {
         return JSON.parse(JSON.stringify(obj));
     }
 
-    async fileExistAsync (file: string): Promise<boolean> {
+    async fileExistAsync(file: string): Promise<boolean> {
         if (_fs.existsSync(`./admin/${file}`)) {
             return true;
         }
@@ -535,7 +535,7 @@ export class Library extends BaseClass {
      * @param states States that are to be read into the database during initialisation.
      * @returns void
      */
-    async initStates (states: {[key: string]: {val: ioBroker.StateValue; ts: number; ack: boolean}}): Promise<void> {
+    async initStates(states: { [key: string]: { val: ioBroker.StateValue; ts: number; ack: boolean } }): Promise<void> {
         if (!states) {
             return;
         }
@@ -562,7 +562,7 @@ export class Library extends BaseClass {
                 }
                 const channel = dp.split('.').slice(0, 4).join('.');
                 removedChannels.push(channel);
-                await this.adapter.delObjectAsync(channel, {recursive: true});
+                await this.adapter.delObjectAsync(channel, { recursive: true });
                 this.log.debug(`Delete channel with dp:${channel}`);
             }
         }
@@ -576,7 +576,7 @@ export class Library extends BaseClass {
      * @param del Delete the state if it is not updated.
      * @returns void
      */
-    async garbageColleting (prefix: string, offset: number = 2000, del = false): Promise<void> {
+    async garbageColleting(prefix: string, offset: number = 2000, del = false): Promise<void> {
         if (!prefix) {
             return;
         }
@@ -631,13 +631,13 @@ export class Library extends BaseClass {
         }
     }
 
-    getLocalLanguage (): ioBroker.Languages {
+    getLocalLanguage(): ioBroker.Languages {
         if (this.adapter.language) {
             return this.adapter.language;
         }
         return 'en';
     }
-    getTranslation (key: string | null | undefined): string {
+    getTranslation(key: string | null | undefined): string {
         if (!key) {
             return '';
         }
@@ -649,11 +649,11 @@ export class Library extends BaseClass {
         }*/
         return key;
     }
-    existTranslation (key: string): boolean {
+    existTranslation(key: string): boolean {
         return this.translation[key] !== undefined;
     }
 
-    async getTranslationObj (key: string): Promise<ioBroker.StringOrTranslated> {
+    async getTranslationObj(key: string): Promise<ioBroker.StringOrTranslated> {
         const language: ioBroker.Languages[] = ['en', 'de', 'ru', 'pt', 'nl', 'fr', 'it', 'es', 'pl', 'uk', 'zh-cn'];
         const result: Partial<Record<ioBroker.Languages, string>> = {};
         for (const l of language) {
@@ -678,7 +678,7 @@ export class Library extends BaseClass {
         return result as ioBroker.StringOrTranslated;
     }
 
-    async checkLanguage (): Promise<void> {
+    async checkLanguage(): Promise<void> {
         try {
             this.log.debug(`Load language ${this.adapter.language}`);
             this.translation = await import(`../../../admin/i18n/${this.adapter.language}/translations.json`);
@@ -686,7 +686,7 @@ export class Library extends BaseClass {
             this.log.warn(`Language ${this.adapter.language} not exist!`);
         }
     }
-    sortText (text: string[]): string[] {
+    sortText(text: string[]): string[] {
         text.sort((a, b) => {
             const nameA = a.toUpperCase(); // ignore upper and lowercase
             const nameB = b.toUpperCase(); // ignore upper and lowercase
@@ -708,7 +708,7 @@ export class Library extends BaseClass {
      * @param day true = Mo, 12.05 - false = 12.05
      * @returns Monday first March
      */
-    convertSpeakDate (text: string, noti: string = '', day = false): string {
+    convertSpeakDate(text: string, noti: string = '', day = false): string {
         if (!text || typeof text !== `string`) {
             return ``;
         }

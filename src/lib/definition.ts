@@ -1,4 +1,3 @@
-
 /*type ChangeTypeToChannelAndState<Obj> = Obj extends object
     ? {
           [K in keyof Obj]-?: ChangeTypeToChannelAndState<Obj[K]>;
@@ -9,7 +8,7 @@ export type ChangeToChannel<Obj, T> = Obj extends object
     : ioBroker.StateObject;
 */
 export type ChangeTypeOfKeysForState<Obj, N> = Obj extends object
-    ? customChannelType & {[K in keyof Obj]: ChangeTypeOfKeysForState<Obj[K], N>}
+    ? customChannelType & { [K in keyof Obj]: ChangeTypeOfKeysForState<Obj[K], N> }
     : N;
 export type customChannelType = {
     _channel: ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.FolderObject;
@@ -27,9 +26,6 @@ export const defaultChannel: ioBroker.ChannelObject = {
 export const genericStateObjects: {
     default: ioBroker.StateObject;
     customString: ioBroker.StateObject;
-
-
-
 } = {
     default: {
         _id: 'No_definition',
@@ -43,7 +39,6 @@ export const genericStateObjects: {
         },
         native: {},
     },
-
 
     customString: {
         _id: 'User_State',
@@ -74,5 +69,3 @@ export const Defaults = {
         native: {},
     },
 };
-
-
