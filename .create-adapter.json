@@ -23,7 +23,7 @@
     "nodeVersion": "20",
     "adminUi": "json",
     "tools": [
-        "ESLint"
+        "ESLint", "Prettier", "code coverage"
     ],
     "releaseScript": "yes",
     "devServer": "yes",
