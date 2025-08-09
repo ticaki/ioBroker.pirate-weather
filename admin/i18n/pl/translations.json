@@ -6,5 +6,6 @@
     "position": "Pozycja",
     "apiToken": "Token API",
     "units": "Jednostki",
-    "pollInterval": "Odstęp ankiety (co godzinę w godzinach)"
+    "pollInterval": "Odstęp ankiety (co godzinę w godzinach)",
+    "Hours-to-display": "Godziny do wyświetlenia"
 }

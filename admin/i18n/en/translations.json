@@ -4,5 +4,6 @@
     "position": "Position",
     "apiToken": "API Token",
     "units": "Units",
-    "pollInterval": "Poll Interval (every hour on the hour)"
+    "pollInterval": "Poll Interval (every hour on the hour)",
+    "Hours-to-display": "Hours to display"
 }

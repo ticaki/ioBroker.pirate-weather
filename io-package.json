@@ -111,7 +111,8 @@
     "apiToken": "",
     "position": "",
     "pollInterval": 1,
-    "units": "si"
+    "units": "si",
+    "hours": 24
   },
   "objects": [],
   "instanceObjects": [

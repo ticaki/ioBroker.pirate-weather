@@ -6,5 +6,6 @@
     "position": "Posición",
     "apiToken": "Token API",
     "units": "Unidades",
-    "pollInterval": "Intervalo de la encuesta (cada hora en la hora)"
+    "pollInterval": "Intervalo de la encuesta (cada hora en la hora)",
+    "Hours-to-display": "Horario para mostrar"
 }

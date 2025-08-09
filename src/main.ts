@@ -51,6 +51,10 @@ class PirateWeather extends utils.Adapter {
             this.log.error('Position is not set in the adapter configuration. Please set it in the adapter settings.');
             return;
         }
+        if (this.config.hours < 0 || this.config.hours > 48) {
+            this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
+            this.config.hours = 24; // Default to 24 hours if invalid
+        }
         await this.library.init();
         const states = await this.getStatesAsync('*');
         await this.library.initStates(states);
@@ -93,6 +97,13 @@ class PirateWeather extends utils.Adapter {
                     data.version = data.flags.version;
                     delete data.flags;
                     delete result.data.flags;
+                }
+                if (data.hourly && data.hourly.data) {
+                    if (this.config.hours > 0) {
+                        data.hourly.data = data.hourly.data.slice(0, this.config.hours);
+                    } else {
+                        data.hourly.data = [];
+                    }
                 }
                 for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
                     if (d && d.length) {

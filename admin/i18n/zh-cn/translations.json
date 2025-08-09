@@ -6,5 +6,6 @@
     "position": "位置",
     "apiToken": "API令牌",
     "units": "单位",
-    "pollInterval": "轮询间隔（每小时每小时）"
+    "pollInterval": "轮询间隔（每小时每小时）",
+    "Hours-to-display": "显示的小时"
 }

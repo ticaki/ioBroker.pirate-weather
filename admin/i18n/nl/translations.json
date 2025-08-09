@@ -6,5 +6,6 @@
     "position": "Positie",
     "apiToken": "API -token",
     "units": "Eenheden",
-    "pollInterval": "Poll -interval (elk uur op het uur)"
+    "pollInterval": "Poll -interval (elk uur op het uur)",
+    "Hours-to-display": "Uren om weer te geven"
 }

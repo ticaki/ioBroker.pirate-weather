@@ -23,6 +23,20 @@
             "lg": 4,
             "xl": 4
         },
+        "hours": {
+            "type": "number",
+            "label": "Hours-to-display",
+            "default": 24,
+            "min": 0,
+            "max": 48,
+            "unit": "hours",
+            "newLine": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xl": 4
+        },
         "minutes": {
             "type": "checkbox",
             "label": "minute-by-minute",

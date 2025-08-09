@@ -8,6 +8,7 @@ declare global {
             "position": string,
             "pollInterval": number,
             "minutes": boolean | undefined,
+            "hours": number,
             "units": "si" | "us" | "ca" | "uk";
         }
     }
