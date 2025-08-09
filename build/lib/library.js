@@ -311,6 +311,11 @@ class Library extends BaseClass {
     if (obj && obj.type !== "state") {
       return;
     }
+    if (obj && obj.common.role === "date") {
+      if (typeof val === "number") {
+        val = val * 1e3;
+      }
+    }
     if (node && !(node.type === "state" && val === void 0)) {
       this.setdb(dp, node.type, val, node.stateTyp, false, void 0, void 0, node.init);
     }

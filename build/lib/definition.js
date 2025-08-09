@@ -345,9 +345,9 @@ const genericStateObjects = {
         _id: "",
         type: "state",
         common: {
-          name: "Time",
+          name: "Date in Milliseconds",
           type: "number",
-          role: "value.date",
+          role: "date",
           read: true,
           write: false
         },
