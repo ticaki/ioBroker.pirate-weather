@@ -71,7 +71,7 @@ class PirateWeather extends utils.Adapter {
       this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
       await this.setState("info.connection", false, true);
     } finally {
-      const loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval) + 100 + Math.floor(Math.random() * 3e3);
+      const loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0) + 100 + Math.floor(Math.random() * 3e3);
       this.getWeatherLoopTimeout = this.setTimeout(() => {
         void this.getPirateWeatherLoop();
       }, loopTime - Date.now());

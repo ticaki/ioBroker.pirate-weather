@@ -68,7 +68,7 @@ class PirateWeather extends utils.Adapter {
             await this.setState('info.connection', false, true);
         } finally {
             const loopTime =
-                new Date().setHours(new Date().getHours() + this.config.pollInterval) +
+                new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
                 100 +
                 Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
             this.getWeatherLoopTimeout = this.setTimeout(() => {

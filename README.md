@@ -23,8 +23,11 @@ You can get the required Api token here: https://docs.pirateweather.net/en/lates
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (ticaki) Zero minutes and seconds in the interval
+
 ### 0.0.7 (2025-08-09)
--(ticaki) data removed from enumeration names
+- (ticaki) data removed from enumeration names
 
 ### 0.0.6 (2025-08-09)
 - (ticaki) initial release
