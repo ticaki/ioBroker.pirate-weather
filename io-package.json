@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "news": {
+      "0.0.7": {
+        "en": "data removed from enumeration names",
+        "de": "daten aus aufzählungsnamen entfernt",
+        "ru": "данные, удаленные из названий перечислений",
+        "pt": "dados removidos dos nomes de enumeração",
+        "nl": "gegevens verwijderd van opsommingsnamen",
+        "fr": "données supprimées des noms de dénombrement",
+        "it": "dati rimossi dai nomi di enumerazione",
+        "es": "de los nombres de las listas",
+        "pl": "dane usunięte z nazw wyliczeń",
+        "uk": "дані, вилучені з імен генерації",
+        "zh-cn": "从点数名称中删除数据"
+      },
       "0.0.6": {
         "en": "initial release",
         "de": "erstausstrahlung",
