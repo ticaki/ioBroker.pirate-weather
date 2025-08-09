@@ -92,7 +92,7 @@ class Library extends BaseClass {
   stateDataBase = {};
   forbiddenDirs = [];
   translation = {};
-  unknownTokens = {};
+  //    private unknownTokens: Record<string, string> = {};
   unknownTokensInterval;
   defaults = {
     updateStateOnChangeOnly: true
@@ -180,7 +180,6 @@ class Library extends BaseClass {
         result = import_definition.genericStateObjects.customString;
         result = this.cloneObject(result);
       } else {
-        this.log.debug(`No definition for ${key}!`);
         result = import_definition.genericStateObjects.default;
         result = this.cloneObject(result);
         result.common.name = k[k.length - 1];
@@ -603,7 +602,7 @@ class Library extends BaseClass {
   async checkLanguage() {
     try {
       this.log.debug(`Load language ${this.adapter.language}`);
-      this.translation = await Promise.resolve().then(() => __toESM(require(`../../../admin/i18n/${this.adapter.language}/translations.json`)));
+      this.translation = await Promise.resolve().then(() => __toESM(require(`../../admin/i18n/${this.adapter.language}/translations.json`)));
     } catch {
       this.log.warn(`Language ${this.adapter.language} not exist!`);
     }

@@ -72,7 +72,7 @@ export class Library extends BaseClass {
     private stateDataBase: { [key: string]: LibraryStateVal } = {};
     private forbiddenDirs: string[] = [];
     private translation: { [key: string]: string } = {};
-    private unknownTokens: Record<string, string> = {};
+    //    private unknownTokens: Record<string, string> = {};
     private unknownTokensInterval: ioBroker.Interval | undefined;
     defaults = {
         updateStateOnChangeOnly: true,
@@ -186,7 +186,7 @@ export class Library extends BaseClass {
                 result = genericStateObjects.customString;
                 result = this.cloneObject(result);
             } else {
-                this.log.debug(`No definition for ${key}!`);
+                //this.log.debug(`No definition for ${key}!`);
                 result = genericStateObjects.default;
                 result = this.cloneObject(result);
                 result.common.name = k[k.length - 1];
@@ -681,7 +681,7 @@ export class Library extends BaseClass {
     async checkLanguage(): Promise<void> {
         try {
             this.log.debug(`Load language ${this.adapter.language}`);
-            this.translation = await import(`../../../admin/i18n/${this.adapter.language}/translations.json`);
+            this.translation = await import(`../../admin/i18n/${this.adapter.language}/translations.json`);
         } catch {
             this.log.warn(`Language ${this.adapter.language} not exist!`);
         }
