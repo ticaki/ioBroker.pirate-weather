@@ -1,7 +1,7 @@
 /*
  * Created with @iobroker/create-adapter v2.6.5
  */
- 
+
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
@@ -53,7 +53,7 @@ class PirateWeather extends utils.Adapter {
         await this.library.init();
         const states = await this.getStatesAsync('*');
         await this.library.initStates(states);
-        this.getPirateWeatherLoop();
+        await this.getPirateWeatherLoop();
     }
 
     getPirateWeatherLoop = async (): Promise<void> => {
@@ -62,15 +62,17 @@ class PirateWeather extends utils.Adapter {
                 this.clearTimeout(this.getWeatherLoopTimeout);
             }
             await this.getData();
+            await this.setState('info.connection', true, true);
         } catch (error) {
-            this.log.error(`Error in getPirateWeatherLoop: ${error}`);
+            this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
+            await this.setState('info.connection', false, true);
         } finally {
             const loopTime =
                 new Date().setHours(new Date().getHours() + this.config.pollInterval) +
                 100 +
                 Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
             this.getWeatherLoopTimeout = this.setTimeout(() => {
-                this.getPirateWeatherLoop();
+                void this.getPirateWeatherLoop();
             }, loopTime - Date.now());
         }
     };
@@ -78,7 +80,7 @@ class PirateWeather extends utils.Adapter {
     getData = async (): Promise<void> => {
         try {
             const result = await axios.get(
-                `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}`,
+                `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate`,
             );
             if (result.status === 200) {
                 this.log.debug(`Data fetched successfully: ${JSON.stringify(result.data)}`);
@@ -89,22 +91,16 @@ class PirateWeather extends utils.Adapter {
                 await this.library.writeFromJson('weather', '', genericStateObjects, result.data, true);
             }
         } catch (error) {
-            this.log.error(`Error fetching data from Pirate Weather API: ${error}`);
+            this.log.error(`Error fetching data from Pirate Weather API: ${JSON.stringify(error)}`);
         }
     };
 
-    /**
-     * Is called when adapter shuts down - callback has to be called under any circumstances!
-     *
-     * @param callback
-     */
     private onUnload(callback: () => void): void {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
+            void this.setState('info.connection', false, true);
+            if (this.getWeatherLoopTimeout) {
+                this.clearTimeout(this.getWeatherLoopTimeout);
+            }
 
             callback();
         } catch {

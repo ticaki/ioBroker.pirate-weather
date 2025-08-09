@@ -8,7 +8,7 @@ export default [
     {
         // specify files to exclude from linting here
         ignores: [
-            '.dev-server/',
+            '.dev-server',
             '.vscode/',
             '*.test.js',
             'test/**/*.js',
@@ -19,13 +19,9 @@ export default [
             'admin/admin.d.ts',
             '**/adapter-config.d.ts',
             'img',
-            'json',
             'script',
             'node_modules',
-            'templates',
             '.dev-data',
-            'script/**/*.ts',
-            'testumgebung/**/*.ts'
         ]
     },
 

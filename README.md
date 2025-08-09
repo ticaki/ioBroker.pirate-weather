@@ -21,8 +21,7 @@ Retrieve data from Pirate-Weather.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 0.0.2 (2025-08-08)
-
+### **WORK IN PROGRESS**
 - (ticaki) initial release
 
 ## License

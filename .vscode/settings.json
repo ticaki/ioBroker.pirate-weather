@@ -19,7 +19,7 @@
         }
     ],
     "findUnusedExports.detectCircularImports": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "eslint.autoFixOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit",
