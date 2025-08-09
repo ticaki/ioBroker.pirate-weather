@@ -61,6 +61,7 @@ class PirateWeather extends utils.Adapter {
       this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
       this.config.hours = 24;
     }
+    (0, import_definition.setUnits)(this.config.units);
     await this.library.init();
     const states = await this.getStatesAsync("*");
     await this.library.initStates(states);

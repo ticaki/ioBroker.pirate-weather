@@ -8,7 +8,7 @@ import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
 import 'source-map-support/register';
 import { Library } from './lib/library';
-import { genericStateObjects, type PirateWeatherTestdata } from './lib/definition';
+import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";
@@ -55,6 +55,7 @@ class PirateWeather extends utils.Adapter {
             this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
             this.config.hours = 24; // Default to 24 hours if invalid
         }
+        setUnits(this.config.units);
         await this.library.init();
         const states = await this.getStatesAsync('*');
         await this.library.initStates(states);

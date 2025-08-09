@@ -24,6 +24,7 @@ You can get the required Api token here: https://docs.pirateweather.net/en/lates
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (ticaki) units (us, ca, uk) added
 - (ticaki) beautiful states :)
 - (ticaki) Zero minutes and seconds in the interval.
 - (ticaki) fixed: Language undefined not exist!

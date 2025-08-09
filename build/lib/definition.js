@@ -21,6 +21,7 @@ __export(definition_exports, {
   Defaults: () => Defaults,
   defaultChannel: () => defaultChannel,
   genericStateObjects: () => genericStateObjects,
+  setUnits: () => setUnits,
   testdata: () => testdata
 });
 module.exports = __toCommonJS(definition_exports);
@@ -898,6 +899,51 @@ const Defaults = {
     native: {}
   }
 };
+function setUnits(u) {
+  switch (u) {
+    default:
+    case "si": {
+      break;
+    }
+    case "us": {
+      TemperatureData.apparentTemperature.common.unit = "\xB0F";
+      TemperatureData.dewPoint.common.unit = "\xB0F";
+      TemperatureData.temperature.common.unit = "\xB0F";
+      WindData.windSpeed.common.unit = "mph";
+      WindData.windGust.common.unit = "mph";
+      PressureVisibilityOzoneData.pressure.common.unit = "mbar";
+      PressureVisibilityOzoneData.visibility.common.unit = "mi";
+      PrecipitationData.precipIntensity.common.unit = "in";
+      PrecipitationData.precipIntensityError.common.unit = "in";
+      PrecipitationData.precipAccumulation.common.unit = "in";
+      genericStateObjects.weather.daily.temperatureHigh.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.temperatureLow.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.apparentTemperatureHigh.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.apparentTemperatureLow.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.temperatureMin.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.temperatureMax.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.apparentTemperatureMin.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.apparentTemperatureMax.common.unit = "\xB0F";
+      genericStateObjects.weather.daily.precipIntensity.common.unit = "in";
+      genericStateObjects.weather.daily.precipAccumulation.common.unit = "in";
+      genericStateObjects.weather.daily.precipIntensityMax.common.unit = "in";
+      genericStateObjects.weather.currently.nearestStormDistance.common.unit = "mi";
+      genericStateObjects.weather.elevation.common.unit = "ft";
+      break;
+    }
+    case "ca": {
+      WindData.windSpeed.common.unit = "km/h";
+      WindData.windGust.common.unit = "km/h";
+      break;
+    }
+    case "uk": {
+      WindData.windSpeed.common.unit = "mph";
+      WindData.windGust.common.unit = "mph";
+      genericStateObjects.weather.currently.nearestStormDistance.common.unit = "mi";
+      break;
+    }
+  }
+}
 const testdata = {
   latitude: 49.8074,
   longitude: 7.4556,
@@ -2403,6 +2449,7 @@ const testdata = {
   Defaults,
   defaultChannel,
   genericStateObjects,
+  setUnits,
   testdata
 });
 //# sourceMappingURL=definition.js.map

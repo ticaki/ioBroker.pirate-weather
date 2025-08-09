@@ -1056,6 +1056,52 @@ export type PirateWeatherTestdata = {
     };
 };
 
+export function setUnits(u: 'si' | 'us' | 'ca' | 'uk'): void {
+    switch (u) {
+        default:
+        case 'si': {
+            break;
+        }
+        case 'us': {
+            TemperatureData.apparentTemperature.common.unit = '°F';
+            TemperatureData.dewPoint.common.unit = '°F';
+            TemperatureData.temperature.common.unit = '°F';
+            WindData.windSpeed.common.unit = 'mph';
+            WindData.windGust.common.unit = 'mph';
+            PressureVisibilityOzoneData.pressure.common.unit = 'mbar';
+            PressureVisibilityOzoneData.visibility.common.unit = 'mi';
+            PrecipitationData.precipIntensity.common.unit = 'in';
+            PrecipitationData.precipIntensityError.common.unit = 'in';
+            PrecipitationData.precipAccumulation.common.unit = 'in';
+            genericStateObjects.weather.daily.temperatureHigh.common.unit = '°F';
+            genericStateObjects.weather.daily.temperatureLow.common.unit = '°F';
+            genericStateObjects.weather.daily.apparentTemperatureHigh.common.unit = '°F';
+            genericStateObjects.weather.daily.apparentTemperatureLow.common.unit = '°F';
+            genericStateObjects.weather.daily.temperatureMin.common.unit = '°F';
+            genericStateObjects.weather.daily.temperatureMax.common.unit = '°F';
+            genericStateObjects.weather.daily.apparentTemperatureMin.common.unit = '°F';
+            genericStateObjects.weather.daily.apparentTemperatureMax.common.unit = '°F';
+            genericStateObjects.weather.daily.precipIntensity.common.unit = 'in';
+            genericStateObjects.weather.daily.precipAccumulation.common.unit = 'in';
+            genericStateObjects.weather.daily.precipIntensityMax.common.unit = 'in';
+            genericStateObjects.weather.currently.nearestStormDistance.common.unit = 'mi';
+            genericStateObjects.weather.elevation.common.unit = 'ft';
+
+            break;
+        }
+        case 'ca': {
+            WindData.windSpeed.common.unit = 'km/h';
+            WindData.windGust.common.unit = 'km/h';
+            break;
+        }
+        case 'uk': {
+            WindData.windSpeed.common.unit = 'mph';
+            WindData.windGust.common.unit = 'mph';
+            genericStateObjects.weather.currently.nearestStormDistance.common.unit = 'mi';
+            break;
+        }
+    }
+}
 // ...existing code...
 
 // ...existing code...
