@@ -7,6 +7,7 @@ declare global {
             "apiToken": "string",
             "position": string,
             "pollInterval": number,
+            "minutes": boolean | undefined,
             "units": "si" | "us" | "ca" | "uk";
         }
     }

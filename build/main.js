@@ -88,6 +88,9 @@ class PirateWeather extends utils.Adapter {
         result.data["nearest-station"] = result.data.flags["nearest-station"];
         result.data.version = result.data.flags.version;
         delete result.data.flags;
+        if (!this.config.minutes) {
+          delete result.data.minutely;
+        }
         await this.library.writeFromJson("weather", "", import_definition.genericStateObjects, result.data, true);
       }
     } catch (error) {

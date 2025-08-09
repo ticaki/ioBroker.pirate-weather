@@ -23,6 +23,17 @@
             "lg": 4,
             "xl": 4
         },
+        "minutes": {
+            "type": "checkbox",
+            "label": "minute-by-minute",
+            "default": false,
+            "newLine": true,
+            "xs": 12,
+            "sm": 12,
+            "md": 6,
+            "lg": 4,
+            "xl": 4
+        },
         "units": {
             "type": "select",
             "label": "units",

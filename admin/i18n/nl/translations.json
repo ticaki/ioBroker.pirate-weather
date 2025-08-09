@@ -1,5 +1,10 @@
 {
     "pirate-weather adapter settings": "Adapterinstellingen voor pirate-weather",
     "option1": "Option1",
-    "option2": "Optie2"
+    "option2": "Optie2",
+    "minute-by-minute": "Creëer gegevenspunten voor van minuut tot minuut voorspelling",
+    "position": "Positie",
+    "apiToken": "API -token",
+    "units": "Eenheden",
+    "pollInterval": "Poll -interval (elk uur op het uur)"
 }
