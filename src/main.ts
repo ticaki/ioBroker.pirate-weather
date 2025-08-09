@@ -94,6 +94,13 @@ class PirateWeather extends utils.Adapter {
                     delete data.flags;
                     delete result.data.flags;
                 }
+                for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
+                    if (d && d.length) {
+                        for (let a = 0; a < d.length; a++) {
+                            d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
+                        }
+                    }
+                }
                 if (!this.config.minutes) {
                     // Remove minute-by-minute data if not configured
                     delete data.minutely;
@@ -116,6 +123,31 @@ class PirateWeather extends utils.Adapter {
         } catch {
             callback();
         }
+    }
+    private getWindBearingText(windBearing: number | undefined): string {
+        if (windBearing === undefined) {
+            return '';
+        }
+        const directions = [
+            'N',
+            'NNE',
+            'NE',
+            'ENE',
+            'E',
+            'ESE',
+            'SE',
+            'SSE',
+            'S',
+            'SSW',
+            'SW',
+            'WSW',
+            'W',
+            'WNW',
+            'NW',
+            'NNW',
+        ];
+        const index = Math.round((windBearing % 360) / 22.5) % 16;
+        return directions[index];
     }
 }
 

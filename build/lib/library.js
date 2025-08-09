@@ -311,7 +311,7 @@ class Library extends BaseClass {
     if (obj && obj.type !== "state") {
       return;
     }
-    if (obj && obj.common.role === "date") {
+    if (obj && obj.common.role.startsWith("date")) {
       if (typeof val === "number") {
         val = val * 1e3;
       }

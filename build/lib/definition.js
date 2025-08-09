@@ -116,6 +116,18 @@ const WindData = {
       unit: "\xB0"
     },
     native: {}
+  },
+  windBearingText: {
+    _id: "",
+    type: "state",
+    common: {
+      name: "Wind Bearing Text",
+      type: "string",
+      role: "weather.direction.wind",
+      read: true,
+      write: false
+    },
+    native: {}
   }
 };
 const PressureVisibilityOzoneData = {
@@ -138,7 +150,7 @@ const PressureVisibilityOzoneData = {
     common: {
       name: "Visibility",
       type: "number",
-      role: "value",
+      role: "value.distance.visibility",
       read: true,
       write: false,
       unit: "km"
@@ -353,6 +365,522 @@ const genericStateObjects = {
         },
         native: {}
       }
+    },
+    daily: {
+      ...WindData,
+      ...MetaData,
+      _channel: {
+        _id: "",
+        type: "folder",
+        common: {
+          name: "Daily"
+        },
+        native: {}
+      },
+      _array: {
+        _id: "",
+        type: "folder",
+        common: {
+          name: "Daily"
+        },
+        native: {}
+      },
+      time: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Date in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      sunriseTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Sunrise Time in Milliseconds",
+          type: "number",
+          role: "date.sunrise",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      sunsetTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Sunset Time in Milliseconds",
+          type: "number",
+          role: "date.sunset",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      moonPhase: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Moon Phase",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      precipIntensity: PrecipitationData.precipIntensity,
+      precipIntensityMax: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Precipitation Intensity",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false,
+          unit: "mm"
+        },
+        native: {}
+      },
+      precipIntensityMaxTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Precipitation Intensity Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      precipProbability: PrecipitationData.precipProbability,
+      precipAccumulation: PrecipitationData.precipAccumulation,
+      precipType: PrecipitationData.precipType,
+      temperatureHigh: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "High Temperature",
+          type: "number",
+          role: "value.temperature.max",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      temperatureHighTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "High Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      temperatureLow: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Low Temperature",
+          type: "number",
+          role: "value.temperature.min",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      temperatureLowTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Low Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      apparentTemperatureHigh: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "High Apparent Temperature",
+          type: "number",
+          role: "value.temperature.max",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      apparentTemperatureHighTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "High Apparent Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      apparentTemperatureLow: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Low Apparent Temperature",
+          type: "number",
+          role: "value.temperature.min",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      apparentTemperatureLowTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Low Apparent Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      dewPoint: TemperatureData.dewPoint,
+      humidity: TemperatureData.humidity,
+      pressure: PressureVisibilityOzoneData.pressure,
+      windGustTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Wind Gust Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      cloudCover: CloudUvData.cloudCover,
+      uvIndex: CloudUvData.uvIndex,
+      uvIndexTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "UV Index Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      visibility: PressureVisibilityOzoneData.visibility,
+      temperatureMin: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Minimum Daytime Temperature",
+          type: "number",
+          role: "value.temperature.min",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      temperatureMinTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Minimum Daytime Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      temperatureMax: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Daytime Temperature",
+          type: "number",
+          role: "value.temperature.max",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      temperatureMaxTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Daytime Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      apparentTemperatureMin: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Minimum Apparent Temperature",
+          type: "number",
+          role: "value.temperature.min",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      apparentTemperatureMinTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Minimum Apparent Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      apparentTemperatureMax: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Apparent Temperature",
+          type: "number",
+          role: "value.temperature.max",
+          read: true,
+          write: false,
+          unit: "\xB0C"
+        },
+        native: {}
+      },
+      apparentTemperatureMaxTime: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Maximum Apparent Temperature Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      }
+    },
+    minutely: {
+      ...MetaData,
+      _channel: {
+        _id: "",
+        type: "folder",
+        common: {
+          name: "Minutely"
+        },
+        native: {}
+      },
+      _array: {
+        _id: "",
+        type: "folder",
+        common: {
+          name: "Minutely"
+        },
+        native: {}
+      },
+      time: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Date in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      precipIntensity: PrecipitationData.precipIntensity,
+      precipProbability: PrecipitationData.precipProbability,
+      precipIntensityError: PrecipitationData.precipIntensityError,
+      precipType: PrecipitationData.precipType
+    },
+    currently: {
+      ...WindData,
+      ...PrecipitationData,
+      ...TemperatureData,
+      ...PressureVisibilityOzoneData,
+      ...CloudUvData,
+      ...MetaData,
+      _channel: {
+        _id: "",
+        type: "folder",
+        common: {
+          name: "Currently"
+        },
+        native: {}
+      },
+      time: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Date in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      nearestStormDistance: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Nearest Storm Distance",
+          type: "number",
+          role: "value.distance",
+          read: true,
+          write: false,
+          unit: "km"
+        },
+        native: {}
+      },
+      nearestStormBearing: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Nearest Storm Bearing",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false,
+          unit: "\xB0"
+        },
+        native: {}
+      }
+    },
+    latitude: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Latitude",
+        type: "number",
+        role: "value.gps.latitude",
+        read: true,
+        write: false,
+        unit: "\xB0"
+      },
+      native: {}
+    },
+    longitude: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Longitude",
+        type: "number",
+        role: "value.gps.longitude",
+        read: true,
+        write: false,
+        unit: "\xB0"
+      },
+      native: {}
+    },
+    timezone: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Timezone",
+        type: "string",
+        role: "text",
+        read: true,
+        write: false
+      },
+      native: {}
+    },
+    offset: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Timezone Offset",
+        type: "number",
+        role: "value",
+        read: true,
+        write: false,
+        unit: "h"
+      },
+      native: {}
+    },
+    elevation: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Elevation",
+        type: "number",
+        role: "value.elevation",
+        read: true,
+        write: false,
+        unit: "m"
+      },
+      native: {}
+    },
+    "nearest-station": {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Nearest Station",
+        type: "number",
+        role: "value",
+        read: true,
+        write: false
+      },
+      native: {}
+    },
+    version: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "API Version",
+        type: "string",
+        role: "text",
+        read: true,
+        write: false
+      },
+      native: {}
+    },
+    units: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Units",
+        type: "string",
+        role: "text",
+        read: true,
+        write: false
+      },
+      native: {}
     }
   }
 };
