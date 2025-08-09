@@ -84,7 +84,7 @@ const WindData = {
     common: {
       name: "Wind Speed",
       type: "number",
-      role: "value.",
+      role: "value.speed.wind",
       read: true,
       write: false,
       unit: "m/s"
@@ -97,7 +97,7 @@ const WindData = {
     common: {
       name: "Wind Gust",
       type: "number",
-      role: "value.wind.gust",
+      role: "value.speed.wind.gust",
       read: true,
       write: false,
       unit: "m/s"
@@ -110,7 +110,7 @@ const WindData = {
     common: {
       name: "Wind Bearing",
       type: "number",
-      role: "value.wind",
+      role: "value.direction.wind",
       read: true,
       write: false,
       unit: "\xB0"
@@ -166,7 +166,7 @@ const CloudUvData = {
     common: {
       name: "Cloud Cover",
       type: "number",
-      role: "value",
+      role: "value.clouds",
       read: true,
       write: false
     },
@@ -178,7 +178,7 @@ const CloudUvData = {
     common: {
       name: "UV Index",
       type: "number",
-      role: "value",
+      role: "value.uv",
       read: true,
       write: false
     },
@@ -192,7 +192,7 @@ const MetaData = {
     common: {
       name: "Summary",
       type: "string",
-      role: "text",
+      role: "weather.title",
       read: true,
       write: false
     },
@@ -204,7 +204,7 @@ const MetaData = {
     common: {
       name: "Icon",
       type: "string",
-      role: "text",
+      role: "weather.icon.name",
       read: true,
       write: false
     },
@@ -218,7 +218,7 @@ const PrecipitationData = {
     common: {
       name: "Precipitation Intensity",
       type: "number",
-      role: "value.precipitation.intensity",
+      role: "value.precipitation",
       read: true,
       write: false,
       unit: "mm"
@@ -231,7 +231,7 @@ const PrecipitationData = {
     common: {
       name: "Precipitation Probability",
       type: "number",
-      role: "value.precipitation.probability",
+      role: "value",
       read: true,
       write: false
     },
@@ -243,7 +243,7 @@ const PrecipitationData = {
     common: {
       name: "Precipitation Intensity Error",
       type: "number",
-      role: "value.precipitation.intensity.error",
+      role: "value",
       read: true,
       write: false,
       unit: "mm"
@@ -256,10 +256,10 @@ const PrecipitationData = {
     common: {
       name: "Precipitation Accumulation",
       type: "number",
-      role: "value.precipitation.accumulation",
+      role: "value",
       read: true,
       write: false,
-      unit: "mm"
+      unit: "cm"
     },
     native: {}
   },
@@ -269,7 +269,7 @@ const PrecipitationData = {
     common: {
       name: "Precipitation Type",
       type: "string",
-      role: "value.precipitation.type",
+      role: "text",
       read: true,
       write: false
     },

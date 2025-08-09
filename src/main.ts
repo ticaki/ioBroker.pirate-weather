@@ -8,8 +8,7 @@ import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
 import 'source-map-support/register';
 import { Library } from './lib/library';
-import type { PirateWeatherTestdata } from './lib/definition';
-import { genericStateObjects } from './lib/definition';
+import { genericStateObjects, type PirateWeatherTestdata } from './lib/definition';
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";

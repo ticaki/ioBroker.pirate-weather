@@ -75,7 +75,7 @@ const WindData: ChangeTypeOfKeysForState<WindData, ioBroker.StateObject> = {
         common: {
             name: 'Wind Speed',
             type: 'number',
-            role: 'value.',
+            role: 'value.speed.wind',
             read: true,
             write: false,
             unit: 'm/s',
@@ -88,7 +88,7 @@ const WindData: ChangeTypeOfKeysForState<WindData, ioBroker.StateObject> = {
         common: {
             name: 'Wind Gust',
             type: 'number',
-            role: 'value.wind.gust',
+            role: 'value.speed.wind.gust',
             read: true,
             write: false,
             unit: 'm/s',
@@ -101,7 +101,7 @@ const WindData: ChangeTypeOfKeysForState<WindData, ioBroker.StateObject> = {
         common: {
             name: 'Wind Bearing',
             type: 'number',
-            role: 'value.wind',
+            role: 'value.direction.wind',
             read: true,
             write: false,
             unit: '°',
@@ -157,7 +157,7 @@ const CloudUvData: ChangeTypeOfKeysForState<CloudUvData, ioBroker.StateObject> =
         common: {
             name: 'Cloud Cover',
             type: 'number',
-            role: 'value',
+            role: 'value.clouds',
             read: true,
             write: false,
         },
@@ -169,7 +169,7 @@ const CloudUvData: ChangeTypeOfKeysForState<CloudUvData, ioBroker.StateObject> =
         common: {
             name: 'UV Index',
             type: 'number',
-            role: 'value',
+            role: 'value.uv',
             read: true,
             write: false,
         },
@@ -184,7 +184,7 @@ const MetaData: ChangeTypeOfKeysForState<MetaData, ioBroker.StateObject> = {
         common: {
             name: 'Summary',
             type: 'string',
-            role: 'text',
+            role: 'weather.title',
             read: true,
             write: false,
         },
@@ -196,7 +196,7 @@ const MetaData: ChangeTypeOfKeysForState<MetaData, ioBroker.StateObject> = {
         common: {
             name: 'Icon',
             type: 'string',
-            role: 'text',
+            role: 'weather.icon.name',
             read: true,
             write: false,
         },
@@ -210,7 +210,7 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         common: {
             name: 'Precipitation Intensity',
             type: 'number',
-            role: 'value.precipitation.intensity',
+            role: 'value.precipitation',
             read: true,
             write: false,
             unit: 'mm',
@@ -223,7 +223,7 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         common: {
             name: 'Precipitation Probability',
             type: 'number',
-            role: 'value.precipitation.probability',
+            role: 'value',
             read: true,
             write: false,
         },
@@ -235,7 +235,7 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         common: {
             name: 'Precipitation Intensity Error',
             type: 'number',
-            role: 'value.precipitation.intensity.error',
+            role: 'value',
             read: true,
             write: false,
             unit: 'mm',
@@ -248,10 +248,10 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         common: {
             name: 'Precipitation Accumulation',
             type: 'number',
-            role: 'value.precipitation.accumulation',
+            role: 'value',
             read: true,
             write: false,
-            unit: 'mm',
+            unit: 'cm',
         },
         native: {},
     },
@@ -261,7 +261,7 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         common: {
             name: 'Precipitation Type',
             type: 'string',
-            role: 'value.precipitation.type',
+            role: 'text',
             read: true,
             write: false,
         },
