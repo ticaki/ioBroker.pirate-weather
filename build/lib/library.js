@@ -137,7 +137,8 @@ class Library extends BaseClass {
           let a = 0;
           for (const k of data) {
             const defChannel = this.getChannelObject(objectDefinition);
-            const dp = `${prefix}-${`00${a++}`.slice(-2)}`;
+            const newPrefix = prefix.split(".").slice(0, -1).join(".");
+            const dp = `${newPrefix}.${`00${a++}`.slice(-2)}`;
             await this.writedp(dp, null, defChannel);
             await this.writeFromJson(dp, `${objNode}`, def, k, expandTree);
           }
