@@ -21,6 +21,7 @@ class PirateWeather extends utils.Adapter {
         super({
             ...options,
             name: 'pirate-weather',
+            useFormatDate: true, // Use formatDate from utils
         });
         this.on('ready', this.onReady.bind(this));
         // this.on('stateChange', this.onStateChange.bind(this));

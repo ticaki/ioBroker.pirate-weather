@@ -24,7 +24,8 @@ You can get the required Api token here: https://docs.pirateweather.net/en/lates
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (ticaki) Zero minutes and seconds in the interval
+- (ticaki) Zero minutes and seconds in the interval.
+- (ticaki) fixed: Language undefined not exist!
 
 ### 0.0.7 (2025-08-09)
 - (ticaki) data removed from enumeration names
