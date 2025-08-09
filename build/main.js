@@ -60,6 +60,7 @@ class PirateWeather extends utils.Adapter {
     await this.library.init();
     const states = await this.getStatesAsync("*");
     await this.library.initStates(states);
+    await this.delay(1e3);
     await this.getPirateWeatherLoop();
   }
   getPirateWeatherLoop = async () => {
@@ -85,15 +86,19 @@ class PirateWeather extends utils.Adapter {
         `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate`
       );
       if (result.status === 200) {
-        this.log.debug(`Data fetched successfully: ${JSON.stringify(result.data)}`);
-        result.data.units = result.data.flags.units;
-        result.data["nearest-station"] = result.data.flags["nearest-station"];
-        result.data.version = result.data.flags.version;
-        delete result.data.flags;
-        if (!this.config.minutes) {
-          delete result.data.minutely;
+        const data = result.data;
+        this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
+        if (data.flags) {
+          data.units = data.flags.units;
+          data["nearest-station"] = data.flags["nearest-station"];
+          data.version = data.flags.version;
+          delete data.flags;
+          delete result.data.flags;
         }
-        await this.library.writeFromJson("weather", "", import_definition.genericStateObjects, result.data, true);
+        if (!this.config.minutes) {
+          delete data.minutely;
+        }
+        await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
       }
     } catch (error) {
       this.log.error(`Error fetching data from Pirate Weather API: ${JSON.stringify(error)}`);

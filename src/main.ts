@@ -8,6 +8,7 @@ import * as utils from '@iobroker/adapter-core';
 import axios from 'axios';
 import 'source-map-support/register';
 import { Library } from './lib/library';
+import type { PirateWeatherTestdata } from './lib/definition';
 import { genericStateObjects } from './lib/definition';
 
 // Load your modules here, e.g.:
@@ -54,6 +55,7 @@ class PirateWeather extends utils.Adapter {
         await this.library.init();
         const states = await this.getStatesAsync('*');
         await this.library.initStates(states);
+        await this.delay(1000); // Wait for 1 second to ensure the library is fully initialized
         await this.getPirateWeatherLoop();
     }
 
@@ -84,16 +86,20 @@ class PirateWeather extends utils.Adapter {
                 `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate`,
             );
             if (result.status === 200) {
-                this.log.debug(`Data fetched successfully: ${JSON.stringify(result.data)}`);
-                result.data.units = result.data.flags.units;
-                result.data['nearest-station'] = result.data.flags['nearest-station'];
-                result.data.version = result.data.flags.version;
-                delete result.data.flags;
+                const data = result.data as PirateWeatherTestdata;
+                this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
+                if (data.flags) {
+                    data.units = data.flags.units;
+                    data['nearest-station'] = data.flags['nearest-station'];
+                    data.version = data.flags.version;
+                    delete data.flags;
+                    delete result.data.flags;
+                }
                 if (!this.config.minutes) {
                     // Remove minute-by-minute data if not configured
-                    delete result.data.minutely;
+                    delete data.minutely;
                 }
-                await this.library.writeFromJson('weather', '', genericStateObjects, result.data, true);
+                await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
             }
         } catch (error) {
             this.log.error(`Error fetching data from Pirate Weather API: ${JSON.stringify(error)}`);

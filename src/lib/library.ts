@@ -132,16 +132,35 @@ export class Library extends BaseClass {
                 if (!objectDefinition) {
                     return;
                 }
+                if (data.length === 0) {
+                    return;
+                }
                 if (objectDefinition.type !== 'state' || expandTree) {
                     let a = 0;
                     for (const k of data) {
-                        const defChannel = this.getChannelObject(objectDefinition);
+                        const objectDefinition2 = objNode
+                            ? await this.getObjectDefFromJson(
+                                  `${`${objNode.split('.').slice(0, -1).join('.')}`}`,
+                                  def,
+                                  data,
+                              )
+                            : null;
+                        const defChannel = this.getChannelObject(objectDefinition2, true);
+                        if (defChannel.common?.name) {
+                            defChannel.common.name = `+ ${a}`;
+                        }
                         const newPrefix = prefix.split('.').slice(0, -1).join('.');
                         const dp = `${newPrefix}.${`00${a++}`.slice(-2)}`;
                         // create folder
                         await this.writedp(dp, null, defChannel);
 
-                        await this.writeFromJson(dp, `${objNode}`, def, k, expandTree);
+                        await this.writeFromJson(
+                            dp,
+                            `${objNode.split('.').slice(0, -1).join('.')}`,
+                            def,
+                            k,
+                            expandTree,
+                        );
                     }
                 } else {
                     await this.writeFromJson(prefix, objNode, def, JSON.stringify(data) || '[]', expandTree);
@@ -238,16 +257,19 @@ export class Library extends BaseClass {
         return s;
     }
 
-    /**
-     * Get a channel/device definition from property _channel out of a getObjectDefFromJson() result or a default definition.
-     *
-     * @param definition the definition object
-     * @returns ioBroker.ChannelObject | ioBroker.DeviceObject or a default channel obj
-     */
     getChannelObject(
-        definition: (ioBroker.Object & { _channel?: ioBroker.Object }) | null = null,
+        definition:
+            | (ioBroker.Object & {
+                  _channel?: ioBroker.Object;
+                  _array?: ioBroker.Object;
+              })
+            | null = null,
+        tryArray: boolean = false,
     ): ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.FolderObject {
-        const def = (definition && definition._channel) || null;
+        const def =
+            tryArray === true
+                ? (definition && definition._array) || (definition && definition._channel) || null
+                : (definition && definition._channel) || null;
         const result: ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.FolderObject = {
             _id: def ? def._id : '',
             type: def ? (def.type == 'channel' ? 'channel' : def.type === 'device' ? 'device' : 'folder') : 'folder',
