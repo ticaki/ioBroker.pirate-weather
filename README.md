@@ -15,6 +15,8 @@
 
 Retrieve data from Pirate-Weather.
 
+You can get the required Api token here: https://docs.pirateweather.net/en/latest/ The rest should be self-explanatory.
+
 ## Changelog
 
 <!--
