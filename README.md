@@ -23,7 +23,7 @@ You can get the required Api token here: https://docs.pirateweather.net/en/lates
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.0 (2025-08-09)
 - (ticaki) units (us, ca, uk) added
 - (ticaki) beautiful states :)
 - (ticaki) Zero minutes and seconds in the interval.
