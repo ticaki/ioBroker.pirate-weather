@@ -1,11 +1,10 @@
 {
-    "pirate-weather adapter settings": "Налаштування адаптера для pirate-weather",
-    "option1": "Варіант1",
-    "option2": "Варіант2",
+    "pirate-weather adapter settings": "Налаштування адаптера для піратської погоди",
     "minute-by-minute": "Створіть точки даних для прогнозу хвилини",
     "position": "Позиція",
     "apiToken": "Маркер API",
     "units": "Одиниці",
     "pollInterval": "Інтервал опитування (щогодини на годину)",
-    "Hours-to-display": "Години для відображення"
+    "Hours-to-display": "Години для відображення",
+    "link to website for apiToken": "Посилання на веб -сайт для маркера API"
 }

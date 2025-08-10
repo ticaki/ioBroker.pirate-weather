@@ -5,5 +5,6 @@
     "apiToken": "API Token",
     "units": "Units",
     "pollInterval": "Poll Interval (every hour on the hour)",
-    "Hours-to-display": "Hours to display"
+    "Hours-to-display": "Hours to display",
+    "link to website for apiToken": "Link to website for API Token" 
 }

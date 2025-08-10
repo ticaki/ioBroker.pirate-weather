@@ -1,11 +1,10 @@
 {
-    "pirate-weather adapter settings": "Paramètres d'adaptateur pour pirate-weather",
-    "option1": "option1",
-    "option2": "Option2",
+    "pirate-weather adapter settings": "Paramètres de l'adaptateur pour le pirate-temps",
     "minute-by-minute": "Créer des points de données pour les prévisions de minute par minute",
     "position": "Position",
     "apiToken": "Jeton API",
     "units": "Unités",
     "pollInterval": "Intervalle de sondage (toutes les heures à l'heure)",
-    "Hours-to-display": "Heures à afficher"
+    "Hours-to-display": "Heures à afficher",
+    "link to website for apiToken": "Lien vers le site Web pour le jeton API"
 }
