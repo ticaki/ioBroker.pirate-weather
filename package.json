@@ -11,7 +11,8 @@
   "keywords": [
     "iobroker",
     "weather",
-    "pirate"
+    "pirate",
+    "iobroker"
   ],
   "repository": {
     "type": "git",

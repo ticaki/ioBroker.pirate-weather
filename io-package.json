@@ -86,7 +86,6 @@
       "ticaki <github@renopoint.de>"
     ],
     "keywords": [
-      "iobroker",
       "weather",
       "pirate"
     ],
@@ -120,6 +119,8 @@
       }
     ]
   },
+  "protectedNative": ["apiToken"],
+  "encryptedNative": ["apiToken"],
   "native": {
     "apiToken": "",
     "position": "",
