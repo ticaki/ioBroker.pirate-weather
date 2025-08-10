@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pirate-weather",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Retrieve data from Pirate-Weather.",
   "author": {
     "name": "ticaki",

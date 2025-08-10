@@ -24,7 +24,7 @@ The explanation of what the individual data points mean can be found here: https
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.1 (2025-08-10)
 - (ticaki) First version for the iobroker repository
 
 ### 0.1.0 (2025-08-09)

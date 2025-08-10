@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "First version for the iobroker repository",
+        "de": "Erste Version für das iobroker Repository",
+        "ru": "Первая версия для репозитория iobroker",
+        "pt": "Primeira versão para o repositório do iobroker",
+        "nl": "Eerste versie voor de iobroker repository",
+        "fr": "Première version pour le dépôt iobroker",
+        "it": "Prima versione per il repository iobroker",
+        "es": "Primera versión para el repositorio iobroker",
+        "pl": "Pierwsza wersja dla repozytorium iobroker",
+        "uk": "Перша версія репозиторію iobroker",
+        "zh-cn": "Io 经纪人存储器的第一个版本"
+      },
       "0.1.0": {
         "en": "units (us, ca, uk) added\nbeautiful states :)\nZero minutes and seconds in the interval.\nfixed: Language undefined not exist!",
         "de": "einheiten (us, ca, uk) hinzugefügt\nschöne zustände:)\nNull Minuten und Sekunden im Intervall.\nfest: Sprache nicht definiert existiert nicht!",
@@ -106,8 +119,12 @@
       }
     ]
   },
-  "protectedNative": ["apiToken"],
-  "encryptedNative": ["apiToken"],
+  "protectedNative": [
+    "apiToken"
+  ],
+  "encryptedNative": [
+    "apiToken"
+  ],
   "native": {
     "apiToken": "",
     "position": "",
