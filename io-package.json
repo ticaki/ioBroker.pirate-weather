@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "update icon",
+        "de": "update-symbol",
+        "ru": "обновить значок",
+        "pt": "ícone de atualização",
+        "nl": "pictogram bijwerken",
+        "fr": "icône de mise à jour",
+        "it": "icona di aggiornamento",
+        "es": "actualización icono",
+        "pl": "ikona aktualizacji",
+        "uk": "іконка оновлення",
+        "zh-cn": "更新图标"
+      },
       "0.1.1": {
         "en": "First version for the iobroker repository",
         "de": "Erste Version für das iobroker Repository",
