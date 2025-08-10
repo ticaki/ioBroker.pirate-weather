@@ -12,7 +12,7 @@
     "iobroker",
     "weather",
     "pirate",
-    "iobroker"
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
