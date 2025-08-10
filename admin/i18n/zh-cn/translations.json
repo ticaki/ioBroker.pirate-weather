@@ -1,11 +1,10 @@
 {
-    "pirate-weather adapter settings": "pirate-weather的适配器设置",
-    "option1": "选项1",
-    "option2": "选项2",
+    "pirate-weather adapter settings": "海盗天气的适配器设置",
     "minute-by-minute": "创建数据点，以逐分钟的预测",
     "position": "位置",
     "apiToken": "API令牌",
     "units": "单位",
     "pollInterval": "轮询间隔（每小时每小时）",
-    "Hours-to-display": "显示的小时"
+    "Hours-to-display": "显示的小时",
+    "link to website for apiToken": "链接到API令牌的网站"
 }

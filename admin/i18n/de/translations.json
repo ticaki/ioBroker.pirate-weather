@@ -7,5 +7,6 @@
     "apiToken": "API -Token",
     "units": "Einheiten",
     "pollInterval": "Abfrageintervall (jede Stunde zur vollen Stunde)",
-    "Hours-to-display": "Stunden zum Anzeigen"
+    "Hours-to-display": "Stunden zum Anzeigen",
+    "link to website for apiToken": "Link zur Website für den API-Token"
 }

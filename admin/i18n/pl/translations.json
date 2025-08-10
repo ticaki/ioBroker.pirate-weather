@@ -1,11 +1,10 @@
 {
-    "pirate-weather adapter settings": "Ustawienia adaptera dla pirate-weather",
-    "option1": "opcja 1",
-    "option2": "opcja2",
+    "pirate-weather adapter settings": "Ustawienia adaptera dla piratów",
     "minute-by-minute": "Utwórz punkty danych za prognozę minuta na minutę",
     "position": "Pozycja",
     "apiToken": "Token API",
     "units": "Jednostki",
     "pollInterval": "Odstęp ankiety (co godzinę w godzinach)",
-    "Hours-to-display": "Godziny do wyświetlenia"
+    "Hours-to-display": "Godziny do wyświetlenia",
+    "link to website for apiToken": "Link do strony internetowej dla tokena API"
 }
