@@ -26,6 +26,7 @@ var import_axios = __toESM(require("axios"));
 var import_register = require("source-map-support/register");
 var import_library = require("./lib/library");
 var import_definition = require("./lib/definition");
+import_axios.default.defaults.timeout = 1e4;
 class PirateWeather extends utils.Adapter {
   library;
   unload = false;

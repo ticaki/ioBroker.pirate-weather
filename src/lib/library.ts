@@ -75,7 +75,7 @@ export class Library extends BaseClass {
     //    private unknownTokens: Record<string, string> = {};
     private unknownTokensInterval: ioBroker.Interval | undefined;
     defaults = {
-        updateStateOnChangeOnly: true,
+        updateStateOnChangeOnly: false,
     };
 
     constructor(adapter: AdapterClassDefinition, _options: any = null) {
@@ -355,7 +355,7 @@ export class Library extends BaseClass {
         if (
             node &&
             val !== undefined &&
-            (this.defaults.updateStateOnChangeOnly || node.val != val || forceWrite || !node.ack)
+            (!this.defaults.updateStateOnChangeOnly || node.val != val || forceWrite || !node.ack)
         ) {
             const typ = (obj && obj.common && obj.common.type) || node.stateTyp;
             if (typ && typ != typeof val && val !== undefined) {

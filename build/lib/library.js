@@ -95,7 +95,7 @@ class Library extends BaseClass {
   //    private unknownTokens: Record<string, string> = {};
   unknownTokensInterval;
   defaults = {
-    updateStateOnChangeOnly: true
+    updateStateOnChangeOnly: false
   };
   constructor(adapter, _options = null) {
     super(adapter, "library");
@@ -320,7 +320,7 @@ class Library extends BaseClass {
     if (node && !(node.type === "state" && val === void 0)) {
       this.setdb(dp, node.type, val, node.stateTyp, false, void 0, void 0, node.init);
     }
-    if (node && val !== void 0 && (this.defaults.updateStateOnChangeOnly || node.val != val || forceWrite || !node.ack)) {
+    if (node && val !== void 0 && (!this.defaults.updateStateOnChangeOnly || node.val != val || forceWrite || !node.ack)) {
       const typ = obj && obj.common && obj.common.type || node.stateTyp;
       if (typ && typ != typeof val && val !== void 0) {
         val = this.convertToType(val, typ);

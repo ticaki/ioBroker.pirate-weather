@@ -10,8 +10,7 @@ import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
 
-// Load your modules here, e.g.:
-// import * as fs from "fs";
+axios.defaults.timeout = 10000; // Set a default timeout of 10 seconds for all axios requests
 
 class PirateWeather extends utils.Adapter {
     library: Library;
