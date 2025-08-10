@@ -16,6 +16,7 @@
 Retrieve data from Pirate-Weather.
 
 You can get the required Api token here: https://docs.pirateweather.net/en/latest/ The rest should be self-explanatory.
+The explanation of what the individual data points mean can be found here: https://docs.pirateweather.net/en/latest/API/
 
 ## Changelog
 
@@ -23,6 +24,9 @@ You can get the required Api token here: https://docs.pirateweather.net/en/lates
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (ticaki) First version for the iobroker repository
+
 ### 0.1.0 (2025-08-09)
 - (ticaki) units (us, ca, uk) added
 - (ticaki) beautiful states :)

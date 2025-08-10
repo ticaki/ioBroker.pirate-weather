@@ -205,7 +205,7 @@ export class Library extends BaseClass {
                 result = genericStateObjects.customString;
                 result = this.cloneObject(result);
             } else {
-                //this.log.debug(`No definition for ${key}!`);
+                this.log.debug(`No definition for ${key}!`);
                 result = genericStateObjects.default;
                 result = this.cloneObject(result);
                 result.common.name = k[k.length - 1];
