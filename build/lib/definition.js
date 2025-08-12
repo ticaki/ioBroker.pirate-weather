@@ -432,7 +432,8 @@ const genericStateObjects = {
           type: "number",
           role: "value",
           read: true,
-          write: false
+          write: false,
+          unit: "%"
         },
         native: {}
       },

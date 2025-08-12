@@ -450,6 +450,7 @@ export const genericStateObjects: {
                     role: 'value',
                     read: true,
                     write: false,
+                    unit: '%',
                 },
                 native: {},
             },

@@ -115,6 +115,9 @@ class PirateWeather extends utils.Adapter {
               d[a].cloudCover = Math.round(d[a].cloudCover * 100);
               d[a].precipProbability = Math.round(d[a].precipProbability * 100);
               d[a].humidity = Math.round(d[a].humidity * 100);
+              if (d === data.daily.data) {
+                d[a].moonPhase = Math.round(d[a].moonPhase * 100);
+              }
             }
           }
         }
