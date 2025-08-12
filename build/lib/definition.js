@@ -182,7 +182,8 @@ const CloudUvData = {
       type: "number",
       role: "value.clouds",
       read: true,
-      write: false
+      write: false,
+      unit: "%"
     },
     native: {}
   },

@@ -173,6 +173,7 @@ const CloudUvData: ChangeTypeOfKeysForState<CloudUvData, ioBroker.StateObject> =
             role: 'value.clouds',
             read: true,
             write: false,
+            unit: '%',
         },
         native: {},
     },
