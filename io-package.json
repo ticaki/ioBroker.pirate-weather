@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "news": {
+      "0.1.3": {
+        "en": "BREAKING: cloudCover, precipProbability, humidity and moonPhase are now percentage values",
+        "de": "BREAKING: Wolke Abdeckung, NiederschlagFähigkeit, Feuchtigkeit und Mond Phase jetzt Prozentwerte",
+        "ru": "Альбом: Cloud Покрытие, вероятность, влажность и луна Этап теперь представляет собой процентные значения",
+        "pt": "TRÁS: nuvem Cobertura, pré-requisitoProbabilidade, umidade e lua Fase agora são valores percentuais",
+        "nl": "Breaking: cloud Dekking, precipProbabiliteit, vochtigheid en maan Fase zijn nu procentuele waarden",
+        "fr": "BREAKING: nuage Couverture, précipProbabilité, humidité et lune La phase est maintenant en pourcentage",
+        "it": "BREAKING: cloud Copertura, precipProbabilità, umidità e luna La fase è ora valori percentuali",
+        "es": "Nube Cubierta, precipitabilidad, humedad y luna La fase es ahora valores porcentuales",
+        "pl": "BREAKING: chmura Pokrywa, wyciąg Prawdopodobieństwo, wilgotność i księżyc Faza jest teraz wartością procentową",
+        "uk": "BREAKING: хмара Кришка, преципПробливість, вологість і місяць Фази тепер процентні значення",
+        "zh-cn": " BR:云. 封面、前置性、湿度和月亮 阶段现在是百分比值"
+      },
       "0.1.2": {
         "en": "update icon",
         "de": "update-symbol",
