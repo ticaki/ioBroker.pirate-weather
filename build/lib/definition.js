@@ -73,7 +73,8 @@ const TemperatureData = {
       type: "number",
       role: "value.humidity",
       read: true,
-      write: false
+      write: false,
+      unit: "%"
     },
     native: {}
   }
@@ -246,7 +247,8 @@ const PrecipitationData = {
       type: "number",
       role: "value",
       read: true,
-      write: false
+      write: false,
+      unit: "%"
     },
     native: {}
   },
@@ -588,7 +590,8 @@ const genericStateObjects = {
           type: "number",
           role: "date",
           read: true,
-          write: false
+          write: false,
+          unit: "%"
         },
         native: {}
       },
