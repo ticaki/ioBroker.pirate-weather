@@ -24,6 +24,9 @@ The explanation of what the individual data points mean can be found here: https
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (ticaki) Startup log message added.
+
 ### 0.1.3 (2025-08-12)
 - (ticaki) BREAKING: cloudCover, precipProbability, humidity and moonPhase are now percentage values
 

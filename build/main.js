@@ -68,6 +68,9 @@ class PirateWeather extends utils.Adapter {
     await this.library.initStates(states);
     await this.delay(1e3);
     await this.getPirateWeatherLoop();
+    this.log.info(
+      `Pirate Weather adapter started with position: ${this.config.position} and poll interval: ${this.config.pollInterval} hour(s).`
+    );
   }
   getPirateWeatherLoop = async () => {
     try {
