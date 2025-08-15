@@ -10,11 +10,12 @@ import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
 
-axios.defaults.timeout = 10000; // Set a default timeout of 10 seconds for all axios requests
+axios.defaults.timeout = 30000; // Set a default timeout of 10 seconds for all axios requests
 
 class PirateWeather extends utils.Adapter {
     library: Library;
     unload: boolean = false;
+    online: boolean | null = null;
     getWeatherLoopTimeout: ioBroker.Timeout | undefined | null = null;
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
@@ -66,20 +67,33 @@ class PirateWeather extends utils.Adapter {
     }
 
     getPirateWeatherLoop = async (): Promise<void> => {
+        let errorState = false;
         try {
             if (this.getWeatherLoopTimeout) {
                 this.clearTimeout(this.getWeatherLoopTimeout);
             }
             await this.getData();
             await this.setState('info.connection', true, true);
-        } catch (error) {
-            this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
+            if (this.online !== true) {
+                this.log.debug('Pirate Weather is online');
+            }
+            this.online = true;
+        } catch (error: any) {
+            if (error.code !== 'ECONNABORTED') {
+                this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
+            }
             await this.setState('info.connection', false, true);
+            if (this.online !== false) {
+                this.log.warn('Pirate Weather is offline. Retrying in 10 minutes.');
+            }
+            this.online = false;
+            errorState = true; // Set error to true to trigger the retry logic
         } finally {
-            const loopTime =
-                new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
-                100 +
-                Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
+            const loopTime = errorState
+                ? 600000 + Date.now()
+                : new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
+                  100 +
+                  Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
             this.getWeatherLoopTimeout = this.setTimeout(() => {
                 void this.getPirateWeatherLoop();
             }, loopTime - Date.now());
@@ -87,48 +101,44 @@ class PirateWeather extends utils.Adapter {
     };
 
     getData = async (): Promise<void> => {
-        try {
-            const result = await axios.get(
-                `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate`,
-            );
-            if (result.status === 200) {
-                const data = result.data as PirateWeatherTestdata;
-                this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
-                if (data.flags) {
-                    data.units = data.flags.units;
-                    data['nearest-station'] = data.flags['nearest-station'];
-                    data.version = data.flags.version;
-                    delete data.flags;
-                    delete result.data.flags;
+        const result = await axios.get(
+            `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate`,
+        );
+        if (result.status === 200) {
+            const data = result.data as PirateWeatherTestdata;
+            this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
+            if (data.flags) {
+                data.units = data.flags.units;
+                data['nearest-station'] = data.flags['nearest-station'];
+                data.version = data.flags.version;
+                delete data.flags;
+                delete result.data.flags;
+            }
+            if (data.hourly && data.hourly.data) {
+                if (this.config.hours > 0) {
+                    data.hourly.data = data.hourly.data.slice(0, this.config.hours);
+                } else {
+                    data.hourly.data = [];
                 }
-                if (data.hourly && data.hourly.data) {
-                    if (this.config.hours > 0) {
-                        data.hourly.data = data.hourly.data.slice(0, this.config.hours);
-                    } else {
-                        data.hourly.data = [];
-                    }
-                }
-                for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
-                    if (d && d.length) {
-                        for (let a = 0; a < d.length; a++) {
-                            d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
-                            d[a].cloudCover = Math.round(d[a].cloudCover * 100);
-                            d[a].precipProbability = Math.round(d[a].precipProbability * 100);
-                            d[a].humidity = Math.round(d[a].humidity * 100);
-                            if (d === data.daily.data) {
-                                d[a].moonPhase = Math.round(d[a].moonPhase * 100);
-                            }
+            }
+            for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
+                if (d && d.length) {
+                    for (let a = 0; a < d.length; a++) {
+                        d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
+                        d[a].cloudCover = Math.round(d[a].cloudCover * 100);
+                        d[a].precipProbability = Math.round(d[a].precipProbability * 100);
+                        d[a].humidity = Math.round(d[a].humidity * 100);
+                        if (d === data.daily.data) {
+                            d[a].moonPhase = Math.round(d[a].moonPhase * 100);
                         }
                     }
                 }
-                if (!this.config.minutes) {
-                    // Remove minute-by-minute data if not configured
-                    delete data.minutely;
-                }
-                await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
             }
-        } catch (error) {
-            this.log.error(`Error fetching data from Pirate Weather API: ${JSON.stringify(error)}`);
+            if (!this.config.minutes) {
+                // Remove minute-by-minute data if not configured
+                delete data.minutely;
+            }
+            await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
         }
     };
 

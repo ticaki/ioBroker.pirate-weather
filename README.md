@@ -25,6 +25,9 @@ The explanation of what the individual data points mean can be found here: https
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (ticaki) Ignore ECONNABORTED error code
+- (ticaki) In the event of an error, new connection attempt in 10 minutes
+- (ticaki) missing % added
 - (ticaki) Startup log message added.
 
 ### 0.1.3 (2025-08-12)
