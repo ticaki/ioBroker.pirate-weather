@@ -308,6 +308,7 @@ export const genericStateObjects: {
             ChangeTypeOfKeysForState<MinutelyData, ioBroker.StateObject>;
         currently: customChannelType & ChangeTypeOfKeysForState<CurrentlyData, ioBroker.StateObject>;
         latitude: ioBroker.StateObject;
+        lastUpdate: ioBroker.StateObject;
         longitude: ioBroker.StateObject;
         timezone: ioBroker.StateObject;
         offset: ioBroker.StateObject;
@@ -818,6 +819,18 @@ export const genericStateObjects: {
             },
             native: {},
         },
+        lastUpdate: {
+            _id: '',
+            type: 'state',
+            common: {
+                name: 'Last Update',
+                type: 'number',
+                role: 'date',
+                read: true,
+                write: false,
+            },
+            native: {},
+        },
         longitude: {
             _id: '',
             type: 'state',
@@ -1034,6 +1047,7 @@ type MetaData = {
 };
 // Haupttyp
 export type PirateWeatherTestdata = {
+    lastUpdate?: number;
     latitude: number;
     longitude: number;
     timezone: string;

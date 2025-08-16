@@ -801,6 +801,18 @@ const genericStateObjects = {
       },
       native: {}
     },
+    lastUpdate: {
+      _id: "",
+      type: "state",
+      common: {
+        name: "Last Update",
+        type: "number",
+        role: "date",
+        read: true,
+        write: false
+      },
+      native: {}
+    },
     longitude: {
       _id: "",
       type: "state",

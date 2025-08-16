@@ -155,6 +155,7 @@ class PirateWeather extends utils.Adapter {
                 // Remove minute-by-minute data if not configured
                 delete data.minutely;
             }
+            data.lastUpdate = Date.now() / 1000;
             await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
         }
     };
