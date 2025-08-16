@@ -154,14 +154,28 @@ class PirateWeather extends utils.Adapter {
             d[a].humidity = Math.round(d[a].humidity * 100);
             if (d === data.daily.data) {
               d[a].moonPhase = Math.round(d[a].moonPhase * 100);
+              d[a].sunriseTime = d[a].sunriseTime * 1e3;
+              d[a].sunsetTime = d[a].sunsetTime * 1e3;
+              d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1e3;
+              d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1e3;
+              d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1e3;
+              d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1e3;
+              d[a].temperatureMinTime = d[a].temperatureMinTime * 1e3;
+              d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1e3;
+              d[a].temperatureLowTime = d[a].temperatureLowTime * 1e3;
+              d[a].temperatureHighTime = d[a].temperatureHighTime * 1e3;
+              d[a].windGustTime = d[a].windGustTime * 1e3;
+              d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
+              d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
             }
+            d[a].time = d[a].time * 1e3;
           }
         }
       }
       if (!this.config.minutes) {
         delete data.minutely;
       }
-      data.lastUpdate = Date.now() / 1e3;
+      data.lastUpdate = Date.now();
       await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
     }
   };

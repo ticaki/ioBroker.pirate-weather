@@ -151,7 +151,21 @@ class PirateWeather extends utils.Adapter {
                         d[a].humidity = Math.round(d[a].humidity * 100);
                         if (d === data.daily.data) {
                             d[a].moonPhase = Math.round(d[a].moonPhase * 100);
+                            d[a].sunriseTime = d[a].sunriseTime * 1000; // Convert to milliseconds
+                            d[a].sunsetTime = d[a].sunsetTime * 1000; // Convert to milliseconds
+                            d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1000; // Convert to milliseconds
+                            d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1000; // Convert to milliseconds
+                            d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1000;
+                            d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1000; // Convert to milliseconds
+                            d[a].temperatureMinTime = d[a].temperatureMinTime * 1000; // Convert to milliseconds
+                            d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1000; // Convert to milliseconds
+                            d[a].temperatureLowTime = d[a].temperatureLowTime * 1000; // Convert to milliseconds
+                            d[a].temperatureHighTime = d[a].temperatureHighTime * 1000; // Convert to milliseconds
+                            d[a].windGustTime = d[a].windGustTime * 1000; // Convert to milliseconds
+                            d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1000; // Convert to milliseconds
+                            d[a].uvIndexTime = d[a].uvIndexTime * 1000;
                         }
+                        d[a].time = d[a].time * 1000; // Convert to milliseconds
                     }
                 }
             }
@@ -159,7 +173,7 @@ class PirateWeather extends utils.Adapter {
                 // Remove minute-by-minute data if not configured
                 delete data.minutely;
             }
-            data.lastUpdate = Date.now() / 1000;
+            data.lastUpdate = Date.now();
             await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
         }
     };

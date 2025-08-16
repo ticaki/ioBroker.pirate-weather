@@ -343,11 +343,7 @@ export class Library extends BaseClass {
         if (obj && obj.type !== 'state') {
             return;
         }
-        if (obj && obj.common.role.startsWith('date')) {
-            if (typeof val === 'number') {
-                val = val * 1000; // Convert to milliseconds if it's a date
-            }
-        }
+
         if (node && !(node.type === 'state' && val === undefined)) {
             this.setdb(dp, node.type, val, node.stateTyp, false, undefined, undefined, node.init);
         }
