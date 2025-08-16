@@ -109,25 +109,30 @@ class PirateWeather extends utils.Adapter {
       this.online = false;
       errorState = true;
     } finally {
-      let loopTime = 6e5 + Date.now();
-      if (this.config.pollingInMinutes) {
-        loopTime = (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0);
-        if (new Date(loopTime).getHours() != (/* @__PURE__ */ new Date()).getHours()) {
-          loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + 1, 0, 0);
+      if (!this.unload) {
+        let loopTime = 6e5 + Date.now();
+        if (this.config.pollingInMinutes) {
+          loopTime = (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0);
+          if (new Date(loopTime).getHours() != (/* @__PURE__ */ new Date()).getHours()) {
+            loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + 1, 0, 0);
+          }
+        } else if (!errorState) {
+          loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0);
         }
-      } else if (!errorState) {
-        loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0);
+        loopTime += 500 + Math.ceil(Math.random() * 3e3);
+        this.getWeatherLoopTimeout = this.setTimeout(() => {
+          void this.getPirateWeatherLoop();
+        }, loopTime - Date.now());
       }
-      loopTime += 500 + Math.ceil(Math.random() * 3e3);
-      this.getWeatherLoopTimeout = this.setTimeout(() => {
-        void this.getPirateWeatherLoop();
-      }, loopTime - Date.now());
     }
   };
   getData = async () => {
     const result = await import_axios.default.get(
       `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`
     );
+    if (this.unload) {
+      return;
+    }
     if (result.status === 200) {
       const data = result.data;
       this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
