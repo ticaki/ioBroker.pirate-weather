@@ -6,5 +6,7 @@
     "units": "Unités",
     "pollInterval": "Intervalle de sondage (toutes les heures à l'heure)",
     "Hours-to-display": "Heures à afficher",
-    "link to website for apiToken": "Lien vers le site Web pour le jeton API"
+    "link to website for apiToken": "Lien vers le site Web pour le jeton API",
+    "pollingInMinutes": "Intervalle de requête en quelques minutes. (ATTENTION, 5 minutes est la valeur la plus basse qui ne dépasse pas les 10000 requêtes par mois avec un compte gratuit.)",
+    "pollIntervalMinutes": "Intervalle de requête en quelques minutes."
 }

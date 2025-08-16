@@ -6,5 +6,7 @@
     "units": "Jednostki",
     "pollInterval": "Odstęp ankiety (co godzinę w godzinach)",
     "Hours-to-display": "Godziny do wyświetlenia",
-    "link to website for apiToken": "Link do strony internetowej dla tokena API"
+    "link to website for apiToken": "Link do strony internetowej dla tokena API",
+    "pollingInMinutes": "Interwał zapytania w kilka minut. (Uwaga, 5 minut jest najniższą wartością, która nie przekracza 10000 zapytań miesięcznie z bezpłatnym konto.",
+    "pollIntervalMinutes": "Interwał zapytania w kilka minut."
 }

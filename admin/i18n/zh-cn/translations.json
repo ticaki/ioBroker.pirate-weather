@@ -6,5 +6,7 @@
     "units": "单位",
     "pollInterval": "轮询间隔（每小时每小时）",
     "Hours-to-display": "显示的小时",
-    "link to website for apiToken": "链接到API令牌的网站"
+    "link to website for apiToken": "链接到API令牌的网站",
+    "pollingInMinutes": "在几分钟内查询间隔。 （注意，5分钟是最低的值，该值不超过免费帐户每月10000个查询。）",
+    "pollIntervalMinutes": "在几分钟内查询间隔。"
 }

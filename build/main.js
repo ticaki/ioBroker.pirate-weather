@@ -47,9 +47,20 @@ class PirateWeather extends utils.Adapter {
    * Is called when databases are connected and adapter received configuration.
    */
   async onReady() {
-    if (this.config.pollInterval < 1) {
-      this.log.warn(`Invalid poll interval: ${this.config.pollInterval}. Using default value of 1 hour.`);
-      this.config.pollInterval = 1;
+    if (this.config.pollingInMinutes) {
+      if (typeof this.config.pollIntervalMinutes !== "number" || this.config.pollIntervalMinutes < 1) {
+        this.log.warn(
+          `Invalid poll interval in minutes: ${this.config.pollIntervalMinutes}. Using safe value of 60 minutes.`
+        );
+        this.config.pollIntervalMinutes = 60;
+      }
+      this.config.pollIntervalMinutes = Math.ceil(this.config.pollIntervalMinutes);
+    } else {
+      if (typeof this.config.pollInterval !== "number" || this.config.pollInterval < 1) {
+        this.log.warn(`Invalid poll interval: ${this.config.pollInterval}. Using default value of 1 hour.`);
+        this.config.pollInterval = 1;
+      }
+      this.config.pollInterval = Math.ceil(this.config.pollInterval);
     }
     if (!this.config.apiToken) {
       this.log.error("API token is not set in the adapter configuration. Please set it in the adapter settings.");
@@ -70,7 +81,7 @@ class PirateWeather extends utils.Adapter {
     await this.delay(1e3);
     await this.getPirateWeatherLoop();
     this.log.info(
-      `Pirate Weather adapter started with position: ${this.config.position} and poll interval: ${this.config.pollInterval} hour(s).`
+      `Pirate Weather adapter started with position: ${this.config.position} and poll interval: ${this.config.pollingInMinutes ? `${this.config.pollIntervalMinutes} minute(s)` : `${this.config.pollInterval} hour(s)`}.`
     );
   }
   getPirateWeatherLoop = async () => {
@@ -96,7 +107,7 @@ class PirateWeather extends utils.Adapter {
       this.online = false;
       errorState = true;
     } finally {
-      const loopTime = errorState ? 6e5 + Date.now() : (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0) + 100 + Math.floor(Math.random() * 3e3);
+      const loopTime = this.config.pollingInMinutes ? (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0) + 500 + Math.floor(Math.random() * 3e3) : errorState ? 6e5 + Date.now() : (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0) + 500 + Math.floor(Math.random() * 3e3);
       this.getWeatherLoopTimeout = this.setTimeout(() => {
         void this.getPirateWeatherLoop();
       }, loopTime - Date.now());

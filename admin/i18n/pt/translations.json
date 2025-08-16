@@ -6,5 +6,7 @@
     "units": "Unidades",
     "pollInterval": "Intervalo de pesquisa (a cada hora da hora)",
     "Hours-to-display": "Horas para serem exibidas",
-    "link to website for apiToken": "Link para o site para token de API"
+    "link to website for apiToken": "Link para o site para token de API",
+    "pollingInMinutes": "Intervalo de consulta em minutos. (Cuidado, 5 minutos é o menor valor que não excede as 10000 consultas por mês com uma conta gratuita.)",
+    "pollIntervalMinutes": "Intervalo de consulta em minutos."
 }

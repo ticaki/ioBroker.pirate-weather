@@ -9,6 +9,8 @@ declare global {
             "pollInterval": number,
             "minutes": boolean | undefined,
             "hours": number,
+            "pollingInMinutes": boolean,
+            "pollIntervalMinutes": number,
             "units": "si" | "us" | "ca" | "uk";
         }
     }

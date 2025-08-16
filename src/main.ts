@@ -35,9 +35,20 @@ class PirateWeather extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        if (this.config.pollInterval < 1) {
-            this.log.warn(`Invalid poll interval: ${this.config.pollInterval}. Using default value of 1 hour.`);
-            this.config.pollInterval = 1; // Default to 1 minute if invalid
+        if (this.config.pollingInMinutes) {
+            if (typeof this.config.pollIntervalMinutes !== 'number' || this.config.pollIntervalMinutes < 1) {
+                this.log.warn(
+                    `Invalid poll interval in minutes: ${this.config.pollIntervalMinutes}. Using safe value of 60 minutes.`,
+                );
+                this.config.pollIntervalMinutes = 60; // Default to
+            }
+            this.config.pollIntervalMinutes = Math.ceil(this.config.pollIntervalMinutes);
+        } else {
+            if (typeof this.config.pollInterval !== 'number' || this.config.pollInterval < 1) {
+                this.log.warn(`Invalid poll interval: ${this.config.pollInterval}. Using default value of 1 hour.`);
+                this.config.pollInterval = 1; // Default to 1 minute if invalid
+            }
+            this.config.pollInterval = Math.ceil(this.config.pollInterval);
         }
         if (!this.config.apiToken) {
             this.log.error('API token is not set in the adapter configuration. Please set it in the adapter settings.');
@@ -62,7 +73,7 @@ class PirateWeather extends utils.Adapter {
         await this.delay(1000); // Wait for 1 second to ensure the library is fully initialized
         await this.getPirateWeatherLoop();
         this.log.info(
-            `Pirate Weather adapter started with position: ${this.config.position} and poll interval: ${this.config.pollInterval} hour(s).`,
+            `Pirate Weather adapter started with position: ${this.config.position} and poll interval: ${this.config.pollingInMinutes ? `${this.config.pollIntervalMinutes} minute(s)` : `${this.config.pollInterval} hour(s)`}.`,
         );
     }
 
@@ -89,11 +100,15 @@ class PirateWeather extends utils.Adapter {
             this.online = false;
             errorState = true; // Set error to true to trigger the retry logic
         } finally {
-            const loopTime = errorState
-                ? 600000 + Date.now()
-                : new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
-                  100 +
-                  Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
+            const loopTime = this.config.pollingInMinutes
+                ? new Date().setMinutes(new Date().getMinutes() + this.config.pollIntervalMinutes, 0) +
+                  500 +
+                  Math.floor(Math.random() * 3000)
+                : errorState
+                  ? 600000 + Date.now()
+                  : new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
+                    500 +
+                    Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
             this.getWeatherLoopTimeout = this.setTimeout(() => {
                 void this.getPirateWeatherLoop();
             }, loopTime - Date.now());

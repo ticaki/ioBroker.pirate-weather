@@ -6,5 +6,7 @@
     "units": "Unità",
     "pollInterval": "Intervallo di sondaggio (ogni ora all'ora)",
     "Hours-to-display": "Ore da visualizzare",
-    "link to website for apiToken": "Link al sito Web per il token API"
+    "link to website for apiToken": "Link al sito Web per il token API",
+    "pollingInMinutes": "Intervallo di query in pochi minuti. (Attenzione, 5 minuti è il valore più basso che non supera le 10000 query al mese con un account gratuito.)",
+    "pollIntervalMinutes": "Intervallo di query in pochi minuti."
 }
