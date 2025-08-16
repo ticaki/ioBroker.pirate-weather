@@ -100,15 +100,19 @@ class PirateWeather extends utils.Adapter {
             this.online = false;
             errorState = true; // Set error to true to trigger the retry logic
         } finally {
-            const loopTime = this.config.pollingInMinutes
-                ? new Date().setMinutes(new Date().getMinutes() + this.config.pollIntervalMinutes, 0) +
-                  500 +
-                  Math.floor(Math.random() * 3000)
-                : errorState
-                  ? 600000 + Date.now()
-                  : new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
+            let loopTime = 600000 + Date.now();
+            if (this.config.pollingInMinutes) {
+                loopTime = new Date().setMinutes(new Date().getMinutes() + this.config.pollIntervalMinutes, 0);
+                if (new Date(loopTime).getHours() > new Date().getHours()) {
+                    loopTime = new Date().setHours(new Date().getHours() + 1, 0, 0);
+                }
+                loopTime += 500 + Math.ceil(Math.random() * 3000);
+            } else if (!errorState) {
+                loopTime =
+                    new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
                     500 +
-                    Math.floor(Math.random() * 3000); // Add a random delay of up to 3 second
+                    Math.ceil(Math.random() * 3000); // Add a random delay of up to 3 second
+            }
             this.getWeatherLoopTimeout = this.setTimeout(() => {
                 void this.getPirateWeatherLoop();
             }, loopTime - Date.now());

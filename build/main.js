@@ -107,7 +107,16 @@ class PirateWeather extends utils.Adapter {
       this.online = false;
       errorState = true;
     } finally {
-      const loopTime = this.config.pollingInMinutes ? (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0) + 500 + Math.floor(Math.random() * 3e3) : errorState ? 6e5 + Date.now() : (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0) + 500 + Math.floor(Math.random() * 3e3);
+      let loopTime = 6e5 + Date.now();
+      if (this.config.pollingInMinutes) {
+        loopTime = (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0);
+        if (new Date(loopTime).getHours() > (/* @__PURE__ */ new Date()).getHours()) {
+          loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + 1, 0, 0);
+        }
+        loopTime += 500 + Math.ceil(Math.random() * 3e3);
+      } else if (!errorState) {
+        loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0) + 500 + Math.ceil(Math.random() * 3e3);
+      }
       this.getWeatherLoopTimeout = this.setTimeout(() => {
         void this.getPirateWeatherLoop();
       }, loopTime - Date.now());
