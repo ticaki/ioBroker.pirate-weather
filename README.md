@@ -24,7 +24,7 @@ The explanation of what the individual data points mean can be found here: https
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.0 (2025-08-16)
 - (ticaki) Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.
 - (ticaki) Use system language for summaries.
 

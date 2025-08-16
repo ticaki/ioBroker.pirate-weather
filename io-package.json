@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.\nUse system language for summaries.",
+        "de": "Konfigurationsoption, um ein Intervall in Minuten einzugeben. Bei einem Fehler wird hier keine beschleunigte Wiederverbindung verwendet.\nVerwenden Sie Systemsprache für Zusammenfassungen.",
+        "ru": "Конфигурационный вариант ввода интервала в минутах. В случае ошибки здесь не используется ускоренное пересоединение.\nИспользуйте системный язык для резюме.",
+        "pt": "Opção de configuração para inserir um intervalo em minutos. No caso de um erro, nenhuma reconexão acelerada é usada aqui.\nUsar linguagem do sistema para resumos.",
+        "nl": "Configuratie optie om een interval in minuten in te voeren. Bij een fout wordt hier geen versnelde herverbinding gebruikt.\nGebruik systeemtaal voor samenvattingen.",
+        "fr": "Option de configuration pour entrer un intervalle en minutes. En cas d'erreur, aucune reconnection accélérée n'est utilisée ici.\nUtiliser le langage système pour les résumés.",
+        "it": "Opzione di configurazione per inserire un intervallo in pochi minuti. In caso di errore, non viene utilizzata una riconnessione accelerata.\nUtilizzare la lingua di sistema per i riassunti.",
+        "es": "Opción de configuración para introducir un intervalo en minutos. En caso de error, aquí no se utiliza la reconexión acelerada.\nUse el lenguaje del sistema para resúmenes.",
+        "pl": "Opcja konfiguracji, aby wprowadzić interwał w minutach. W przypadku błędu nie używa się przyspieszonego ponownego połączenia.\nUżyj języka systemowego do podsumowań.",
+        "uk": "Конфігурація параметра для введення інтервалу за хвилину. У разі помилки тут не використовується прискорене відключення.\nВикористовуйте мову системи для підсумків.",
+        "zh-cn": "在分钟内输入间隔的配置选项 。 如果出现错误,此处不使用加速重联.\n总结使用系统语言."
+      },
       "0.1.4": {
         "en": "Ignore ECONNABORTED error code\nIn the event of an error, new connection attempt in 10 minutes\nmissing % added\nStartup log message added.",
         "de": "Ignorieren ECONNABORTED Fehlercode\nBei einem Fehlerversuch in 10 Minuten\nfehlender %\nStartup Log-Nachricht hinzugefügt.",
@@ -80,19 +93,6 @@
         "pl": "dane usunięte z nazw wyliczeń",
         "uk": "дані, вилучені з імен генерації",
         "zh-cn": "从点数名称中删除数据"
-      },
-      "0.0.6": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "первоначальное освобождение",
-        "pt": "libertação inicial",
-        "nl": "eerste release",
-        "fr": "libération initiale",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "początkowe zwolnienie",
-        "uk": "початковий реліз",
-        "zh-cn": "初步释放"
       }
     },
     "titleLang": {
