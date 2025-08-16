@@ -112,7 +112,7 @@ class PirateWeather extends utils.Adapter {
       let loopTime = 6e5 + Date.now();
       if (this.config.pollingInMinutes) {
         loopTime = (/* @__PURE__ */ new Date()).setMinutes((/* @__PURE__ */ new Date()).getMinutes() + this.config.pollIntervalMinutes, 0);
-        if (new Date(loopTime).getHours() > (/* @__PURE__ */ new Date()).getHours()) {
+        if (new Date(loopTime).getHours() != (/* @__PURE__ */ new Date()).getHours()) {
           loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + 1, 0, 0);
         }
       } else if (!errorState) {
