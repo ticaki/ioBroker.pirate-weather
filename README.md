@@ -26,6 +26,7 @@ The explanation of what the individual data points mean can be found here: https
 -->
 ### **WORK IN PROGRESS**
 - (ticaki) Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.
+- (ticaki) Use system language for summaries.
 
 ### 0.1.4 (2025-08-15)
 - (ticaki) Ignore ECONNABORTED error code

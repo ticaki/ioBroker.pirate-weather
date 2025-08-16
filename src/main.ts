@@ -17,6 +17,7 @@ class PirateWeather extends utils.Adapter {
     unload: boolean = false;
     online: boolean | null = null;
     getWeatherLoopTimeout: ioBroker.Timeout | undefined | null = null;
+    lang: string = 'en';
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
@@ -66,6 +67,7 @@ class PirateWeather extends utils.Adapter {
             this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
             this.config.hours = 24; // Default to 24 hours if invalid
         }
+        this.lang = this.language ? this.language.split('-')[0] : 'en';
         setUnits(this.config.units);
         await this.library.init();
         const states = await this.getStatesAsync('*');
@@ -119,7 +121,9 @@ class PirateWeather extends utils.Adapter {
 
     getData = async (): Promise<void> => {
         const result = await axios.get(
-            `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate`,
+            `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate&lang=${this.lang}${
+                !this.config.minutes ? '&exclude=minutely' : ''
+            }`,
         );
         if (result.status === 200) {
             const data = result.data as PirateWeatherTestdata;
