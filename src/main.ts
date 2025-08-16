@@ -106,13 +106,11 @@ class PirateWeather extends utils.Adapter {
                 if (new Date(loopTime).getHours() > new Date().getHours()) {
                     loopTime = new Date().setHours(new Date().getHours() + 1, 0, 0);
                 }
-                loopTime += 500 + Math.ceil(Math.random() * 3000);
             } else if (!errorState) {
-                loopTime =
-                    new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0) +
-                    500 +
-                    Math.ceil(Math.random() * 3000); // Add a random delay of up to 3 second
+                loopTime = new Date().setHours(new Date().getHours() + this.config.pollInterval, 0, 0);
             }
+            loopTime += 500 + Math.ceil(Math.random() * 3000); // Add a random delay of up to 3 second
+
             this.getWeatherLoopTimeout = this.setTimeout(() => {
                 void this.getPirateWeatherLoop();
             }, loopTime - Date.now());
