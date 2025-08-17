@@ -119,7 +119,10 @@ class PirateWeather extends utils.Adapter {
         } else if (!errorState) {
           loopTime = (/* @__PURE__ */ new Date()).setHours((/* @__PURE__ */ new Date()).getHours() + this.config.pollInterval, 0, 0);
         }
-        loopTime += 500 + Math.ceil(Math.random() * 3e3);
+        loopTime += 2e3 + Math.ceil(Math.random() * 3e3);
+        this.log.debug(
+          `Next update scheduled for: ${new Date(loopTime).toLocaleTimeString("de", { hour: "2-digit", minute: "2-digit" })}:${`00${Math.floor(loopTime / 1e3) % 60}`.slice(-2)}:${`000${loopTime % 1e3}`.slice(-3)}`
+        );
         this.getWeatherLoopTimeout = this.setTimeout(() => {
           void this.getPirateWeatherLoop();
         }, loopTime - Date.now());
