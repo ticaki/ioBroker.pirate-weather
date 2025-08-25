@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "update deps - inital latest release\nincrease delay by 1.5 seconds",
+        "de": "update deps - inital neueste veröffentlichung\nverzögerung um 1,5 sekunden erhöhen",
+        "ru": "update deps - оригинальная версия\nувеличение задержки на 1,5 секунды",
+        "pt": "update deps - versão mais recente inicial\naumentar o atraso em 1,5 segundos",
+        "nl": "update deps - inital nieuwste release\nvertraging met 1,5 seconden verhogen",
+        "fr": "update deps - inital dernière version\naugmenter le délai de 1,5 secondes",
+        "it": "aggiornamento deps - versione inital\naumentare il ritardo di 1,5 secondi",
+        "es": "deps de actualización - inital última versión\naumentar el retraso en 1,5 segundos",
+        "pl": "update deps - nieaktualne wydanie\nzwiększyć opóźnienie o 1,5 sekundy",
+        "uk": "оновлення deps - inital останнє реліз\nзбільшити затримку на 1.5 секунд",
+        "zh-cn": "更新道普 - 初始最新发布\n将延迟增加1.5秒"
+      },
       "0.2.0": {
         "en": "Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.\nUse system language for summaries.",
         "de": "Konfigurationsoption, um ein Intervall in Minuten einzugeben. Bei einem Fehler wird hier keine beschleunigte Wiederverbindung verwendet.\nVerwenden Sie Systemsprache für Zusammenfassungen.",
@@ -80,19 +93,6 @@
         "pl": "jednostki (nas, ca, uk) dodane\npiękne stany:)\nZero minut i sekund.\nstałe: Język nieokreślony nie istnieje!",
         "uk": "блоки (в, ка, uk) додано\nкрасиві держави :)\nЗеро хвилини і секунди в інтервалі.\nвиправлено: Мова не визначена не існує!",
         "zh-cn": "增加单位(us, ca, uk)\n美丽的状态:)\n间隔零分零秒.\n固定: 语言未定义不存在 !"
-      },
-      "0.0.7": {
-        "en": "data removed from enumeration names",
-        "de": "daten aus aufzählungsnamen entfernt",
-        "ru": "данные, удаленные из названий перечислений",
-        "pt": "dados removidos dos nomes de enumeração",
-        "nl": "gegevens verwijderd van opsommingsnamen",
-        "fr": "données supprimées des noms de dénombrement",
-        "it": "dati rimossi dai nomi di enumerazione",
-        "es": "de los nombres de las listas",
-        "pl": "dane usunięte z nazw wyliczeń",
-        "uk": "дані, вилучені з імен генерації",
-        "zh-cn": "从点数名称中删除数据"
       }
     },
     "titleLang": {
