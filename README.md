@@ -25,6 +25,7 @@ The explanation of what the individual data points mean can be found here: https
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (ticaki) update deps - inital latest release
 - (ticaki) increase delay by 1.5 seconds
 
 ### 0.2.0 (2025-08-16)
