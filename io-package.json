@@ -97,16 +97,16 @@
     },
     "titleLang": {
       "en": "Pirate Weather",
-      "de": "Piratenwetter",
-      "ru": "Пиратская погода",
-      "pt": "Clima pirata",
-      "nl": "Piraatweer",
-      "fr": "Temps de pirate",
-      "it": "Tempo pirata",
-      "es": "Clima pirata",
-      "pl": "Piratowa pogoda",
-      "uk": "Піратна погода",
-      "zh-cn": "海盗天气"
+      "de": "Pirate Weather",
+      "ru": "Pirate Weather",
+      "pt": "Pirate Weather",
+      "nl": "Pirate Weather",
+      "fr": "Pirate Weather",
+      "it": "Pirate Weather",
+      "es": "Pirate Weather",
+      "pl": "Pirate Weather",
+      "uk": "Pirate Weather",
+      "zh-cn": "Pirate Weather"
     },
     "desc": {
       "en": "Retrieve data from Pirate-Weather.",

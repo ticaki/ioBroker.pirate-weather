@@ -979,6 +979,7 @@ export type CurrentlyData = WindData &
     PrecipitationData &
     TemperatureData &
     PressureVisibilityOzoneData &
+    MetaData &
     CloudUvData & {
         time: number;
         summary: string;
