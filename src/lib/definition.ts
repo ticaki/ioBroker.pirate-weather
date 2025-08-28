@@ -1313,6 +1313,10 @@ export function setUnits(u: 'si' | 'us' | 'ca' | 'uk'): void {
             PrecipitationData.snowAccumulation.common.unit = 'in';
             PrecipitationData.iceAccumulation.common.unit = 'in';
             PrecipitationData.precipAccumulation.common.unit = 'in';
+            PrecipitationData.liquidAccumulation.common.unit = 'in';
+            genericStateObjects.weather.daily.snowAccumulation.common.unit = 'in';
+            genericStateObjects.weather.daily.iceAccumulation.common.unit = 'in';
+            genericStateObjects.weather.daily.liquidAccumulation.common.unit = 'in';
             genericStateObjects.weather.daily.temperatureHigh.common.unit = '°F';
             genericStateObjects.weather.daily.temperatureLow.common.unit = '°F';
             genericStateObjects.weather.daily.apparentTemperatureHigh.common.unit = '°F';

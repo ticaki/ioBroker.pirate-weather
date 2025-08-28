@@ -1128,6 +1128,10 @@ function setUnits(u) {
       PrecipitationData.snowAccumulation.common.unit = "in";
       PrecipitationData.iceAccumulation.common.unit = "in";
       PrecipitationData.precipAccumulation.common.unit = "in";
+      PrecipitationData.liquidAccumulation.common.unit = "in";
+      genericStateObjects.weather.daily.snowAccumulation.common.unit = "in";
+      genericStateObjects.weather.daily.iceAccumulation.common.unit = "in";
+      genericStateObjects.weather.daily.liquidAccumulation.common.unit = "in";
       genericStateObjects.weather.daily.temperatureHigh.common.unit = "\xB0F";
       genericStateObjects.weather.daily.temperatureLow.common.unit = "\xB0F";
       genericStateObjects.weather.daily.apparentTemperatureHigh.common.unit = "\xB0F";
