@@ -24,6 +24,10 @@ The explanation of what the individual data points mean can be found here: https
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (ticaki) In the CA system of units, precipAccumulation is now output in mm.
+- (ticaki) Use api version 2
+
 ### 0.3.0 (2025-08-25)
 - (ticaki) update deps - inital latest release
 - (ticaki) increase delay by 1.5 seconds

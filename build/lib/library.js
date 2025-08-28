@@ -198,7 +198,7 @@ class Library extends BaseClass {
         result = import_definition.genericStateObjects.customString;
         result = this.cloneObject(result);
       } else {
-        this.log.debug(`No definition for ${key}!`);
+        this.log.debug(`No definition for ${key}: ${typeof data}!`);
         result = import_definition.genericStateObjects.default;
         result = this.cloneObject(result);
         result.common.name = k[k.length - 1];

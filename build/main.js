@@ -131,7 +131,7 @@ class PirateWeather extends utils.Adapter {
   };
   getData = async () => {
     const result = await import_axios.default.get(
-      `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`
+      `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`
     );
     if (this.unload) {
       return;
@@ -159,7 +159,15 @@ class PirateWeather extends utils.Adapter {
             d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
             d[a].cloudCover = Math.round(d[a].cloudCover * 100);
             d[a].precipProbability = Math.round(d[a].precipProbability * 100);
-            d[a].humidity = Math.round(d[a].humidity * 100);
+            d[a].humidity = Math.round(d[a].humidity * 10);
+            if (this.config.units === "ca") {
+              d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
+              if (d !== data.hourly.data) {
+                d[a].snowAccumulation = d[a].snowAccumulation ? Math.round(d[a].snowAccumulation * 10) : d[a].snowAccumulation;
+                d[a].iceAccumulation = d[a].iceAccumulation ? Math.round(d[a].iceAccumulation * 10) : d[a].iceAccumulation;
+                d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
+              }
+            }
             if (d === data.daily.data) {
               d[a].moonPhase = Math.round(d[a].moonPhase * 100);
               d[a].sunriseTime = d[a].sunriseTime * 1e3;
