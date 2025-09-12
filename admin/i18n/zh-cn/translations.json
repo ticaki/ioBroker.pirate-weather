@@ -8,5 +8,21 @@
     "Hours-to-display": "显示的小时",
     "link to website for apiToken": "链接到API令牌的网站",
     "pollingInMinutes": "在几分钟内查询间隔。 （注意，5分钟是最低的值，该值不超过免费帐户每月10000个查询。）",
-    "pollIntervalMinutes": "在几分钟内查询间隔。"
+    "pollIntervalMinutes": "在几分钟内查询间隔。",
+    "N": "北",
+    "NNE": "北东北",
+    "NE": "东北",
+    "ENE": "东东北",
+    "E": "东",
+    "ESE": "东东南",
+    "SE": "东南",
+    "SSE": "南东南",
+    "S": "南",
+    "SSW": "南西南",
+    "SW": "西南",
+    "WSW": "西西南",
+    "W": "西",
+    "WNW": "西西北",
+    "NW": "西北",
+    "NNW": "北西北"
 }

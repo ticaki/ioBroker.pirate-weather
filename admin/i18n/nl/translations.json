@@ -8,5 +8,21 @@
     "Hours-to-display": "Uren om weer te geven",
     "link to website for apiToken": "Link naar website voor API -token",
     "pollingInMinutes": "Vraaginterval in minuten. (Let op, 5 minuten is de laagste waarde die de 10000 vragen per maand niet overschrijdt met een gratis account.)",
-    "pollIntervalMinutes": "Vraaginterval in minuten."
+    "pollIntervalMinutes": "Vraaginterval in minuten.",
+    "N": "N",
+    "NNE": "NNO",
+    "NE": "NO",
+    "ENE": "ONO",
+    "E": "O",
+    "ESE": "OZO",
+    "SE": "ZO",
+    "SSE": "ZZO",
+    "S": "Z",
+    "SSW": "ZZW",
+    "SW": "ZW",
+    "WSW": "WZW",
+    "W": "W",
+    "WNW": "WNW",
+    "NW": "NW",
+    "NNW": "NNW"
 }

@@ -8,5 +8,21 @@
     "Hours-to-display": "Horas para serem exibidas",
     "link to website for apiToken": "Link para o site para token de API",
     "pollingInMinutes": "Intervalo de consulta em minutos. (Cuidado, 5 minutos é o menor valor que não excede as 10000 consultas por mês com uma conta gratuita.)",
-    "pollIntervalMinutes": "Intervalo de consulta em minutos."
+    "pollIntervalMinutes": "Intervalo de consulta em minutos.",
+    "N": "N",
+    "NNE": "NNE",
+    "NE": "NE",
+    "ENE": "ENE",
+    "E": "E",
+    "ESE": "ESE",
+    "SE": "SE",
+    "SSE": "SSE",
+    "S": "S",
+    "SSW": "SSO",
+    "SW": "SO",
+    "WSW": "OSO",
+    "W": "O",
+    "WNW": "ONO",
+    "NW": "NO",
+    "NNW": "NNO"
 }

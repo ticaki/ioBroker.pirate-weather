@@ -156,7 +156,7 @@ class PirateWeather extends utils.Adapter {
       for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
         if (d && d.length) {
           for (let a = 0; a < d.length; a++) {
-            d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
+            d[a].windBearingText = this.library.getTranslation(this.getWindBearingText(d[a].windBearing));
             d[a].cloudCover = Math.round(d[a].cloudCover * 100);
             d[a].precipProbability = Math.round(d[a].precipProbability * 100);
             d[a].humidity = Math.round(d[a].humidity * 100);

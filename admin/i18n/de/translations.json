@@ -10,5 +10,21 @@
     "Hours-to-display": "Stunden zum Anzeigen",
     "link to website for apiToken": "Link zur Website für den API-Token",
     "pollingInMinutes": "Aktiviere Abfrageintervall in Minuten. (Aktivierung nicht empfohlen.) Vorsicht, 5 Minuten sind der niedrigste Wert, der die 10000 Abfragen pro Monat mit einem kostenlosen Konto nicht überschreitet.",
-    "pollIntervalMinutes": "Abfrageintervall in Minuten.(1-60)"
+    "pollIntervalMinutes": "Abfrageintervall in Minuten.(1-60)",   
+    "N": "N",
+    "NNE": "NNO",
+    "NE": "NO",
+    "ENE": "ONO",
+    "E": "O",
+    "ESE": "OSO",
+    "SE": "SO",
+    "SSE": "SSO",
+    "S": "S",
+    "SSW": "SSW",
+    "SW": "SW",
+    "WSW": "WSW",
+    "W": "W",
+    "WNW": "WNW",
+    "NW": "NW",
+    "NNW": "NNW"
 }

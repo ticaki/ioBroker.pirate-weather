@@ -8,5 +8,21 @@
     "Hours-to-display": "Hours to display",
     "link to website for apiToken": "Link to website for API Token",
     "pollingInMinutes":"Activate query interval in minutes. (Activation not recommended!) Caution, 5 minutes is the lowest value that does not exceed the 10000 queries per month with a free account.",
-    "pollIntervalMinutes": "Query interval in minutes.(1-60)"
+    "pollIntervalMinutes": "Query interval in minutes.(1-60)",
+    "N": "N",
+    "NNE": "NNE",
+    "NE": "NE",
+    "ENE": "ENE",
+    "E": "E",
+    "ESE": "ESE",
+    "SE": "SE",
+    "SSE": "SSE",
+    "S": "S",
+    "SSW": "SSW",
+    "SW": "SW",
+    "WSW": "WSW",
+    "W": "W",
+    "WNW": "WNW",
+    "NW": "NW",
+    "NNW": "NNW"
 }
