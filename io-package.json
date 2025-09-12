@@ -1,211 +1,198 @@
 {
-    "common": {
-        "name": "pirate-weather",
-        "version": "0.4.0",
-        "news": {
-            "0.4.1": {
-                "en": "Humidity is now displayed correctly in percent.\nWind direction text is now translated into the system iobroker language.",
-                "de": "Die Luftfeuchtigkeit wird nun korrekt in Prozent angezeigt.\nDer Windrichtungstext wird jetzt in die ioBroker-Systemsprache übersetzt.",
-                "ru": "Влажность теперь правильно отображается в процентах.\nТекст направления ветра теперь переводится на системный язык ioBroker.",
-                "pt": "A umidade agora é exibida corretamente em porcentagem.\nO texto da direção do vento agora é traduzido para o idioma do sistema ioBroker.",
-                "nl": "De luchtvochtigheid wordt nu correct in procenten weergegeven.\nDe windrichtingstekst wordt nu vertaald naar de ioBroker-systeemtaal.",
-                "fr": "L'humidité est maintenant affichée correctement en pourcentage.\nLe texte de la direction du vent est maintenant traduit dans la langue système ioBroker.",
-                "it": "L'umidità è ora visualizzata correttamente in percentuale.\nIl testo della direzione del vento è ora tradotto nella lingua di sistema di ioBroker.",
-                "es": "La humedad ahora se muestra correctamente en porcentaje.\nEl texto de la dirección del viento ahora se traduce al idioma del sistema ioBroker.",
-                "pl": "Wilgotność jest teraz poprawnie wyświetlana w procentach.\nTekst kierunku wiatru jest teraz tłumaczony na język systemowy ioBroker.",
-                "uk": "Вологість тепер правильно відображається у відсотках.\nТекст напрямку вітру тепер перекладено мовою системи ioBroker.",
-                "zh-cn": "湿度现在正确显示为百分比。\n风向文本现在已翻译为 ioBroker 系统语言。"
-            },
-            "0.4.0": {
-                "en": "In the CA system of units, precipAccumulation is now output in mm.\nUse api version 2",
-                "de": "Im CA-System von Einheiten wird die FällungKumulation nun in mm ausgegeben.\nVerwenden Sie api Version 2",
-                "ru": "В системе единиц CA преципНакопление теперь выводится в мм.\nИспользование Api версии 2",
-                "pt": "No sistema CA de unidades, precipAcumulação agora é saída em mm.\nUsar api versão 2",
-                "nl": "In het CA systeem van eenheden, precipAccumulatie wordt nu output in mm.\nGebruik api versie 2",
-                "fr": "Dans le système d'unités CA, precipAccumulation est maintenant sortie en mm.\nUtiliser la version api 2",
-                "it": "Nel sistema CA delle unità, la precipAccumulation è ora in uscita in mm.\nUtilizzare la versione 2",
-                "es": "En el sistema CA de unidades, precipAccumulation es ahora la salida en mm.\nUsar la versión 2",
-                "pl": "W systemie jednostek CA, akumulacja jest obecnie wyjściowa w mm.\nUżyj wersji api 2",
-                "uk": "В Системі КС тепер виводиться калькумуляцію в мм.\nВикористання api версії 2",
-                "zh-cn": "在单位的CA系统中,预积现在以毫米输出.\n使用 api 版本 2"
-            },
-            "0.3.0": {
-                "en": "update deps - inital latest release\nincrease delay by 1.5 seconds",
-                "de": "update deps - inital neueste veröffentlichung\nverzögerung um 1,5 sekunden erhöhen",
-                "ru": "update deps - оригинальная версия\nувеличение задержки на 1,5 секунды",
-                "pt": "update deps - versão mais recente inicial\naumentar o atraso em 1,5 segundos",
-                "nl": "update deps - inital nieuwste release\nvertraging met 1,5 seconden verhogen",
-                "fr": "update deps - inital dernière version\naugmenter le délai de 1,5 secondes",
-                "it": "aggiornamento deps - versione inital\naumentare il ritardo di 1,5 secondi",
-                "es": "deps de actualización - inital última versión\naumentar el retraso en 1,5 segundos",
-                "pl": "update deps - nieaktualne wydanie\nzwiększyć opóźnienie o 1,5 sekundy",
-                "uk": "оновлення deps - inital останнє реліз\nзбільшити затримку на 1.5 секунд",
-                "zh-cn": "更新道普 - 初始最新发布\n将延迟增加1.5秒"
-            },
-            "0.2.0": {
-                "en": "Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.\nUse system language for summaries.",
-                "de": "Konfigurationsoption, um ein Intervall in Minuten einzugeben. Bei einem Fehler wird hier keine beschleunigte Wiederverbindung verwendet.\nVerwenden Sie Systemsprache für Zusammenfassungen.",
-                "ru": "Конфигурационный вариант ввода интервала в минутах. В случае ошибки здесь не используется ускоренное пересоединение.\nИспользуйте системный язык для резюме.",
-                "pt": "Opção de configuração para inserir um intervalo em minutos. No caso de um erro, nenhuma reconexão acelerada é usada aqui.\nUsar linguagem do sistema para resumos.",
-                "nl": "Configuratie optie om een interval in minuten in te voeren. Bij een fout wordt hier geen versnelde herverbinding gebruikt.\nGebruik systeemtaal voor samenvattingen.",
-                "fr": "Option de configuration pour entrer un intervalle en minutes. En cas d'erreur, aucune reconnection accélérée n'est utilisée ici.\nUtiliser le langage système pour les résumés.",
-                "it": "Opzione di configurazione per inserire un intervallo in pochi minuti. In caso di errore, non viene utilizzata una riconnessione accelerata.\nUtilizzare la lingua di sistema per i riassunti.",
-                "es": "Opción de configuración para introducir un intervalo en minutos. En caso de error, aquí no se utiliza la reconexión acelerada.\nUse el lenguaje del sistema para resúmenes.",
-                "pl": "Opcja konfiguracji, aby wprowadzić interwał w minutach. W przypadku błędu nie używa się przyspieszonego ponownego połączenia.\nUżyj języka systemowego do podsumowań.",
-                "uk": "Конфігурація параметра для введення інтервалу за хвилину. У разі помилки тут не використовується прискорене відключення.\nВикористовуйте мову системи для підсумків.",
-                "zh-cn": "在分钟内输入间隔的配置选项 。 如果出现错误,此处不使用加速重联.\n总结使用系统语言."
-            },
-            "0.1.4": {
-                "en": "Ignore ECONNABORTED error code\nIn the event of an error, new connection attempt in 10 minutes\nmissing % added\nStartup log message added.",
-                "de": "Ignorieren ECONNABORTED Fehlercode\nBei einem Fehlerversuch in 10 Minuten\nfehlender %\nStartup Log-Nachricht hinzugefügt.",
-                "ru": "Игнорировать экономно код ошибки\nВ случае ошибки новая попытка подключения за 10 минут\nпропущенный %\nДобавлено сообщение журнала запуска.",
-                "pt": "Ignorar o ECONNABORTADO código de erro\nEm caso de erro, nova tentativa de conexão em 10 minutos\n% em falta\nMensagem de registo inicial adicionada.",
-                "nl": "ECONNABORTE negeren foutcode\nIn geval van een fout, nieuwe verbinding poging in 10 minuten\n% is toegevoegd\nOpstartlogbericht toegevoegd.",
-                "fr": "Ignorer ECONNABORÉ code d'erreur\nEn cas d'erreur, nouvelle tentative de connexion en 10 minutes\nmanquant % ajouté\nMessage de connexion de démarrage ajouté.",
-                "it": "Ignora ECONNABORTED codice di errore\nIn caso di errore, nuovo tentativo di connessione in 10 minuti\nin %\nMessaggio di registro di avvio aggiunto.",
-                "es": "Ignoro ECONNABORTED error código\nEn caso de error, nuevo intento de conexión en 10 minutos\ndesaparecido % añadido\nMensaje de inicio de sesión añadido.",
-                "pl": "Ignoruj ECONNABORTED Kod błędu\nW przypadku błędu, nowa próba połączenia za 10 minut\nbrakujące% dodane\nDodano komunikat z dziennika startowego.",
-                "uk": "Ігнор ЕКОННАБОРТОВА Код помилки\nУ разі помилки нового підключення за 10 хвилин\nвідсутні % додано\nДодано вхідне повідомлення.",
-                "zh-cn": "忽略已关闭 错误代码\n如果出现错误, 10分钟内将尝试新建连接\n缺少% 添加\n添加启动日志消息 ."
-            },
-            "0.1.3": {
-                "en": "BREAKING: cloudCover, precipProbability, humidity and moonPhase are now percentage values",
-                "de": "BREAKING: Wolke Abdeckung, NiederschlagFähigkeit, Feuchtigkeit und Mond Phase jetzt Prozentwerte",
-                "ru": "Альбом: Cloud Покрытие, вероятность, влажность и луна Этап теперь представляет собой процентные значения",
-                "pt": "TRÁS: nuvem Cobertura, pré-requisitoProbabilidade, umidade e lua Fase agora são valores percentuais",
-                "nl": "Breaking: cloud Dekking, precipProbabiliteit, vochtigheid en maan Fase zijn nu procentuele waarden",
-                "fr": "BREAKING: nuage Couverture, précipProbabilité, humidité et lune La phase est maintenant en pourcentage",
-                "it": "BREAKING: cloud Copertura, precipProbabilità, umidità e luna La fase è ora valori percentuali",
-                "es": "Nube Cubierta, precipitabilidad, humedad y luna La fase es ahora valores porcentuales",
-                "pl": "BREAKING: chmura Pokrywa, wyciąg Prawdopodobieństwo, wilgotność i księżyc Faza jest teraz wartością procentową",
-                "uk": "BREAKING: хмара Кришка, преципПробливість, вологість і місяць Фази тепер процентні значення",
-                "zh-cn": " BR:云. 封面、前置性、湿度和月亮 阶段现在是百分比值"
-            },
-            "0.1.2": {
-                "en": "update icon",
-                "de": "update-symbol",
-                "ru": "обновить значок",
-                "pt": "ícone de atualização",
-                "nl": "pictogram bijwerken",
-                "fr": "icône de mise à jour",
-                "it": "icona di aggiornamento",
-                "es": "actualización icono",
-                "pl": "ikona aktualizacji",
-                "uk": "іконка оновлення",
-                "zh-cn": "更新图标"
-            },
-            "0.1.1": {
-                "en": "First version for the iobroker repository",
-                "de": "Erste Version für das iobroker Repository",
-                "ru": "Первая версия для репозитория iobroker",
-                "pt": "Primeira versão para o repositório do iobroker",
-                "nl": "Eerste versie voor de iobroker repository",
-                "fr": "Première version pour le dépôt iobroker",
-                "it": "Prima versione per il repository iobroker",
-                "es": "Primera versión para el repositorio iobroker",
-                "pl": "Pierwsza wersja dla repozytorium iobroker",
-                "uk": "Перша версія репозиторію iobroker",
-                "zh-cn": "Io 经纪人存储器的第一个版本"
-            }
-        },
-        "titleLang": {
-            "en": "Pirate Weather",
-            "de": "Pirate Weather",
-            "ru": "Pirate Weather",
-            "pt": "Pirate Weather",
-            "nl": "Pirate Weather",
-            "fr": "Pirate Weather",
-            "it": "Pirate Weather",
-            "es": "Pirate Weather",
-            "pl": "Pirate Weather",
-            "uk": "Pirate Weather",
-            "zh-cn": "Pirate Weather"
-        },
-        "desc": {
-            "en": "Retrieve data from Pirate-Weather.",
-            "de": "Daten aus Piratenwetter abrufen.",
-            "ru": "Получить данные из пиратской погоды.",
-            "pt": "Recuperar dados do clima de pirata.",
-            "nl": "Gegevens ophalen van piraten-weer.",
-            "fr": "Récupérez les données de Pirate-Sheather.",
-            "it": "Recupera i dati da Pirate-Weather.",
-            "es": "Recupere los datos del clima pirata.",
-            "pl": "Odzyskaj dane z pirackiej pogody.",
-            "uk": "Отримайте дані з піратської погоди.",
-            "zh-cn": "从海盗天气中检索数据。"
-        },
-        "authors": [
-            "ticaki <github@renopoint.de>"
-        ],
-        "keywords": [
-            "weather",
-            "pirate"
-        ],
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "pirate-weather.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/ticaki/ioBroker.pirate-weather/main/admin/pirate-weather.png",
-        "readme": "https://github.com/ticaki/ioBroker.pirate-weather/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 2,
-        "mode": "daemon",
-        "type": "weather",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.11"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.6.17"
-            }
-        ]
+  "common": {
+    "name": "pirate-weather",
+    "version": "0.4.1",
+    "news": {
+      "0.4.1": {
+        "en": "Humidity is now displayed correctly in percent.\nWind direction text is now translated into the system iobroker language.",
+        "de": "Die Luftfeuchtigkeit wird nun korrekt in Prozent angezeigt.\nDer Windrichtungstext wird jetzt in die ioBroker-Systemsprache übersetzt.",
+        "ru": "Влажность теперь правильно отображается в процентах.\nТекст направления ветра теперь переводится на системный язык ioBroker.",
+        "pt": "A umidade agora é exibida corretamente em porcentagem.\nO texto da direção do vento agora é traduzido para o idioma do sistema ioBroker.",
+        "nl": "De luchtvochtigheid wordt nu correct in procenten weergegeven.\nDe windrichtingstekst wordt nu vertaald naar de ioBroker-systeemtaal.",
+        "fr": "L'humidité est maintenant affichée correctement en pourcentage.\nLe texte de la direction du vent est maintenant traduit dans la langue système ioBroker.",
+        "it": "L'umidità è ora visualizzata correttamente in percentuale.\nIl testo della direzione del vento è ora tradotto nella lingua di sistema di ioBroker.",
+        "es": "La humedad ahora se muestra correctamente en porcentaje.\nEl texto de la dirección del viento ahora se traduce al idioma del sistema ioBroker.",
+        "pl": "Wilgotność jest teraz poprawnie wyświetlana w procentach.\nTekst kierunku wiatru jest teraz tłumaczony na język systemowy ioBroker.",
+        "uk": "Вологість тепер правильно відображається у відсотках.\nТекст напрямку вітру тепер перекладено мовою системи ioBroker.",
+        "zh-cn": "湿度现在正确显示为百分比。\n风向文本现在已翻译为 ioBroker 系统语言。"
+      },
+      "0.4.0": {
+        "en": "In the CA system of units, precipAccumulation is now output in mm.\nUse api version 2",
+        "de": "Im CA-System von Einheiten wird die FällungKumulation nun in mm ausgegeben.\nVerwenden Sie api Version 2",
+        "ru": "В системе единиц CA преципНакопление теперь выводится в мм.\nИспользование Api версии 2",
+        "pt": "No sistema CA de unidades, precipAcumulação agora é saída em mm.\nUsar api versão 2",
+        "nl": "In het CA systeem van eenheden, precipAccumulatie wordt nu output in mm.\nGebruik api versie 2",
+        "fr": "Dans le système d'unités CA, precipAccumulation est maintenant sortie en mm.\nUtiliser la version api 2",
+        "it": "Nel sistema CA delle unità, la precipAccumulation è ora in uscita in mm.\nUtilizzare la versione 2",
+        "es": "En el sistema CA de unidades, precipAccumulation es ahora la salida en mm.\nUsar la versión 2",
+        "pl": "W systemie jednostek CA, akumulacja jest obecnie wyjściowa w mm.\nUżyj wersji api 2",
+        "uk": "В Системі КС тепер виводиться калькумуляцію в мм.\nВикористання api версії 2",
+        "zh-cn": "在单位的CA系统中,预积现在以毫米输出.\n使用 api 版本 2"
+      },
+      "0.3.0": {
+        "en": "update deps - inital latest release\nincrease delay by 1.5 seconds",
+        "de": "update deps - inital neueste veröffentlichung\nverzögerung um 1,5 sekunden erhöhen",
+        "ru": "update deps - оригинальная версия\nувеличение задержки на 1,5 секунды",
+        "pt": "update deps - versão mais recente inicial\naumentar o atraso em 1,5 segundos",
+        "nl": "update deps - inital nieuwste release\nvertraging met 1,5 seconden verhogen",
+        "fr": "update deps - inital dernière version\naugmenter le délai de 1,5 secondes",
+        "it": "aggiornamento deps - versione inital\naumentare il ritardo di 1,5 secondi",
+        "es": "deps de actualización - inital última versión\naumentar el retraso en 1,5 segundos",
+        "pl": "update deps - nieaktualne wydanie\nzwiększyć opóźnienie o 1,5 sekundy",
+        "uk": "оновлення deps - inital останнє реліз\nзбільшити затримку на 1.5 секунд",
+        "zh-cn": "更新道普 - 初始最新发布\n将延迟增加1.5秒"
+      },
+      "0.2.0": {
+        "en": "Configuration option to enter an interval in minutes. In the event of an error, no accelerated reconnection is used here.\nUse system language for summaries.",
+        "de": "Konfigurationsoption, um ein Intervall in Minuten einzugeben. Bei einem Fehler wird hier keine beschleunigte Wiederverbindung verwendet.\nVerwenden Sie Systemsprache für Zusammenfassungen.",
+        "ru": "Конфигурационный вариант ввода интервала в минутах. В случае ошибки здесь не используется ускоренное пересоединение.\nИспользуйте системный язык для резюме.",
+        "pt": "Opção de configuração para inserir um intervalo em minutos. No caso de um erro, nenhuma reconexão acelerada é usada aqui.\nUsar linguagem do sistema para resumos.",
+        "nl": "Configuratie optie om een interval in minuten in te voeren. Bij een fout wordt hier geen versnelde herverbinding gebruikt.\nGebruik systeemtaal voor samenvattingen.",
+        "fr": "Option de configuration pour entrer un intervalle en minutes. En cas d'erreur, aucune reconnection accélérée n'est utilisée ici.\nUtiliser le langage système pour les résumés.",
+        "it": "Opzione di configurazione per inserire un intervallo in pochi minuti. In caso di errore, non viene utilizzata una riconnessione accelerata.\nUtilizzare la lingua di sistema per i riassunti.",
+        "es": "Opción de configuración para introducir un intervalo en minutos. En caso de error, aquí no se utiliza la reconexión acelerada.\nUse el lenguaje del sistema para resúmenes.",
+        "pl": "Opcja konfiguracji, aby wprowadzić interwał w minutach. W przypadku błędu nie używa się przyspieszonego ponownego połączenia.\nUżyj języka systemowego do podsumowań.",
+        "uk": "Конфігурація параметра для введення інтервалу за хвилину. У разі помилки тут не використовується прискорене відключення.\nВикористовуйте мову системи для підсумків.",
+        "zh-cn": "在分钟内输入间隔的配置选项 。 如果出现错误,此处不使用加速重联.\n总结使用系统语言."
+      },
+      "0.1.4": {
+        "en": "Ignore ECONNABORTED error code\nIn the event of an error, new connection attempt in 10 minutes\nmissing % added\nStartup log message added.",
+        "de": "Ignorieren ECONNABORTED Fehlercode\nBei einem Fehlerversuch in 10 Minuten\nfehlender %\nStartup Log-Nachricht hinzugefügt.",
+        "ru": "Игнорировать экономно код ошибки\nВ случае ошибки новая попытка подключения за 10 минут\nпропущенный %\nДобавлено сообщение журнала запуска.",
+        "pt": "Ignorar o ECONNABORTADO código de erro\nEm caso de erro, nova tentativa de conexão em 10 minutos\n% em falta\nMensagem de registo inicial adicionada.",
+        "nl": "ECONNABORTE negeren foutcode\nIn geval van een fout, nieuwe verbinding poging in 10 minuten\n% is toegevoegd\nOpstartlogbericht toegevoegd.",
+        "fr": "Ignorer ECONNABORÉ code d'erreur\nEn cas d'erreur, nouvelle tentative de connexion en 10 minutes\nmanquant % ajouté\nMessage de connexion de démarrage ajouté.",
+        "it": "Ignora ECONNABORTED codice di errore\nIn caso di errore, nuovo tentativo di connessione in 10 minuti\nin %\nMessaggio di registro di avvio aggiunto.",
+        "es": "Ignoro ECONNABORTED error código\nEn caso de error, nuevo intento de conexión en 10 minutos\ndesaparecido % añadido\nMensaje de inicio de sesión añadido.",
+        "pl": "Ignoruj ECONNABORTED Kod błędu\nW przypadku błędu, nowa próba połączenia za 10 minut\nbrakujące% dodane\nDodano komunikat z dziennika startowego.",
+        "uk": "Ігнор ЕКОННАБОРТОВА Код помилки\nУ разі помилки нового підключення за 10 хвилин\nвідсутні % додано\nДодано вхідне повідомлення.",
+        "zh-cn": "忽略已关闭 错误代码\n如果出现错误, 10分钟内将尝试新建连接\n缺少% 添加\n添加启动日志消息 ."
+      },
+      "0.1.3": {
+        "en": "BREAKING: cloudCover, precipProbability, humidity and moonPhase are now percentage values",
+        "de": "BREAKING: Wolke Abdeckung, NiederschlagFähigkeit, Feuchtigkeit und Mond Phase jetzt Prozentwerte",
+        "ru": "Альбом: Cloud Покрытие, вероятность, влажность и луна Этап теперь представляет собой процентные значения",
+        "pt": "TRÁS: nuvem Cobertura, pré-requisitoProbabilidade, umidade e lua Fase agora são valores percentuais",
+        "nl": "Breaking: cloud Dekking, precipProbabiliteit, vochtigheid en maan Fase zijn nu procentuele waarden",
+        "fr": "BREAKING: nuage Couverture, précipProbabilité, humidité et lune La phase est maintenant en pourcentage",
+        "it": "BREAKING: cloud Copertura, precipProbabilità, umidità e luna La fase è ora valori percentuali",
+        "es": "Nube Cubierta, precipitabilidad, humedad y luna La fase es ahora valores porcentuales",
+        "pl": "BREAKING: chmura Pokrywa, wyciąg Prawdopodobieństwo, wilgotność i księżyc Faza jest teraz wartością procentową",
+        "uk": "BREAKING: хмара Кришка, преципПробливість, вологість і місяць Фази тепер процентні значення",
+        "zh-cn": " BR:云. 封面、前置性、湿度和月亮 阶段现在是百分比值"
+      },
+      "0.1.2": {
+        "en": "update icon",
+        "de": "update-symbol",
+        "ru": "обновить значок",
+        "pt": "ícone de atualização",
+        "nl": "pictogram bijwerken",
+        "fr": "icône de mise à jour",
+        "it": "icona di aggiornamento",
+        "es": "actualización icono",
+        "pl": "ikona aktualizacji",
+        "uk": "іконка оновлення",
+        "zh-cn": "更新图标"
+      }
     },
-    "protectedNative": [
-        "apiToken"
-    ],
-    "encryptedNative": [
-        "apiToken"
-    ],
-    "native": {
-        "apiToken": "",
-        "position": "",
-        "pollInterval": 1,
-        "units": "si",
-        "hours": 24
+    "titleLang": {
+      "en": "Pirate Weather",
+      "de": "Pirate Weather",
+      "ru": "Pirate Weather",
+      "pt": "Pirate Weather",
+      "nl": "Pirate Weather",
+      "fr": "Pirate Weather",
+      "it": "Pirate Weather",
+      "es": "Pirate Weather",
+      "pl": "Pirate Weather",
+      "uk": "Pirate Weather",
+      "zh-cn": "Pirate Weather"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Retrieve data from Pirate-Weather.",
+      "de": "Daten aus Piratenwetter abrufen.",
+      "ru": "Получить данные из пиратской погоды.",
+      "pt": "Recuperar dados do clima de pirata.",
+      "nl": "Gegevens ophalen van piraten-weer.",
+      "fr": "Récupérez les données de Pirate-Sheather.",
+      "it": "Recupera i dati da Pirate-Weather.",
+      "es": "Recupere los datos del clima pirata.",
+      "pl": "Odzyskaj dane z pirackiej pogody.",
+      "uk": "Отримайте дані з піратської погоди.",
+      "zh-cn": "从海盗天气中检索数据。"
+    },
+    "authors": [
+      "ticaki <github@renopoint.de>"
+    ],
+    "keywords": [
+      "weather",
+      "pirate"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "pirate-weather.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/ticaki/ioBroker.pirate-weather/main/admin/pirate-weather.png",
+    "readme": "https://github.com/ticaki/ioBroker.pirate-weather/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 2,
+    "mode": "daemon",
+    "type": "weather",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
     ]
+  },
+  "protectedNative": [
+    "apiToken"
+  ],
+  "encryptedNative": [
+    "apiToken"
+  ],
+  "native": {
+    "apiToken": "",
+    "position": "",
+    "pollInterval": 1,
+    "units": "si",
+    "hours": 24
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
