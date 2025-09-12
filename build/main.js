@@ -159,7 +159,7 @@ class PirateWeather extends utils.Adapter {
             d[a].windBearingText = this.getWindBearingText(d[a].windBearing);
             d[a].cloudCover = Math.round(d[a].cloudCover * 100);
             d[a].precipProbability = Math.round(d[a].precipProbability * 100);
-            d[a].humidity = Math.round(d[a].humidity * 10);
+            d[a].humidity = Math.round(d[a].humidity * 100);
             if (this.config.units === "ca") {
               d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
               if (d !== data.hourly.data) {
