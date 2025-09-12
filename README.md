@@ -25,8 +25,8 @@ The explanation of what the individual data points mean can be found here: https
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (ticaki) Humidity is now displayed correctly in percent.  
-- (ticaki) Wind direction text is now translated into the system iobroker language.  
+- (ticaki) Humidity is now displayed correctly in percent.  fixes #15
+- (ticaki) Wind direction text is now translated into the system iobroker language. fixes #16
 
 ### 0.4.0 (2025-08-28)
 - (ticaki) In the CA system of units, precipAccumulation is now output in mm.
