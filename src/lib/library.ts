@@ -137,12 +137,18 @@ export class Library extends BaseClass {
                 }
                 if (objectDefinition.type !== 'state' || expandTree) {
                     let a = 0;
+
+                    // Detect if we're in a forecast context (daily or hourly arrays)
+                    const isForecastContext = this.isForecastArray(prefix, objNode);
+                    const forecastType = this.getForecastType(prefix, objNode);
+
                     for (const k of data) {
                         const objectDefinition2 = objNode
                             ? await this.getObjectDefFromJson(
                                   `${`${objNode.split('.').slice(0, -1).join('.')}`}`,
                                   def,
                                   data,
+                                  isForecastContext ? { isForecast: true, index: a, type: forecastType } : undefined,
                               )
                             : null;
                         const defChannel = this.getChannelObject(objectDefinition2, true);
@@ -154,12 +160,13 @@ export class Library extends BaseClass {
                         // create folder
                         await this.writedp(dp, null, defChannel);
 
-                        await this.writeFromJson(
+                        await this.writeFromJsonWithForecast(
                             dp,
                             `${objNode.split('.').slice(0, -1).join('.')}`,
                             def,
                             k,
                             expandTree,
+                            isForecastContext ? { isForecast: true, index: a - 1, type: forecastType } : undefined,
                         );
                     }
                 } else {
@@ -189,14 +196,112 @@ export class Library extends BaseClass {
     }
 
     /**
+     * Enhanced version of writeFromJson that supports forecast context
+     *
+     * @param prefix
+     * @param objNode
+     * @param def
+     * @param data
+     * @param expandTree
+     * @param forecastContext
+     * @param forecastContext.isForecast
+     * @param forecastContext.index
+     * @param forecastContext.type
+     */
+    private async writeFromJsonWithForecast(
+        prefix: string,
+        objNode: string,
+        def: any,
+        data: any,
+        expandTree: boolean = false,
+        forecastContext?: { isForecast: boolean; index: number; type: 'daily' | 'hourly' },
+    ): Promise<void> {
+        if (!def || typeof def !== 'object') {
+            return;
+        }
+        if (data === undefined || ['string', 'number', 'boolean', 'object'].indexOf(typeof data) == -1) {
+            return;
+        }
+
+        if (typeof data === 'object' && data !== null) {
+            if (Array.isArray(data)) {
+                // Arrays within forecast items should be processed normally
+                await this.writeFromJson(prefix, objNode, def, data, expandTree);
+            } else {
+                // Process object properties with forecast context
+                for (const k in data) {
+                    const objectDefinition = objNode
+                        ? await this.getObjectDefFromJson(`${objNode}.${k}`, def, data[k], forecastContext)
+                        : null;
+                    if (objectDefinition && objectDefinition.type === 'state') {
+                        await this.writedp(`${prefix}.${k}`, data[k], objectDefinition);
+                    } else {
+                        await this.writeFromJsonWithForecast(
+                            `${prefix}.${k}`,
+                            `${objNode}.${k}`,
+                            def,
+                            data[k],
+                            expandTree,
+                            forecastContext,
+                        );
+                    }
+                }
+            }
+        } else {
+            const objectDefinition = objNode
+                ? await this.getObjectDefFromJson(objNode, def, data, forecastContext)
+                : null;
+            if (!objectDefinition) {
+                return;
+            }
+            await this.writedp(prefix, data, objectDefinition);
+        }
+    }
+
+    /**
+     * Determines if we're processing a forecast array (daily or hourly)
+     *
+     * @param prefix
+     * @param objNode
+     */
+    private isForecastArray(prefix: string, objNode: string): boolean {
+        return objNode.includes('.daily') || objNode.includes('.hourly');
+    }
+
+    /**
+     * Determines the forecast type based on prefix/objNode
+     *
+     * @param prefix
+     * @param objNode
+     */
+    private getForecastType(prefix: string, objNode: string): 'daily' | 'hourly' {
+        if (objNode.includes('.daily')) {
+            return 'daily';
+        }
+        if (objNode.includes('.hourly')) {
+            return 'hourly';
+        }
+        return 'daily'; // default fallback
+    }
+
+    /**
      * Get the ioBroker.Object out of stateDefinition
      *
      * @param key is the deep linking key to the definition
      * @param def is the definition object
      * @param data  is the definition dataset
+     * @param forecastContext Optional context to determine if we're in a forecast and the index
+     * @param forecastContext.isForecast
+     * @param forecastContext.index
+     * @param forecastContext.type
      * @returns ioBroker.ChannelObject | ioBroker.DeviceObject | ioBroker.StateObject
      */
-    async getObjectDefFromJson(key: string, def: any, data: any): Promise<ioBroker.Object> {
+    async getObjectDefFromJson(
+        key: string,
+        def: any,
+        data: any,
+        forecastContext?: { isForecast: boolean; index: number; type: 'daily' | 'hourly' },
+    ): Promise<ioBroker.Object> {
         //let result = await jsonata(`${key}`).evaluate(data);
         let result = this.deepJsonValue(key, def);
         if (result === null || result === undefined) {
@@ -238,7 +343,108 @@ export class Library extends BaseClass {
         } else {
             result = this.cloneObject(result);
         }
+
+        // Apply forecast role transformation if we're in a forecast context
+        if (forecastContext?.isForecast && result.common && result.common.role) {
+            result = this.applyForecastRole(result, forecastContext);
+        }
+
         return result;
+    }
+
+    /**
+     * Applies forecast role transformations based on type-detector requirements
+     *
+     * @param stateObj The state object to modify
+     * @param forecastContext The forecast context with index and type
+     * @param forecastContext.index
+     * @param forecastContext.type
+     * @returns Modified state object with forecast role
+     */
+    private applyForecastRole(
+        stateObj: ioBroker.Object,
+        forecastContext: { index: number; type: 'daily' | 'hourly' },
+    ): ioBroker.Object {
+        if (!stateObj.common || !stateObj.common.role) {
+            return stateObj;
+        }
+
+        const { index, type } = forecastContext;
+        const baseRole = stateObj.common.role;
+
+        // Special handling for daily forecasts - need min/max temperature roles
+        if (type === 'daily') {
+            // Handle specific daily temperature roles
+            if (baseRole === 'value.temperature.max') {
+                stateObj.common.role = `value.temperature.max.forecast.${index}`;
+            } else if (baseRole === 'value.temperature.min') {
+                stateObj.common.role = `value.temperature.min.forecast.${index}`;
+            } else if (baseRole === 'value.temperature') {
+                // Use name to determine if it's a min/max variant, otherwise default to forecast role
+                const nameValue = stateObj.common.name;
+                const stateName = (typeof nameValue === 'string' ? nameValue : '').toLowerCase();
+                if (stateName.includes('low') || stateName.includes('min')) {
+                    stateObj.common.role = `value.temperature.min.forecast.${index}`;
+                } else if (stateName.includes('high') || stateName.includes('max')) {
+                    stateObj.common.role = `value.temperature.max.forecast.${index}`;
+                } else {
+                    stateObj.common.role = `value.temperature.forecast.${index}`;
+                }
+            } else if (
+                (baseRole === 'value' || baseRole === 'value.precipitation') &&
+                (typeof stateObj.common.name === 'string' ? stateObj.common.name : '')
+                    .toLowerCase()
+                    .includes('precipitation')
+            ) {
+                if (
+                    (typeof stateObj.common.name === 'string' ? stateObj.common.name : '')
+                        .toLowerCase()
+                        .includes('probability')
+                ) {
+                    stateObj.common.role = `value.precipitation.forecast.${index}`;
+                } else {
+                    stateObj.common.role = `value.precipitation.forecast.${index}`;
+                }
+            } else if (baseRole === 'value.humidity') {
+                stateObj.common.role = `value.humidity.forecast.${index}`;
+            } else if (baseRole === 'value.pressure') {
+                stateObj.common.role = `value.pressure.forecast.${index}`;
+            } else if (baseRole === 'value.speed.wind') {
+                stateObj.common.role = `value.speed.wind.forecast.${index}`;
+            } else if (baseRole === 'value.direction.wind') {
+                stateObj.common.role = `value.direction.wind.forecast.${index}`;
+            } else if (baseRole === 'weather.direction.wind') {
+                stateObj.common.role = `weather.direction.wind.forecast.${index}`;
+            } else if (baseRole === 'weather.icon.name') {
+                stateObj.common.role = `weather.icon.forecast.${index}`;
+            } else if (baseRole === 'weather.title') {
+                stateObj.common.role = `weather.state.forecast.${index}`;
+            } else if (baseRole === 'date') {
+                stateObj.common.role = `date.forecast.${index}`;
+            } else if (baseRole === 'date.sunrise') {
+                stateObj.common.role = `date.sunrise.forecast.${index}`;
+            } else if (baseRole === 'date.sunset') {
+                stateObj.common.role = `date.sunset.forecast.${index}`;
+            } else {
+                // Handle other roles by adding forecast suffix
+                stateObj.common.role = `${baseRole}.forecast.${index}`;
+            }
+        } else if (type === 'hourly') {
+            // Special handling for some roles in hourly context
+            if (baseRole === 'weather.icon.name') {
+                stateObj.common.role = `weather.icon.forecast.${index}`;
+            } else if (baseRole === 'weather.title') {
+                stateObj.common.role = `weather.state.forecast.${index}`;
+            } else if (baseRole === 'weather.direction.wind') {
+                stateObj.common.role = `weather.direction.wind.forecast.${index}`;
+            } else if (baseRole === 'date') {
+                stateObj.common.role = `date.forecast.${index}`;
+            } else {
+                stateObj.common.role = `${baseRole}.forecast.${index}`;
+            }
+        }
+
+        return stateObj;
     }
 
     deepJsonValue(key: string, data: any): any {
