@@ -22,11 +22,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
-var import_axios = __toESM(require("axios"));
 var import_register = require("source-map-support/register");
 var import_library = require("./lib/library");
 var import_definition = require("./lib/definition");
-import_axios.default.defaults.timeout = 3e4;
 class PirateWeather extends utils.Adapter {
   library;
   unload = false;
@@ -130,69 +128,85 @@ class PirateWeather extends utils.Adapter {
     }
   };
   getData = async () => {
-    const result = await import_axios.default.get(
-      `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`
-    );
-    if (this.unload) {
-      return;
-    }
-    if (result.status === 200) {
-      const data = result.data;
-      this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
-      if (data.flags) {
-        data.units = data.flags.units;
-        data["nearest-station"] = data.flags["nearest-station"];
-        data.version = data.flags.version;
-        delete data.flags;
-        delete result.data.flags;
+    const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3e4);
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      if (this.unload) {
+        return;
       }
-      if (data.hourly && data.hourly.data) {
-        if (this.config.hours > 0) {
-          data.hourly.data = data.hourly.data.slice(0, this.config.hours);
-        } else {
-          data.hourly.data = [];
+      if (response.status === 200) {
+        const data = await response.json();
+        this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
+        if (data.flags) {
+          data.units = data.flags.units;
+          data["nearest-station"] = data.flags["nearest-station"];
+          data.version = data.flags.version;
+          delete data.flags;
         }
-      }
-      for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
-        if (d && d.length) {
-          for (let a = 0; a < d.length; a++) {
-            d[a].windBearingText = this.library.getTranslation(this.getWindBearingText(d[a].windBearing));
-            d[a].cloudCover = Math.round(d[a].cloudCover * 100);
-            d[a].precipProbability = Math.round(d[a].precipProbability * 100);
-            d[a].humidity = Math.round(d[a].humidity * 100);
-            if (this.config.units === "ca") {
-              d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
-              if (d !== data.hourly.data) {
-                d[a].snowAccumulation = d[a].snowAccumulation ? Math.round(d[a].snowAccumulation * 10) : d[a].snowAccumulation;
-                d[a].iceAccumulation = d[a].iceAccumulation ? Math.round(d[a].iceAccumulation * 10) : d[a].iceAccumulation;
-                d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
-              }
-            }
-            if (d === data.daily.data) {
-              d[a].moonPhase = Math.round(d[a].moonPhase * 100);
-              d[a].sunriseTime = d[a].sunriseTime * 1e3;
-              d[a].sunsetTime = d[a].sunsetTime * 1e3;
-              d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1e3;
-              d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1e3;
-              d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1e3;
-              d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1e3;
-              d[a].temperatureMinTime = d[a].temperatureMinTime * 1e3;
-              d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1e3;
-              d[a].temperatureLowTime = d[a].temperatureLowTime * 1e3;
-              d[a].temperatureHighTime = d[a].temperatureHighTime * 1e3;
-              d[a].windGustTime = d[a].windGustTime * 1e3;
-              d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
-              d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
-            }
-            d[a].time = d[a].time * 1e3;
+        if (data.hourly && data.hourly.data) {
+          if (this.config.hours > 0) {
+            data.hourly.data = data.hourly.data.slice(0, this.config.hours);
+          } else {
+            data.hourly.data = [];
           }
         }
+        for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
+          if (d && d.length) {
+            for (let a = 0; a < d.length; a++) {
+              d[a].windBearingText = this.library.getTranslation(
+                this.getWindBearingText(d[a].windBearing)
+              );
+              d[a].cloudCover = Math.round(d[a].cloudCover * 100);
+              d[a].precipProbability = Math.round(d[a].precipProbability * 100);
+              d[a].humidity = Math.round(d[a].humidity * 100);
+              if (this.config.units === "ca") {
+                d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
+                if (d !== data.hourly.data) {
+                  d[a].snowAccumulation = d[a].snowAccumulation ? Math.round(d[a].snowAccumulation * 10) : d[a].snowAccumulation;
+                  d[a].iceAccumulation = d[a].iceAccumulation ? Math.round(d[a].iceAccumulation * 10) : d[a].iceAccumulation;
+                  d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
+                }
+              }
+              if (d === data.daily.data) {
+                d[a].moonPhase = Math.round(d[a].moonPhase * 100);
+                d[a].sunriseTime = d[a].sunriseTime * 1e3;
+                d[a].sunsetTime = d[a].sunsetTime * 1e3;
+                d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1e3;
+                d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1e3;
+                d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1e3;
+                d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1e3;
+                d[a].temperatureMinTime = d[a].temperatureMinTime * 1e3;
+                d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1e3;
+                d[a].temperatureLowTime = d[a].temperatureLowTime * 1e3;
+                d[a].temperatureHighTime = d[a].temperatureHighTime * 1e3;
+                d[a].windGustTime = d[a].windGustTime * 1e3;
+                d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
+                d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
+              }
+              d[a].time = d[a].time * 1e3;
+            }
+          }
+        }
+        if (!this.config.minutes) {
+          delete data.minutely;
+        }
+        data.lastUpdate = Date.now();
+        await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
+      } else {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      if (!this.config.minutes) {
-        delete data.minutely;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === "AbortError") {
+        throw new Error("Request timeout - API call took longer than 30 seconds");
       }
-      data.lastUpdate = Date.now();
-      await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
+      throw error;
     }
   };
   onUnload(callback) {
