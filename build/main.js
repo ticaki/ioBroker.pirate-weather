@@ -22,17 +22,17 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
-var import_axios = __toESM(require("axios"));
 var import_register = require("source-map-support/register");
 var import_library = require("./lib/library");
 var import_definition = require("./lib/definition");
-import_axios.default.defaults.timeout = 3e4;
 class PirateWeather extends utils.Adapter {
   library;
   unload = false;
   online = null;
   getWeatherLoopTimeout = null;
   lang = "en";
+  controller = null;
+  timeoutId = void 0;
   constructor(options = {}) {
     super({
       ...options,
@@ -99,7 +99,7 @@ class PirateWeather extends utils.Adapter {
       }
       this.online = true;
     } catch (error) {
-      if (error.code !== "ECONNABORTED") {
+      if (error.name !== "AbortError") {
         this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
       }
       await this.setState("info.connection", false, true);
@@ -130,21 +130,19 @@ class PirateWeather extends utils.Adapter {
     }
   };
   getData = async () => {
-    const result = await import_axios.default.get(
-      `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`
-    );
+    const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`;
+    const response = await this.fetch(url);
     if (this.unload) {
       return;
     }
-    if (result.status === 200) {
-      const data = result.data;
+    if (response.status === 200) {
+      const data = await response.json();
       this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
       if (data.flags) {
         data.units = data.flags.units;
         data["nearest-station"] = data.flags["nearest-station"];
         data.version = data.flags.version;
         delete data.flags;
-        delete result.data.flags;
       }
       if (data.hourly && data.hourly.data) {
         if (this.config.hours > 0) {
@@ -193,13 +191,24 @@ class PirateWeather extends utils.Adapter {
       }
       data.lastUpdate = Date.now();
       await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
+    } else {
+      throw new Error({ status: response.status, statusText: response.statusText });
     }
   };
   onUnload(callback) {
     try {
+      this.unload = true;
       void this.setState("info.connection", false, true);
       if (this.getWeatherLoopTimeout) {
         this.clearTimeout(this.getWeatherLoopTimeout);
+      }
+      if (this.controller) {
+        this.controller.abort();
+        this.controller = null;
+      }
+      if (this.timeoutId) {
+        this.clearTimeout(this.timeoutId);
+        this.timeoutId = void 0;
       }
       callback();
     } catch {
@@ -230,6 +239,30 @@ class PirateWeather extends utils.Adapter {
     ];
     const index = Math.round(windBearing % 360 / 22.5) % 16;
     return directions[index];
+  }
+  async fetch(url, init) {
+    var _a;
+    this.controller = new AbortController();
+    this.timeoutId = this.setTimeout(() => {
+      this.controller && this.controller.abort();
+      this.controller = null;
+    }, 3e4);
+    try {
+      const response = await fetch(url, {
+        ...init,
+        method: (_a = init == null ? void 0 : init.method) != null ? _a : "GET",
+        signal: this.controller.signal
+      });
+      this.clearTimeout(this.timeoutId);
+      this.timeoutId = void 0;
+      this.controller = null;
+      return response;
+    } catch (error) {
+      this.clearTimeout(this.timeoutId);
+      this.timeoutId = void 0;
+      this.controller = null;
+      throw error;
+    }
   }
 }
 if (require.main !== module) {

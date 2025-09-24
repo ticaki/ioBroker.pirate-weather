@@ -5,12 +5,9 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
-import axios from 'axios';
 import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
-
-axios.defaults.timeout = 30000; // Set a default timeout of 10 seconds for all axios requests
 
 class PirateWeather extends utils.Adapter {
     library: Library;
@@ -18,6 +15,10 @@ class PirateWeather extends utils.Adapter {
     online: boolean | null = null;
     getWeatherLoopTimeout: ioBroker.Timeout | undefined | null = null;
     lang: string = 'en';
+
+    controller: AbortController | null = null;
+    timeoutId: ioBroker.Timeout | undefined = undefined;
+
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
@@ -92,7 +93,7 @@ class PirateWeather extends utils.Adapter {
             }
             this.online = true;
         } catch (error: any) {
-            if (error.code !== 'ECONNABORTED') {
+            if (error.name !== 'AbortError') {
                 this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
             }
             await this.setState('info.connection', false, true);
@@ -126,23 +127,24 @@ class PirateWeather extends utils.Adapter {
     };
 
     getData = async (): Promise<void> => {
-        const result = await axios.get(
-            `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate&version=2&lang=${this.lang}${
-                !this.config.minutes ? '&exclude=minutely' : ''
-            }`,
-        );
+        const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate&version=2&lang=${this.lang}${
+            !this.config.minutes ? '&exclude=minutely' : ''
+        }`;
+
+        const response = await this.fetch(url);
+
         if (this.unload) {
             return;
         }
-        if (result.status === 200) {
-            const data = result.data as PirateWeatherTestdata;
+
+        if (response.status === 200) {
+            const data = (await response.json()) as PirateWeatherTestdata;
             this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
             if (data.flags) {
                 data.units = data.flags.units;
                 data['nearest-station'] = data.flags['nearest-station'];
                 data.version = data.flags.version;
                 delete data.flags;
-                delete result.data.flags;
             }
             if (data.hourly && data.hourly.data) {
                 if (this.config.hours > 0) {
@@ -200,14 +202,25 @@ class PirateWeather extends utils.Adapter {
             }
             data.lastUpdate = Date.now();
             await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
+        } else {
+            throw new Error({ status: response.status, statusText: response.statusText } as any);
         }
     };
 
     private onUnload(callback: () => void): void {
         try {
+            this.unload = true;
             void this.setState('info.connection', false, true);
             if (this.getWeatherLoopTimeout) {
                 this.clearTimeout(this.getWeatherLoopTimeout);
+            }
+            if (this.controller) {
+                this.controller.abort();
+                this.controller = null;
+            }
+            if (this.timeoutId) {
+                this.clearTimeout(this.timeoutId);
+                this.timeoutId = undefined;
             }
 
             callback();
@@ -239,6 +252,32 @@ class PirateWeather extends utils.Adapter {
         ];
         const index = Math.round((windBearing % 360) / 22.5) % 16;
         return directions[index];
+    }
+    async fetch(url: string, init?: RequestInit): Promise<Response> {
+        this.controller = new AbortController();
+        this.timeoutId = this.setTimeout(() => {
+            this.controller && this.controller.abort();
+            this.controller = null;
+        }, 30000); // 30 seconds timeout
+
+        try {
+            const response = await fetch(url, {
+                ...init,
+                method: init?.method ?? 'GET',
+                signal: this.controller.signal,
+            });
+
+            // Clear the timeout since the request completed
+            this.clearTimeout(this.timeoutId);
+            this.timeoutId = undefined;
+            this.controller = null;
+            return response;
+        } catch (error) {
+            this.clearTimeout(this.timeoutId);
+            this.timeoutId = undefined;
+            this.controller = null;
+            throw error;
+        }
     }
 }
 
