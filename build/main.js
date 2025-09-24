@@ -97,7 +97,7 @@ class PirateWeather extends utils.Adapter {
       }
       this.online = true;
     } catch (error) {
-      if (error.code !== "ECONNABORTED") {
+      if (error.name !== "AbortError") {
         this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
       }
       await this.setState("info.connection", false, true);
@@ -199,13 +199,10 @@ class PirateWeather extends utils.Adapter {
         data.lastUpdate = Date.now();
         await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
       } else {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        throw new Error({ status: response.status, statusText: response.statusText });
       }
     } catch (error) {
       clearTimeout(timeoutId);
-      if (error.name === "AbortError") {
-        throw new Error("Request timeout - API call took longer than 30 seconds");
-      }
       throw error;
     }
   };
