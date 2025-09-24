@@ -24,7 +24,7 @@ The explanation of what the individual data points mean can be found here: https
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.5.0 (2025-09-24)
 - (ticaki) Code migration from axios to node:fetch
 - (ticaki) Corrected roles for visualisation (lovelance) fixes #19
 

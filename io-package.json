@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "news": {
+      "0.5.0": {
+        "en": "Code migration from axios to node:fetch\nCorrected roles for visualisation (lovelance) fixes #19",
+        "de": "Code Migration von axios zu node:fetch\nKorrigierte Rollen zur Visualisierung (lovelance) fixes #19",
+        "ru": "Код миграции из аксиоса в узел: прим\nИсправленные роли для визуализации (любительность) фиксирует #19",
+        "pt": "Migração de código de axios para nó:fetch\nFunções corrigidas para as correções de visualização (lovelance) #19",
+        "nl": "Code migratie van axios naar node:fetch\nGecorrigeerde rollen voor visualisatie (lovelance) fixes #19",
+        "fr": "Migration de code de l'axios vers le noeud:fetch\nLes rôles corrigés pour la visualisation (lovelance) corrigent #19",
+        "it": "Codice di migrazione da assios a nodo:fetch\nI ruoli corretti per la visualizzazione (lovelance) corretti #19",
+        "es": "Migración de códigos desde el eje hasta el nodo:fetch\nFunciones corregidas para la visualización (velancia) fija #19",
+        "pl": "Kod migracji z aksjozów do węzła: pobrać\nPoprawione role do wizualizacji (lovelance) poprawki # 19",
+        "uk": "Переміщення коду з аксіосу в вузол:fetch\nВиправлені ролі для візуалізації (lovelance) виправити #19",
+        "zh-cn": "代码从轴移到节点: fatch\n修正视觉角色(爱)修正 #19"
+      },
       "0.4.1": {
         "en": "Humidity is now displayed correctly in percent.\nWind direction text is now translated into the system iobroker language.",
         "de": "Die Luftfeuchtigkeit wird nun korrekt in Prozent angezeigt.\nDer Windrichtungstext wird jetzt in die ioBroker-Systemsprache übersetzt.",
@@ -80,19 +93,6 @@
         "pl": "BREAKING: chmura Pokrywa, wyciąg Prawdopodobieństwo, wilgotność i księżyc Faza jest teraz wartością procentową",
         "uk": "BREAKING: хмара Кришка, преципПробливість, вологість і місяць Фази тепер процентні значення",
         "zh-cn": " BR:云. 封面、前置性、湿度和月亮 阶段现在是百分比值"
-      },
-      "0.1.2": {
-        "en": "update icon",
-        "de": "update-symbol",
-        "ru": "обновить значок",
-        "pt": "ícone de atualização",
-        "nl": "pictogram bijwerken",
-        "fr": "icône de mise à jour",
-        "it": "icona di aggiornamento",
-        "es": "actualización icono",
-        "pl": "ikona aktualizacji",
-        "uk": "іконка оновлення",
-        "zh-cn": "更新图标"
       }
     },
     "titleLang": {
