@@ -31,6 +31,8 @@ class PirateWeather extends utils.Adapter {
   online = null;
   getWeatherLoopTimeout = null;
   lang = "en";
+  controller = null;
+  timeoutId = void 0;
   constructor(options = {}) {
     super({
       ...options,
@@ -129,88 +131,84 @@ class PirateWeather extends utils.Adapter {
   };
   getData = async () => {
     const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3e4);
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        signal: controller.signal
-      });
-      clearTimeout(timeoutId);
-      if (this.unload) {
-        return;
+    const response = await this.fetch(url);
+    if (this.unload) {
+      return;
+    }
+    if (response.status === 200) {
+      const data = await response.json();
+      this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
+      if (data.flags) {
+        data.units = data.flags.units;
+        data["nearest-station"] = data.flags["nearest-station"];
+        data.version = data.flags.version;
+        delete data.flags;
       }
-      if (response.status === 200) {
-        const data = await response.json();
-        this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
-        if (data.flags) {
-          data.units = data.flags.units;
-          data["nearest-station"] = data.flags["nearest-station"];
-          data.version = data.flags.version;
-          delete data.flags;
+      if (data.hourly && data.hourly.data) {
+        if (this.config.hours > 0) {
+          data.hourly.data = data.hourly.data.slice(0, this.config.hours);
+        } else {
+          data.hourly.data = [];
         }
-        if (data.hourly && data.hourly.data) {
-          if (this.config.hours > 0) {
-            data.hourly.data = data.hourly.data.slice(0, this.config.hours);
-          } else {
-            data.hourly.data = [];
-          }
-        }
-        for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
-          if (d && d.length) {
-            for (let a = 0; a < d.length; a++) {
-              d[a].windBearingText = this.library.getTranslation(
-                this.getWindBearingText(d[a].windBearing)
-              );
-              d[a].cloudCover = Math.round(d[a].cloudCover * 100);
-              d[a].precipProbability = Math.round(d[a].precipProbability * 100);
-              d[a].humidity = Math.round(d[a].humidity * 100);
-              if (this.config.units === "ca") {
-                d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
-                if (d !== data.hourly.data) {
-                  d[a].snowAccumulation = d[a].snowAccumulation ? Math.round(d[a].snowAccumulation * 10) : d[a].snowAccumulation;
-                  d[a].iceAccumulation = d[a].iceAccumulation ? Math.round(d[a].iceAccumulation * 10) : d[a].iceAccumulation;
-                  d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
-                }
+      }
+      for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
+        if (d && d.length) {
+          for (let a = 0; a < d.length; a++) {
+            d[a].windBearingText = this.library.getTranslation(this.getWindBearingText(d[a].windBearing));
+            d[a].cloudCover = Math.round(d[a].cloudCover * 100);
+            d[a].precipProbability = Math.round(d[a].precipProbability * 100);
+            d[a].humidity = Math.round(d[a].humidity * 100);
+            if (this.config.units === "ca") {
+              d[a].precipAccumulation = d[a].precipAccumulation ? Math.round(d[a].precipAccumulation * 10) : d[a].precipAccumulation;
+              if (d !== data.hourly.data) {
+                d[a].snowAccumulation = d[a].snowAccumulation ? Math.round(d[a].snowAccumulation * 10) : d[a].snowAccumulation;
+                d[a].iceAccumulation = d[a].iceAccumulation ? Math.round(d[a].iceAccumulation * 10) : d[a].iceAccumulation;
+                d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
               }
-              if (d === data.daily.data) {
-                d[a].moonPhase = Math.round(d[a].moonPhase * 100);
-                d[a].sunriseTime = d[a].sunriseTime * 1e3;
-                d[a].sunsetTime = d[a].sunsetTime * 1e3;
-                d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1e3;
-                d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1e3;
-                d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1e3;
-                d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1e3;
-                d[a].temperatureMinTime = d[a].temperatureMinTime * 1e3;
-                d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1e3;
-                d[a].temperatureLowTime = d[a].temperatureLowTime * 1e3;
-                d[a].temperatureHighTime = d[a].temperatureHighTime * 1e3;
-                d[a].windGustTime = d[a].windGustTime * 1e3;
-                d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
-                d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
-              }
-              d[a].time = d[a].time * 1e3;
             }
+            if (d === data.daily.data) {
+              d[a].moonPhase = Math.round(d[a].moonPhase * 100);
+              d[a].sunriseTime = d[a].sunriseTime * 1e3;
+              d[a].sunsetTime = d[a].sunsetTime * 1e3;
+              d[a].apparentTemperatureMinTime = d[a].apparentTemperatureMinTime * 1e3;
+              d[a].apparentTemperatureMaxTime = d[a].apparentTemperatureMaxTime * 1e3;
+              d[a].apparentTemperatureLowTime = d[a].apparentTemperatureLowTime * 1e3;
+              d[a].apparentTemperatureHighTime = d[a].apparentTemperatureHighTime * 1e3;
+              d[a].temperatureMinTime = d[a].temperatureMinTime * 1e3;
+              d[a].temperatureMaxTime = d[a].temperatureMaxTime * 1e3;
+              d[a].temperatureLowTime = d[a].temperatureLowTime * 1e3;
+              d[a].temperatureHighTime = d[a].temperatureHighTime * 1e3;
+              d[a].windGustTime = d[a].windGustTime * 1e3;
+              d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
+              d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
+            }
+            d[a].time = d[a].time * 1e3;
           }
         }
-        if (!this.config.minutes) {
-          delete data.minutely;
-        }
-        data.lastUpdate = Date.now();
-        await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
-      } else {
-        throw new Error({ status: response.status, statusText: response.statusText });
       }
-    } catch (error) {
-      clearTimeout(timeoutId);
-      throw error;
+      if (!this.config.minutes) {
+        delete data.minutely;
+      }
+      data.lastUpdate = Date.now();
+      await this.library.writeFromJson("weather", "weather", import_definition.genericStateObjects, data, true);
+    } else {
+      throw new Error({ status: response.status, statusText: response.statusText });
     }
   };
   onUnload(callback) {
     try {
+      this.unload = true;
       void this.setState("info.connection", false, true);
       if (this.getWeatherLoopTimeout) {
         this.clearTimeout(this.getWeatherLoopTimeout);
+      }
+      if (this.controller) {
+        this.controller.abort();
+        this.controller = null;
+      }
+      if (this.timeoutId) {
+        this.clearTimeout(this.timeoutId);
+        this.timeoutId = void 0;
       }
       callback();
     } catch {
@@ -241,6 +239,30 @@ class PirateWeather extends utils.Adapter {
     ];
     const index = Math.round(windBearing % 360 / 22.5) % 16;
     return directions[index];
+  }
+  async fetch(url, init) {
+    var _a;
+    this.controller = new AbortController();
+    this.timeoutId = this.setTimeout(() => {
+      this.controller && this.controller.abort();
+      this.controller = null;
+    }, 3e4);
+    try {
+      const response = await fetch(url, {
+        ...init,
+        method: (_a = init == null ? void 0 : init.method) != null ? _a : "GET",
+        signal: this.controller.signal
+      });
+      this.clearTimeout(this.timeoutId);
+      this.timeoutId = void 0;
+      this.controller = null;
+      return response;
+    } catch (error) {
+      this.clearTimeout(this.timeoutId);
+      this.timeoutId = void 0;
+      this.controller = null;
+      throw error;
+    }
   }
 }
 if (require.main !== module) {

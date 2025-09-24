@@ -117,7 +117,7 @@ export class Library extends BaseClass {
             return;
         }
 
-        const objectDefinition = objNode ? await this.getObjectDefFromJson(`${objNode}`, def, data) : null;
+        let objectDefinition = objNode ? await this.getObjectDefFromJson(`${objNode}`, def, data) : null;
 
         if (objectDefinition) {
             objectDefinition.native = {
@@ -183,6 +183,26 @@ export class Library extends BaseClass {
         } else {
             if (!objectDefinition) {
                 return;
+            }
+            // pirate-weather.0.weather.daily.01
+            if (
+                objectDefinition.type === 'state' &&
+                objectDefinition.common.role &&
+                objectDefinition.common.role !== 'value' &&
+                objectDefinition.common.role !== 'text' &&
+                objectDefinition.common.role !== 'date' &&
+                prefix.startsWith('weather.daily')
+            ) {
+                const d = prefix.split('.');
+                if (d.length == 4 && !isNaN(parseInt(d[2], 10))) {
+                    objectDefinition = {
+                        ...objectDefinition,
+                        common: {
+                            ...objectDefinition.common,
+                            role: `${objectDefinition.common.role}.forecast.${parseInt(d[2])}`,
+                        },
+                    };
+                }
             }
             await this.writedp(prefix, data, objectDefinition);
         }
