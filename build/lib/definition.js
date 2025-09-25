@@ -288,6 +288,18 @@ const MetaData = {
       write: false
     },
     native: {}
+  },
+  iconUrl: {
+    _id: "",
+    type: "state",
+    common: {
+      name: "Icon URL",
+      type: "string",
+      role: "weather.icon",
+      read: true,
+      write: false
+    },
+    native: {}
   }
 };
 const PrecipitationData = {

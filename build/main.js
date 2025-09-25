@@ -182,6 +182,7 @@ class PirateWeather extends utils.Adapter {
               d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
               d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
             }
+            d[a].iconUrl = this.getIconUrl(d[a].icon);
             d[a].time = d[a].time * 1e3;
           }
         }
@@ -195,6 +196,10 @@ class PirateWeather extends utils.Adapter {
       throw new Error({ status: response.status, statusText: response.statusText });
     }
   };
+  getIconUrl(icon) {
+    icon = icon.replace("mostly-", "").replace("light-", "").replace("heavy-", "").replace("precipitation", "rain");
+    return `/adapter/${this.name}/icons/icebear/${icon}.svg`;
+  }
   onUnload(callback) {
     try {
       this.unload = true;

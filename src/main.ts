@@ -153,6 +153,7 @@ class PirateWeather extends utils.Adapter {
                     data.hourly.data = [];
                 }
             }
+
             for (const d of [data.hourly.data, data.daily.data, [data.currently]]) {
                 if (d && d.length) {
                     for (let a = 0; a < d.length; a++) {
@@ -192,6 +193,7 @@ class PirateWeather extends utils.Adapter {
                             d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1000; // Convert to milliseconds
                             d[a].uvIndexTime = d[a].uvIndexTime * 1000;
                         }
+                        d[a].iconUrl = this.getIconUrl(d[a].icon);
                         d[a].time = d[a].time * 1000; // Convert to milliseconds
                     }
                 }
@@ -206,6 +208,11 @@ class PirateWeather extends utils.Adapter {
             throw new Error({ status: response.status, statusText: response.statusText } as any);
         }
     };
+
+    private getIconUrl(icon: string): string {
+        icon = icon.replace('mostly-', '').replace('light-', '').replace('heavy-', '').replace('precipitation', 'rain');
+        return `/adapter/${this.name}/icons/icebear/${icon}.svg`;
+    }
 
     private onUnload(callback: () => void): void {
         try {

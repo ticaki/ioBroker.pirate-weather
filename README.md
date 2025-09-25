@@ -18,12 +18,17 @@ Retrieve data from Pirate-Weather.
 You can get the required Api token here: https://docs.pirateweather.net/en/latest/ The rest should be self-explanatory.
 The explanation of what the individual data points mean can be found here: https://docs.pirateweather.net/en/latest/API/
 
+Icons: from icebear (free to use)
+
 ## Changelog
 
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- (ticaki) icons from icebear added
+
 ### 0.5.0 (2025-09-24)
 - (ticaki) Code migration from axios to node:fetch
 - (ticaki) Corrected roles for visualisation (lovelance) fixes #19

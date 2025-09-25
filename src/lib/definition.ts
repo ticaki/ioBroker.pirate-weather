@@ -282,6 +282,18 @@ const MetaData: ChangeTypeOfKeysForState<MetaData, ioBroker.StateObject> = {
         },
         native: {},
     },
+    iconUrl: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Icon URL',
+            type: 'string',
+            role: 'weather.icon',
+            read: true,
+            write: false,
+        },
+        native: {},
+    },
 };
 const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.StateObject> = {
     precipIntensity: {
@@ -1263,6 +1275,7 @@ export type DailyData = WindData &
 type MetaData = {
     summary: string;
     icon: string;
+    iconUrl?: string;
 };
 // Haupttyp
 export type PirateWeatherTestdata = {
