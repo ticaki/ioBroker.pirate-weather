@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "news": {
+      "0.6.0": {
+        "en": "icons from icebear added",
+        "de": "icons aus eisbeer hinzugefügt",
+        "ru": "добавлены иконы из ледника",
+        "pt": "ícones do icebear adicionados",
+        "nl": "pictogrammen van ijsbeer toegevoegd",
+        "fr": "icônes de l'ours glacé ajouté",
+        "it": "icone da icebear aggiunto",
+        "es": "iconos de hielo añadido",
+        "pl": "ikony z ikony dodano",
+        "uk": "іконки з льоду додано",
+        "zh-cn": "添加来自冰熊的图标"
+      },
       "0.5.0": {
         "en": "Code migration from axios to node:fetch\nCorrected roles for visualisation (lovelance) fixes #19",
         "de": "Code Migration von axios zu node:fetch\nKorrigierte Rollen zur Visualisierung (lovelance) fixes #19",
@@ -80,19 +93,6 @@
         "pl": "Ignoruj ECONNABORTED Kod błędu\nW przypadku błędu, nowa próba połączenia za 10 minut\nbrakujące% dodane\nDodano komunikat z dziennika startowego.",
         "uk": "Ігнор ЕКОННАБОРТОВА Код помилки\nУ разі помилки нового підключення за 10 хвилин\nвідсутні % додано\nДодано вхідне повідомлення.",
         "zh-cn": "忽略已关闭 错误代码\n如果出现错误, 10分钟内将尝试新建连接\n缺少% 添加\n添加启动日志消息 ."
-      },
-      "0.1.3": {
-        "en": "BREAKING: cloudCover, precipProbability, humidity and moonPhase are now percentage values",
-        "de": "BREAKING: Wolke Abdeckung, NiederschlagFähigkeit, Feuchtigkeit und Mond Phase jetzt Prozentwerte",
-        "ru": "Альбом: Cloud Покрытие, вероятность, влажность и луна Этап теперь представляет собой процентные значения",
-        "pt": "TRÁS: nuvem Cobertura, pré-requisitoProbabilidade, umidade e lua Fase agora são valores percentuais",
-        "nl": "Breaking: cloud Dekking, precipProbabiliteit, vochtigheid en maan Fase zijn nu procentuele waarden",
-        "fr": "BREAKING: nuage Couverture, précipProbabilité, humidité et lune La phase est maintenant en pourcentage",
-        "it": "BREAKING: cloud Copertura, precipProbabilità, umidità e luna La fase è ora valori percentuali",
-        "es": "Nube Cubierta, precipitabilidad, humedad y luna La fase es ahora valores porcentuales",
-        "pl": "BREAKING: chmura Pokrywa, wyciąg Prawdopodobieństwo, wilgotność i księżyc Faza jest teraz wartością procentową",
-        "uk": "BREAKING: хмара Кришка, преципПробливість, вологість і місяць Фази тепер процентні значення",
-        "zh-cn": " BR:云. 封面、前置性、湿度和月亮 阶段现在是百分比值"
       }
     },
     "titleLang": {
