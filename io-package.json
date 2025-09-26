@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "news": {
+      "0.6.1": {
+        "en": "Use the default icons for mostly-",
+        "de": "Verwenden Sie die Standard-Symbole für meist-",
+        "ru": "Используйте значки по умолчанию в основном -",
+        "pt": "Usar os ícones predefinidos para a maioria -",
+        "nl": "Gebruik de standaard pictogrammen voor meestal-",
+        "fr": "Utilisez les icônes par défaut pour la plupart..",
+        "it": "Utilizzare le icone predefinite per lo più",
+        "es": "Utilice los iconos predeterminados para la mayoría-",
+        "pl": "Użyj domyślnych ikon dla najbardziej -",
+        "uk": "Використовуйте іконки за замовчуванням для переважно",
+        "zh-cn": "使用默认图标主要用于 -"
+      },
       "0.6.0": {
         "en": "icons from icebear added",
         "de": "icons aus eisbeer hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Opcja konfiguracji, aby wprowadzić interwał w minutach. W przypadku błędu nie używa się przyspieszonego ponownego połączenia.\nUżyj języka systemowego do podsumowań.",
         "uk": "Конфігурація параметра для введення інтервалу за хвилину. У разі помилки тут не використовується прискорене відключення.\nВикористовуйте мову системи для підсумків.",
         "zh-cn": "在分钟内输入间隔的配置选项 。 如果出现错误,此处不使用加速重联.\n总结使用系统语言."
-      },
-      "0.1.4": {
-        "en": "Ignore ECONNABORTED error code\nIn the event of an error, new connection attempt in 10 minutes\nmissing % added\nStartup log message added.",
-        "de": "Ignorieren ECONNABORTED Fehlercode\nBei einem Fehlerversuch in 10 Minuten\nfehlender %\nStartup Log-Nachricht hinzugefügt.",
-        "ru": "Игнорировать экономно код ошибки\nВ случае ошибки новая попытка подключения за 10 минут\nпропущенный %\nДобавлено сообщение журнала запуска.",
-        "pt": "Ignorar o ECONNABORTADO código de erro\nEm caso de erro, nova tentativa de conexão em 10 minutos\n% em falta\nMensagem de registo inicial adicionada.",
-        "nl": "ECONNABORTE negeren foutcode\nIn geval van een fout, nieuwe verbinding poging in 10 minuten\n% is toegevoegd\nOpstartlogbericht toegevoegd.",
-        "fr": "Ignorer ECONNABORÉ code d'erreur\nEn cas d'erreur, nouvelle tentative de connexion en 10 minutes\nmanquant % ajouté\nMessage de connexion de démarrage ajouté.",
-        "it": "Ignora ECONNABORTED codice di errore\nIn caso di errore, nuovo tentativo di connessione in 10 minuti\nin %\nMessaggio di registro di avvio aggiunto.",
-        "es": "Ignoro ECONNABORTED error código\nEn caso de error, nuevo intento de conexión en 10 minutos\ndesaparecido % añadido\nMensaje de inicio de sesión añadido.",
-        "pl": "Ignoruj ECONNABORTED Kod błędu\nW przypadku błędu, nowa próba połączenia za 10 minut\nbrakujące% dodane\nDodano komunikat z dziennika startowego.",
-        "uk": "Ігнор ЕКОННАБОРТОВА Код помилки\nУ разі помилки нового підключення за 10 хвилин\nвідсутні % додано\nДодано вхідне повідомлення.",
-        "zh-cn": "忽略已关闭 错误代码\n如果出现错误, 10分钟内将尝试新建连接\n缺少% 添加\n添加启动日志消息 ."
       }
     },
     "titleLang": {
