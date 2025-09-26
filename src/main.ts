@@ -8,49 +8,7 @@ import * as utils from '@iobroker/adapter-core';
 import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
-type WeatherIcon =
-    | 'clear-day'
-    | 'clear-night'
-    | 'rain'
-    | 'snow'
-    | 'sleet'
-    | 'wind'
-    | 'fog'
-    | 'cloudy'
-    | 'partly-cloudy-day'
-    | 'partly-cloudy-night'
-    | 'thunderstorm'
-    | 'hail'
-    | 'mixed'
-    | 'none'
-    | 'Not Available'
-    | 'mostly-clear-day'
-    | 'mostly-clear-night'
-    | 'mostly-cloudy-day'
-    | 'mostly-cloudy-night'
-    | 'possible-rain-day'
-    | 'possible-rain-night'
-    | 'possible-snow-day'
-    | 'possible-snow-night'
-    | 'possible-sleet-day'
-    | 'possible-sleet-night'
-    | 'possible-precipitation-day'
-    | 'possible-precipitation-night'
-    | 'precipitation'
-    | 'drizzle'
-    | 'light-rain'
-    | 'heavy-rain'
-    | 'flurries'
-    | 'light-snow'
-    | 'heavy-snow'
-    | 'very-light-sleet'
-    | 'light-sleet'
-    | 'heavy-sleet'
-    | 'breezy'
-    | 'dangerous-wind'
-    | 'mist'
-    | 'haze'
-    | 'smoke';
+
 class PirateWeather extends utils.Adapter {
     library: Library;
     unload: boolean = false;
