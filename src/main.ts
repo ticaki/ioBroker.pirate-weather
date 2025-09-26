@@ -8,7 +8,49 @@ import * as utils from '@iobroker/adapter-core';
 import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
-
+type WeatherIcon =
+    | 'clear-day'
+    | 'clear-night'
+    | 'rain'
+    | 'snow'
+    | 'sleet'
+    | 'wind'
+    | 'fog'
+    | 'cloudy'
+    | 'partly-cloudy-day'
+    | 'partly-cloudy-night'
+    | 'thunderstorm'
+    | 'hail'
+    | 'mixed'
+    | 'none'
+    | 'Not Available'
+    | 'mostly-clear-day'
+    | 'mostly-clear-night'
+    | 'mostly-cloudy-day'
+    | 'mostly-cloudy-night'
+    | 'possible-rain-day'
+    | 'possible-rain-night'
+    | 'possible-snow-day'
+    | 'possible-snow-night'
+    | 'possible-sleet-day'
+    | 'possible-sleet-night'
+    | 'possible-precipitation-day'
+    | 'possible-precipitation-night'
+    | 'precipitation'
+    | 'drizzle'
+    | 'light-rain'
+    | 'heavy-rain'
+    | 'flurries'
+    | 'light-snow'
+    | 'heavy-snow'
+    | 'very-light-sleet'
+    | 'light-sleet'
+    | 'heavy-sleet'
+    | 'breezy'
+    | 'dangerous-wind'
+    | 'mist'
+    | 'haze'
+    | 'smoke';
 class PirateWeather extends utils.Adapter {
     library: Library;
     unload: boolean = false;
@@ -210,8 +252,70 @@ class PirateWeather extends utils.Adapter {
     };
 
     private getIconUrl(icon: string): string {
-        icon = icon.replace('mostly-', '').replace('light-', '').replace('heavy-', '').replace('precipitation', 'rain');
-        return `/adapter/${this.name}/icons/icebear/${icon}.svg`;
+        // Set der vorhandenen Basis-Icons
+        const baseIcons = new Set([
+            'clear-day',
+            'clear-night',
+            'rain',
+            'snow',
+            'sleet',
+            'wind',
+            'fog',
+            'cloudy',
+            'partly-cloudy-day',
+            'partly-cloudy-night',
+            'thunderstorm',
+            'hail',
+            'flurries',
+            'breezy',
+            'dangerous-wind',
+            'mist',
+            'smoke',
+            'drizzle',
+            'not-available',
+            'possible-drizzle-night',
+            'possible-fog-day',
+            'possible-fog-night',
+            'possible-hail-day',
+            'possible-hail-night',
+            'possible-haze-day',
+            'possible-haze-night',
+            'possible-rain-day',
+            'possible-rain-night',
+            'possible-sleet-day',
+            'possible-sleet-night',
+            'possible-smoke-day',
+            'possible-smoke-night',
+            'possible-snow-day',
+            'possible-snow-night',
+        ]);
+        // Mapping für Aliase auf Basis-Icons
+        const aliasMap: Record<string, string> = {
+            'light-rain': 'rain',
+            'heavy-rain': 'rain',
+            'possible-precipitation-day': 'rain',
+            'possible-precipitation-night': 'rain',
+            precipitation: 'rain',
+            'mostly-clear-day': 'clear-day',
+            'mostly-clear-night': 'clear-night',
+            'mostly-cloudy-day': 'cloudy',
+            'mostly-cloudy-night': 'cloudy',
+            'very-light-sleet': 'sleet',
+            'light-sleet': 'sleet',
+            'heavy-sleet': 'sleet',
+            'light-snow': 'snow',
+            'heavy-snow': 'snow',
+            mixed: 'rain',
+            none: 'not-available',
+            'Not Available': 'not-available',
+        };
+        let file = 'not-available';
+        if (baseIcons.has(icon)) {
+            file = icon;
+        } else if (icon in aliasMap) {
+            file = aliasMap[icon];
+        }
+        return `/adapter/${this.name}/icons/icebear/${file}.svg`;
     }
 
     private onUnload(callback: () => void): void {

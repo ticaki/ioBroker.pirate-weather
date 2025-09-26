@@ -197,8 +197,68 @@ class PirateWeather extends utils.Adapter {
     }
   };
   getIconUrl(icon) {
-    icon = icon.replace("mostly-", "").replace("light-", "").replace("heavy-", "").replace("precipitation", "rain");
-    return `/adapter/${this.name}/icons/icebear/${icon}.svg`;
+    const baseIcons = /* @__PURE__ */ new Set([
+      "clear-day",
+      "clear-night",
+      "rain",
+      "snow",
+      "sleet",
+      "wind",
+      "fog",
+      "cloudy",
+      "partly-cloudy-day",
+      "partly-cloudy-night",
+      "thunderstorm",
+      "hail",
+      "flurries",
+      "breezy",
+      "dangerous-wind",
+      "mist",
+      "smoke",
+      "drizzle",
+      "not-available",
+      "possible-drizzle-night",
+      "possible-fog-day",
+      "possible-fog-night",
+      "possible-hail-day",
+      "possible-hail-night",
+      "possible-haze-day",
+      "possible-haze-night",
+      "possible-rain-day",
+      "possible-rain-night",
+      "possible-sleet-day",
+      "possible-sleet-night",
+      "possible-smoke-day",
+      "possible-smoke-night",
+      "possible-snow-day",
+      "possible-snow-night"
+    ]);
+    const aliasMap = {
+      "light-rain": "rain",
+      "heavy-rain": "rain",
+      "possible-precipitation-day": "rain",
+      "possible-precipitation-night": "rain",
+      precipitation: "rain",
+      "mostly-clear-day": "clear-day",
+      "mostly-clear-night": "clear-night",
+      "mostly-cloudy-day": "cloudy",
+      "mostly-cloudy-night": "cloudy",
+      "very-light-sleet": "sleet",
+      "light-sleet": "sleet",
+      "heavy-sleet": "sleet",
+      "light-snow": "snow",
+      "heavy-snow": "snow",
+      mixed: "rain",
+      none: "not-available",
+      "Not Available": "not-available"
+    };
+    let file = "not-available";
+    if (baseIcons.has(icon)) {
+      file = icon;
+    } else if (icon in aliasMap) {
+      file = aliasMap[icon];
+    }
+    return `/adapter/${this.name}/icons/icebear/${file}.svg`;
   }
   onUnload(callback) {
     try {
