@@ -26,7 +26,7 @@ Icons: from icebear (free to use)
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.6.2 (2025-09-27)
 - (ticaki) more robust fetch usage
 
 ### 0.6.1 (2025-09-26)
