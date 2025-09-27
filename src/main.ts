@@ -16,9 +16,7 @@ class PirateWeather extends utils.Adapter {
     getWeatherLoopTimeout: ioBroker.Timeout | undefined | null = null;
     lang: string = 'en';
 
-    controller: AbortController | null = null;
-    timeoutId: ioBroker.Timeout | undefined = undefined;
-
+    fetchs: Map<AbortController, ioBroker.Timeout | undefined> = new Map();
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
@@ -137,8 +135,8 @@ class PirateWeather extends utils.Adapter {
             return;
         }
 
-        if (response.status === 200) {
-            const data = (await response.json()) as PirateWeatherTestdata;
+        if (response) {
+            const data = response as PirateWeatherTestdata;
             this.log.debug(`Data fetched successfully: ${JSON.stringify(data)}`);
             if (data.flags) {
                 data.units = data.flags.units;
@@ -205,7 +203,7 @@ class PirateWeather extends utils.Adapter {
             data.lastUpdate = Date.now();
             await this.library.writeFromJson('weather', 'weather', genericStateObjects, data, true);
         } else {
-            throw new Error({ status: response.status, statusText: response.statusText } as any);
+            throw new Error('No data received from Pirate Weather API');
         }
     };
 
@@ -283,14 +281,17 @@ class PirateWeather extends utils.Adapter {
             if (this.getWeatherLoopTimeout) {
                 this.clearTimeout(this.getWeatherLoopTimeout);
             }
-            if (this.controller) {
-                this.controller.abort();
-                this.controller = null;
+            for (const [controller, timeoutId] of this.fetchs.entries()) {
+                try {
+                    if (timeoutId) {
+                        this.clearTimeout(timeoutId);
+                    }
+                    controller.abort();
+                } catch {
+                    // ignore errors during abort/clear
+                }
             }
-            if (this.timeoutId) {
-                this.clearTimeout(this.timeoutId);
-                this.timeoutId = undefined;
-            }
+            this.fetchs.clear();
 
             callback();
         } catch {
@@ -322,30 +323,39 @@ class PirateWeather extends utils.Adapter {
         const index = Math.round((windBearing % 360) / 22.5) % 16;
         return directions[index];
     }
-    async fetch(url: string, init?: RequestInit): Promise<Response> {
-        this.controller = new AbortController();
-        this.timeoutId = this.setTimeout(() => {
-            this.controller && this.controller.abort();
-            this.controller = null;
-        }, 30000); // 30 seconds timeout
+    async fetch(url: string, init?: RequestInit, timeout = 30_000): Promise<unknown> {
+        const controller = new AbortController();
+
+        // 30 seconds timeout
+        const timeoutId = this.setTimeout(() => {
+            // Abort and remove entry to avoid leak
+            try {
+                controller.abort();
+            } catch {
+                // ignore
+            }
+            this.fetchs.delete(controller);
+        }, timeout);
+
+        this.fetchs.set(controller, timeoutId);
 
         try {
             const response = await fetch(url, {
                 ...init,
                 method: init?.method ?? 'GET',
-                signal: this.controller.signal,
+                signal: controller.signal,
             });
-
-            // Clear the timeout since the request completed
-            this.clearTimeout(this.timeoutId);
-            this.timeoutId = undefined;
-            this.controller = null;
-            return response;
-        } catch (error) {
-            this.clearTimeout(this.timeoutId);
-            this.timeoutId = undefined;
-            this.controller = null;
-            throw error;
+            if (response.status === 200) {
+                return await response.json();
+            }
+            throw new Error({ status: response.status, statusText: response.statusText } as any);
+        } finally {
+            // always clear timeout and remove the controller
+            const id = this.fetchs.get(controller);
+            if (typeof id !== 'undefined') {
+                this.clearTimeout(id);
+            }
+            this.fetchs.delete(controller);
         }
     }
 }
