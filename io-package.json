@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.6.2",
+    "version": "0.7.0",
     "news": {
+      "0.7.0": {
+        "en": "Added comprehensive astronomy data to daily forecast: twilight times, day/night length, solar noon, moonrise/moonset, and lunar transit\nAdded human-readable time formats (HH:MM:SS) for duration fields",
+        "de": "Umfassende Astronomiedaten zur Tagesvorhersage hinzugefügt: Dämmerungszeiten, Tages-/Nachtlänge, Sonnenhöchststand, Mondaufgang/-untergang und Mondhöchststand. Lesbare Zeitformate (HH:MM:SS) für Dauerfelder hinzugefügt.",
+        "ru": "Добавлены всесторонние астрономические данные для ежедневного прогноза: время сумерек, длина дня / ночи, солнечный полдень, восход / закат луны и лунный транзит\nДобавлены считываемые человеком форматы времени (HH:MM:SS) для полей длительности",
+        "pt": "Adicionados dados de astronomia abrangentes à previsão diária: crepúsculo, duração do dia/noite, meio-dia solar, nascer da lua/lua e trânsito lunar\nFormatos de tempo legíveis por humanos adicionados (HH:MM:SS) para campos de duração",
+        "nl": "Voegde uitgebreide astronomiegegevens toe aan de dagelijkse voorspelling: schemertijden, dag/nachtlengte, zonmiddag, maanopkomst/maaninstelling en maandoorgang\nToegevoegd menselijk leesbare tijdformaten (HH:MM:SS) voor tijdvelden",
+        "fr": "Ajout de données complètes sur l'astronomie aux prévisions quotidiennes : heures de crépuscule, longueur jour/nuit, midi solaire, lever de lune/lune et transit lunaire\nAjout de formats de temps lisibles par l'homme (HH:MM:SS) pour les champs de durée",
+        "it": "Aggiunti i dati completi di astronomia per le previsioni quotidiane: tempi di crepuscolo, lunghezza giorno/notte, mezzogiorno solare, moonrise/moonset e transito lunare\nAggiunto formati di tempo leggibili dall'uomo (HH:MM:SS) per i campi di durata",
+        "es": "Se agregaron datos completos de astronomía a la previsión diaria: tiempos de vibración, duración del día/noche, mediodía solar, amanecer/moonset y tránsito lunar\nFormatos adicionales de tiempo legibles por humanos (HH:MM:SS) para campos de duración",
+        "pl": "Dodano wyczerpujące dane astronomiczne do dziennej prognozy: czas zmierzchu, długość dnia / nocy, południe słońca, wschód księżyca / motimage, i tranzyt księżycowy\nDodano formaty czasu czytelnego dla człowieka (HH: MM: SS) dla pól czasu trwania",
+        "uk": "Додано комплексні астрономічні дані до щоденного прогнозування: час цвітіння, тривалість дня / ніч, сонячний ноон, місячний / місячний транзит\nДодано формати часу людини (HH:MM:SSS) для тривалих полів",
+        "zh-cn": "将综合天文学数据添加到每日预报中:暮光时间、日/夜长度、日午、月亮升起/月球集和月球中转\n为持续时间域添加了人类可读时间格式(HH:MM:SS)"
+      },
       "0.6.2": {
         "en": "more robust fetch usage",
         "de": "robuster einsatz von fetch",
@@ -80,19 +93,6 @@
         "pl": "W systemie jednostek CA, akumulacja jest obecnie wyjściowa w mm.\nUżyj wersji api 2",
         "uk": "В Системі КС тепер виводиться калькумуляцію в мм.\nВикористання api версії 2",
         "zh-cn": "在单位的CA系统中,预积现在以毫米输出.\n使用 api 版本 2"
-      },
-      "0.3.0": {
-        "en": "update deps - inital latest release\nincrease delay by 1.5 seconds",
-        "de": "update deps - inital neueste veröffentlichung\nverzögerung um 1,5 sekunden erhöhen",
-        "ru": "update deps - оригинальная версия\nувеличение задержки на 1,5 секунды",
-        "pt": "update deps - versão mais recente inicial\naumentar o atraso em 1,5 segundos",
-        "nl": "update deps - inital nieuwste release\nvertraging met 1,5 seconden verhogen",
-        "fr": "update deps - inital dernière version\naugmenter le délai de 1,5 secondes",
-        "it": "aggiornamento deps - versione inital\naumentare il ritardo di 1,5 secondi",
-        "es": "deps de actualización - inital última versión\naumentar el retraso en 1,5 segundos",
-        "pl": "update deps - nieaktualne wydanie\nzwiększyć opóźnienie o 1,5 sekundy",
-        "uk": "оновлення deps - inital останнє реліз\nзбільшити затримку на 1.5 секунд",
-        "zh-cn": "更新道普 - 初始最新发布\n将延迟增加1.5秒"
       }
     },
     "titleLang": {
