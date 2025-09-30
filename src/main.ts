@@ -8,6 +8,7 @@ import * as utils from '@iobroker/adapter-core';
 import 'source-map-support/register';
 import { Library } from './lib/library';
 import { genericStateObjects, setUnits, type PirateWeatherTestdata } from './lib/definition';
+import { calculateAstronomyData } from './lib/astronomy';
 
 class PirateWeather extends utils.Adapter {
     library: Library;
@@ -190,6 +191,27 @@ class PirateWeather extends utils.Adapter {
                             d[a].windGustTime = d[a].windGustTime * 1000; // Convert to milliseconds
                             d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1000; // Convert to milliseconds
                             d[a].uvIndexTime = d[a].uvIndexTime * 1000;
+
+                            // Calculate astronomy data using suncalc
+                            const [lat, lon] = this.config.position.split(',').map(parseFloat);
+                            const dayDate = new Date(d[a].time);
+                            const astronomy = calculateAstronomyData(dayDate, lat, lon);
+
+                            d[a].civilDawn = astronomy.civilDawn;
+                            d[a].civilDusk = astronomy.civilDusk;
+                            d[a].nauticalDawn = astronomy.nauticalDawn;
+                            d[a].nauticalDusk = astronomy.nauticalDusk;
+                            d[a].astronomicalDawn = astronomy.astronomicalDawn;
+                            d[a].astronomicalDusk = astronomy.astronomicalDusk;
+                            d[a].dayLength = astronomy.dayLength;
+                            d[a].solarNoon = astronomy.solarNoon;
+                            if (astronomy.moonrise !== null) {
+                                d[a].moonrise = astronomy.moonrise;
+                            }
+                            if (astronomy.moonset !== null) {
+                                d[a].moonset = astronomy.moonset;
+                            }
+                            d[a].lunarTransit = astronomy.lunarTransit;
                         }
                         d[a].iconUrl = this.getIconUrl(d[a].icon);
                         d[a].time = d[a].time * 1000; // Convert to milliseconds

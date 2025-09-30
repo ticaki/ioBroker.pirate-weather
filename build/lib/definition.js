@@ -888,6 +888,139 @@ const genericStateObjects = {
           write: false
         },
         native: {}
+      },
+      civilDawn: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Civil Dawn Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      civilDusk: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Civil Dusk Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      nauticalDawn: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Nautical Dawn Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      nauticalDusk: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Nautical Dusk Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      astronomicalDawn: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Astronomical Dawn Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      astronomicalDusk: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Astronomical Dusk Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      dayLength: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Day Length in Milliseconds",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false,
+          unit: "ms"
+        },
+        native: {}
+      },
+      solarNoon: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Solar Noon Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      moonrise: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Moonrise Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      moonset: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Moonset Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
+      lunarTransit: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Lunar Transit Time in Milliseconds",
+          type: "number",
+          role: "date",
+          read: true,
+          write: false
+        },
+        native: {}
       }
     },
     minutely: {
