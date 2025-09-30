@@ -30,8 +30,10 @@ Icons: from icebear (free to use)
 - (ticaki) Added astronomy data to daily weather overview using SunCalc library
 - (ticaki) Added civil, nautical, and astronomical twilight times (dawn/dusk)
 - (ticaki) Added day length calculation
+- (ticaki) Added night length calculation
 - (ticaki) Added solar noon (sun highest point)
 - (ticaki) Added moonrise and moonset times
+- (ticaki) Added moon visible duration calculation
 - (ticaki) Added lunar transit (moon highest point) calculation using Brent's method
 
 ### 0.6.2 (2025-09-27)

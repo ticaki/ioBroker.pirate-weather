@@ -1042,6 +1042,32 @@ export const genericStateObjects: {
                 },
                 native: {},
             },
+            nightLength: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Night Length in Milliseconds',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'ms',
+                },
+                native: {},
+            },
+            moonVisibleDuration: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Moon Visible Duration in Milliseconds',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'ms',
+                },
+                native: {},
+            },
         },
         minutely: {
             ...MetaData,
@@ -1412,9 +1438,11 @@ export type DailyData = WindData &
         astronomicalDawn?: number;
         astronomicalDusk?: number;
         dayLength?: number;
+        nightLength?: number;
         solarNoon?: number;
         moonrise?: number;
         moonset?: number;
+        moonVisibleDuration?: number;
         lunarTransit?: number;
     };
 type MetaData = {

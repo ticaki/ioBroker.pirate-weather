@@ -1021,6 +1021,32 @@ const genericStateObjects = {
           write: false
         },
         native: {}
+      },
+      nightLength: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Night Length in Milliseconds",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false,
+          unit: "ms"
+        },
+        native: {}
+      },
+      moonVisibleDuration: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Moon Visible Duration in Milliseconds",
+          type: "number",
+          role: "value",
+          read: true,
+          write: false,
+          unit: "ms"
+        },
+        native: {}
       }
     },
     minutely: {

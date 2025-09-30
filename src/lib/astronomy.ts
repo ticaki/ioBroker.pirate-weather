@@ -20,9 +20,11 @@ export function calculateAstronomyData(
     astronomicalDawn: number;
     astronomicalDusk: number;
     dayLength: number;
+    nightLength: number;
     solarNoon: number;
     moonrise: number | null;
     moonset: number | null;
+    moonVisibleDuration: number | null;
     lunarTransit: number;
 } {
     // Get sun times for the day
@@ -31,6 +33,31 @@ export function calculateAstronomyData(
 
     // Calculate day length (from sunrise to sunset)
     const dayLength = sunTimes.sunset.getTime() - sunTimes.sunrise.getTime();
+
+    // Calculate night length (from sunset to next sunrise)
+    // We need to get the next day's sunrise
+    const nextDay = new Date(date);
+    nextDay.setDate(nextDay.getDate() + 1);
+    const nextSunTimes = SunCalc.getTimes(nextDay, latitude, longitude);
+    const nightLength = nextSunTimes.sunrise.getTime() - sunTimes.sunset.getTime();
+
+    // Calculate moon visible duration (from moonrise to moonset)
+    let moonVisibleDuration: number | null = null;
+    if (moonTimes.rise && moonTimes.set) {
+        // Check if moonset is after moonrise
+        if (moonTimes.set.getTime() > moonTimes.rise.getTime()) {
+            moonVisibleDuration = moonTimes.set.getTime() - moonTimes.rise.getTime();
+        } else {
+            // Moonset is before moonrise, so moon is visible from moonrise to end of day
+            // and from start of day to moonset - calculate total duration
+            const endOfDay = new Date(date);
+            endOfDay.setHours(23, 59, 59, 999);
+            const startOfDay = new Date(date);
+            startOfDay.setHours(0, 0, 0, 0);
+            moonVisibleDuration =
+                endOfDay.getTime() - moonTimes.rise.getTime() + (moonTimes.set.getTime() - startOfDay.getTime());
+        }
+    }
 
     // Calculate lunar transit (highest point of the moon)
     const lunarTransit = calculateLunarTransit(date, latitude, longitude);
@@ -43,9 +70,11 @@ export function calculateAstronomyData(
         astronomicalDawn: sunTimes.nightEnd.getTime(),
         astronomicalDusk: sunTimes.night.getTime(),
         dayLength,
+        nightLength,
         solarNoon: sunTimes.solarNoon.getTime(),
         moonrise: moonTimes.rise ? moonTimes.rise.getTime() : null,
         moonset: moonTimes.set ? moonTimes.set.getTime() : null,
+        moonVisibleDuration,
         lunarTransit,
     };
 }

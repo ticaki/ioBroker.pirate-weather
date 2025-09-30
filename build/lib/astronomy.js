@@ -36,6 +36,22 @@ function calculateAstronomyData(date, latitude, longitude) {
   const sunTimes = SunCalc.getTimes(date, latitude, longitude);
   const moonTimes = SunCalc.getMoonTimes(date, latitude, longitude);
   const dayLength = sunTimes.sunset.getTime() - sunTimes.sunrise.getTime();
+  const nextDay = new Date(date);
+  nextDay.setDate(nextDay.getDate() + 1);
+  const nextSunTimes = SunCalc.getTimes(nextDay, latitude, longitude);
+  const nightLength = nextSunTimes.sunrise.getTime() - sunTimes.sunset.getTime();
+  let moonVisibleDuration = null;
+  if (moonTimes.rise && moonTimes.set) {
+    if (moonTimes.set.getTime() > moonTimes.rise.getTime()) {
+      moonVisibleDuration = moonTimes.set.getTime() - moonTimes.rise.getTime();
+    } else {
+      const endOfDay = new Date(date);
+      endOfDay.setHours(23, 59, 59, 999);
+      const startOfDay = new Date(date);
+      startOfDay.setHours(0, 0, 0, 0);
+      moonVisibleDuration = endOfDay.getTime() - moonTimes.rise.getTime() + (moonTimes.set.getTime() - startOfDay.getTime());
+    }
+  }
   const lunarTransit = calculateLunarTransit(date, latitude, longitude);
   return {
     civilDawn: sunTimes.dawn.getTime(),
@@ -45,9 +61,11 @@ function calculateAstronomyData(date, latitude, longitude) {
     astronomicalDawn: sunTimes.nightEnd.getTime(),
     astronomicalDusk: sunTimes.night.getTime(),
     dayLength,
+    nightLength,
     solarNoon: sunTimes.solarNoon.getTime(),
     moonrise: moonTimes.rise ? moonTimes.rise.getTime() : null,
     moonset: moonTimes.set ? moonTimes.set.getTime() : null,
+    moonVisibleDuration,
     lunarTransit
   };
 }
