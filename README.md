@@ -35,6 +35,7 @@ Icons: from icebear (free to use)
 - (ticaki) Added moonrise and moonset times
 - (ticaki) Added moon visible duration calculation
 - (ticaki) Added lunar transit (moon highest point) calculation using Brent's method
+- (ticaki) Added human-readable formatted duration fields (HH:MM:SS) for day length, night length, and moon visible duration
 
 ### 0.6.2 (2025-09-27)
 - (ticaki) more robust fetch usage

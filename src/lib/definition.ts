@@ -994,6 +994,18 @@ export const genericStateObjects: {
                 },
                 native: {},
             },
+            dayLengthFormatted: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Day Length Formatted',
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
             solarNoon: {
                 _id: '',
                 type: 'state',
@@ -1055,6 +1067,18 @@ export const genericStateObjects: {
                 },
                 native: {},
             },
+            nightLengthFormatted: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Night Length Formatted',
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
             moonVisibleDuration: {
                 _id: '',
                 type: 'state',
@@ -1065,6 +1089,18 @@ export const genericStateObjects: {
                     read: true,
                     write: false,
                     unit: 'ms',
+                },
+                native: {},
+            },
+            moonVisibleDurationFormatted: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Moon Visible Duration Formatted',
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
                 },
                 native: {},
             },
@@ -1438,11 +1474,14 @@ export type DailyData = WindData &
         astronomicalDawn?: number;
         astronomicalDusk?: number;
         dayLength?: number;
+        dayLengthFormatted?: string;
         nightLength?: number;
+        nightLengthFormatted?: string;
         solarNoon?: number;
         moonrise?: number;
         moonset?: number;
         moonVisibleDuration?: number;
+        moonVisibleDurationFormatted?: string;
         lunarTransit?: number;
     };
 type MetaData = {

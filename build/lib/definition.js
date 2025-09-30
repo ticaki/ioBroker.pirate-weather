@@ -974,6 +974,18 @@ const genericStateObjects = {
         },
         native: {}
       },
+      dayLengthFormatted: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Day Length Formatted",
+          type: "string",
+          role: "text",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
       solarNoon: {
         _id: "",
         type: "state",
@@ -1035,6 +1047,18 @@ const genericStateObjects = {
         },
         native: {}
       },
+      nightLengthFormatted: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Night Length Formatted",
+          type: "string",
+          role: "text",
+          read: true,
+          write: false
+        },
+        native: {}
+      },
       moonVisibleDuration: {
         _id: "",
         type: "state",
@@ -1045,6 +1069,18 @@ const genericStateObjects = {
           read: true,
           write: false,
           unit: "ms"
+        },
+        native: {}
+      },
+      moonVisibleDurationFormatted: {
+        _id: "",
+        type: "state",
+        common: {
+          name: "Moon Visible Duration Formatted",
+          type: "string",
+          role: "text",
+          read: true,
+          write: false
         },
         native: {}
       }

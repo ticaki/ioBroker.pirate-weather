@@ -28,10 +28,18 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var astronomy_exports = {};
 __export(astronomy_exports, {
-  calculateAstronomyData: () => calculateAstronomyData
+  calculateAstronomyData: () => calculateAstronomyData,
+  formatDuration: () => formatDuration
 });
 module.exports = __toCommonJS(astronomy_exports);
 var SunCalc = __toESM(require("suncalc"));
+function formatDuration(milliseconds) {
+  const totalSeconds = Math.round(milliseconds / 1e3);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor(totalSeconds % 3600 / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
 function calculateAstronomyData(date, latitude, longitude) {
   const sunTimes = SunCalc.getTimes(date, latitude, longitude);
   const moonTimes = SunCalc.getMoonTimes(date, latitude, longitude);
@@ -61,11 +69,14 @@ function calculateAstronomyData(date, latitude, longitude) {
     astronomicalDawn: sunTimes.nightEnd.getTime(),
     astronomicalDusk: sunTimes.night.getTime(),
     dayLength,
+    dayLengthFormatted: formatDuration(dayLength),
     nightLength,
+    nightLengthFormatted: formatDuration(nightLength),
     solarNoon: sunTimes.solarNoon.getTime(),
     moonrise: moonTimes.rise ? moonTimes.rise.getTime() : null,
     moonset: moonTimes.set ? moonTimes.set.getTime() : null,
     moonVisibleDuration,
+    moonVisibleDurationFormatted: moonVisibleDuration !== null ? formatDuration(moonVisibleDuration) : null,
     lunarTransit
   };
 }
@@ -100,6 +111,7 @@ function calculateLunarTransit(date, latitude, longitude) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  calculateAstronomyData
+  calculateAstronomyData,
+  formatDuration
 });
 //# sourceMappingURL=astronomy.js.map

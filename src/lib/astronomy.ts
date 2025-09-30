@@ -1,6 +1,21 @@
 import * as SunCalc from 'suncalc';
 
 /**
+ * Convert milliseconds to human-readable format HH:MM:SS
+ *
+ * @param milliseconds Duration in milliseconds
+ * @returns Formatted string in HH:MM:SS format
+ */
+export function formatDuration(milliseconds: number): string {
+    const totalSeconds = Math.round(milliseconds / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+/**
  * Calculate astronomy data for a given date and location
  *
  * @param date The date for which to calculate astronomy data
@@ -20,11 +35,14 @@ export function calculateAstronomyData(
     astronomicalDawn: number;
     astronomicalDusk: number;
     dayLength: number;
+    dayLengthFormatted: string;
     nightLength: number;
+    nightLengthFormatted: string;
     solarNoon: number;
     moonrise: number | null;
     moonset: number | null;
     moonVisibleDuration: number | null;
+    moonVisibleDurationFormatted: string | null;
     lunarTransit: number;
 } {
     // Get sun times for the day
@@ -70,11 +88,14 @@ export function calculateAstronomyData(
         astronomicalDawn: sunTimes.nightEnd.getTime(),
         astronomicalDusk: sunTimes.night.getTime(),
         dayLength,
+        dayLengthFormatted: formatDuration(dayLength),
         nightLength,
+        nightLengthFormatted: formatDuration(nightLength),
         solarNoon: sunTimes.solarNoon.getTime(),
         moonrise: moonTimes.rise ? moonTimes.rise.getTime() : null,
         moonset: moonTimes.set ? moonTimes.set.getTime() : null,
         moonVisibleDuration,
+        moonVisibleDurationFormatted: moonVisibleDuration !== null ? formatDuration(moonVisibleDuration) : null,
         lunarTransit,
     };
 }

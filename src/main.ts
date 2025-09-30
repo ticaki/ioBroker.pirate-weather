@@ -204,7 +204,9 @@ class PirateWeather extends utils.Adapter {
                             d[a].astronomicalDawn = astronomy.astronomicalDawn;
                             d[a].astronomicalDusk = astronomy.astronomicalDusk;
                             d[a].dayLength = astronomy.dayLength;
+                            d[a].dayLengthFormatted = astronomy.dayLengthFormatted;
                             d[a].nightLength = astronomy.nightLength;
+                            d[a].nightLengthFormatted = astronomy.nightLengthFormatted;
                             d[a].solarNoon = astronomy.solarNoon;
                             if (astronomy.moonrise !== null) {
                                 d[a].moonrise = astronomy.moonrise;
@@ -214,6 +216,9 @@ class PirateWeather extends utils.Adapter {
                             }
                             if (astronomy.moonVisibleDuration !== null) {
                                 d[a].moonVisibleDuration = astronomy.moonVisibleDuration;
+                            }
+                            if (astronomy.moonVisibleDurationFormatted !== null) {
+                                d[a].moonVisibleDurationFormatted = astronomy.moonVisibleDurationFormatted;
                             }
                             d[a].lunarTransit = astronomy.lunarTransit;
                         }
