@@ -27,15 +27,8 @@ Icons: from icebear (free to use)
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-- (ticaki) Added astronomy data to daily weather overview using SunCalc library
-- (ticaki) Added civil, nautical, and astronomical twilight times (dawn/dusk)
-- (ticaki) Added day length calculation
-- (ticaki) Added night length calculation
-- (ticaki) Added solar noon (sun highest point)
-- (ticaki) Added moonrise and moonset times
-- (ticaki) Added moon visible duration calculation
-- (ticaki) Added lunar transit (moon highest point) calculation using Brent's method
-- (ticaki) Added human-readable formatted duration fields (HH:MM:SS) for day length, night length, and moon visible duration
+- (ticaki) Added comprehensive astronomy data to daily forecast: twilight times, day/night length, solar noon, moonrise/moonset, and lunar transit
+- (ticaki) Added human-readable time formats (HH:MM:SS) for duration fields
 
 ### 0.6.2 (2025-09-27)
 - (ticaki) more robust fetch usage
