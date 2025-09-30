@@ -194,7 +194,8 @@ class PirateWeather extends utils.Adapter {
 
                             // Calculate astronomy data using suncalc
                             const [lat, lon] = this.config.position.split(',').map(parseFloat);
-                            const dayDate = new Date(d[a].time);
+                            // API provides time in seconds, convert to milliseconds for Date
+                            const dayDate = new Date(d[a].time * 1000);
                             const astronomy = calculateAstronomyData(dayDate, lat, lon);
 
                             d[a].civilDawn = astronomy.civilDawn;
