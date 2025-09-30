@@ -1026,7 +1026,7 @@ const genericStateObjects = {
         _id: "",
         type: "state",
         common: {
-          name: "Lunar Transit Time in Milliseconds",
+          name: "Lunar Transit Time",
           type: "number",
           role: "date",
           read: true,

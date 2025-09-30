@@ -182,7 +182,7 @@ class PirateWeather extends utils.Adapter {
               d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
               d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
               const [lat, lon] = this.config.position.split(",").map(parseFloat);
-              const dayDate = new Date(d[a].time * 1e3);
+              const dayDate = new Date(d[a].time * 1e3 + 12 * 60 * 60 * 1e3);
               const astronomy = (0, import_astronomy.calculateAstronomyData)(dayDate, lat, lon);
               d[a].civilDawn = astronomy.civilDawn;
               d[a].civilDusk = astronomy.civilDusk;
