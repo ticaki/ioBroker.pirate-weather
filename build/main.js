@@ -116,9 +116,6 @@ class PirateWeather extends utils.Adapter {
           if (error.statusText) {
             errorDetails.push(`  Status Text: ${error.statusText}`);
           }
-          if (error.url) {
-            errorDetails.push(`  URL: ${error.url}`);
-          }
         } else if (typeof error === "object" && error !== null) {
           errorDetails.push(`  Type: ${((_a = error.constructor) == null ? void 0 : _a.name) || "Object"}`);
           if (error.status) {
