@@ -106,17 +106,6 @@ class PirateWeather extends utils.Adapter {
                     if (error.stack && !isHttpError) {
                         errorDetails.push(`  Stack: ${error.stack}`);
                     }
-
-                    // HTTP-spezifische Infos
-                    if ((error as any).status) {
-                        errorDetails.push(`  HTTP Status: ${(error as any).status}`);
-                    }
-                    if ((error as any).statusText) {
-                        errorDetails.push(`  Status Text: ${(error as any).statusText}`);
-                    }
-                    /*if ((error as any).url) {
-                        errorDetails.push(`  URL: ${(error as any).url}`);
-                    }*/
                 } else if (typeof error === 'object' && error !== null) {
                     errorDetails.push(`  Type: ${error.constructor?.name || 'Object'}`);
                     if (error.status) {
