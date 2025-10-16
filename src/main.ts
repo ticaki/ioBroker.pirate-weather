@@ -93,7 +93,47 @@ class PirateWeather extends utils.Adapter {
             this.online = true;
         } catch (error: any) {
             if (error.name !== 'AbortError') {
-                this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
+                // Detailed error logging
+                const errorDetails: string[] = [];
+                errorDetails.push(`Error in getPirateWeatherLoop:`);
+
+                if (error instanceof Error) {
+                    errorDetails.push(`  Name: ${error.name}`);
+                    errorDetails.push(`  Message: ${error.message}`);
+
+                    // Nur Stack-Trace bei Code-Fehlern ausgeben, nicht bei HTTP-Fehlern
+                    const isHttpError = error.message.includes('HTTP') || (error as any).status || (error as any).url;
+                    if (error.stack && !isHttpError) {
+                        errorDetails.push(`  Stack: ${error.stack}`);
+                    }
+
+                    // HTTP-spezifische Infos
+                    if ((error as any).status) {
+                        errorDetails.push(`  HTTP Status: ${(error as any).status}`);
+                    }
+                    if ((error as any).statusText) {
+                        errorDetails.push(`  Status Text: ${(error as any).statusText}`);
+                    }
+                    if ((error as any).url) {
+                        errorDetails.push(`  URL: ${(error as any).url}`);
+                    }
+                } else if (typeof error === 'object' && error !== null) {
+                    errorDetails.push(`  Type: ${error.constructor?.name || 'Object'}`);
+                    if (error.status) {
+                        errorDetails.push(`  HTTP Status: ${error.status}`);
+                    }
+                    if (error.statusText) {
+                        errorDetails.push(`  Status Text: ${error.statusText}`);
+                    }
+                    if (error.code) {
+                        errorDetails.push(`  Error Code: ${error.code}`);
+                    }
+                    errorDetails.push(`  Full Error: ${JSON.stringify(error, null, 2)}`);
+                } else {
+                    errorDetails.push(`  Raw Error: ${String(error)}`);
+                }
+
+                this.log.error(errorDetails.join('\n'));
             }
             await this.setState('info.connection', false, true);
             if (this.online !== false) {
@@ -381,14 +421,39 @@ class PirateWeather extends utils.Adapter {
             if (response.status === 200) {
                 return await response.json();
             }
-            throw new Error({ status: response.status, statusText: response.statusText } as any);
-        } finally {
+            const error = new Error(`HTTP ${response.status}: ${response.statusText || 'Request failed'}`) as Error & {
+                status: number;
+                statusText: string;
+                url: string;
+            };
+            error.status = response.status;
+            error.statusText = response.statusText;
+            error.url = url;
+            throw error;
+        } catch (error: any) {
             // always clear timeout and remove the controller
             const id = this.fetchs.get(controller);
             if (typeof id !== 'undefined') {
                 this.clearTimeout(id);
             }
             this.fetchs.delete(controller);
+
+            // Re-throw with more context if it's not already enhanced
+            if (error.name === 'AbortError') {
+                throw error;
+            }
+            if (!error.url) {
+                const enhancedError = new Error(
+                    `Fetch failed for ${url}: ${error.message || String(error)}`,
+                ) as Error & {
+                    originalError: any;
+                    url: string;
+                };
+                enhancedError.originalError = error;
+                enhancedError.url = url;
+                throw enhancedError;
+            }
+            throw error;
         }
     }
 }

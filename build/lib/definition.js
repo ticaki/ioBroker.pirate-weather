@@ -72,7 +72,7 @@ const TemperatureData = {
     common: {
       name: "Apparent Temperature",
       type: "number",
-      role: "value.temperature",
+      role: "value.temperature.feelslike",
       read: true,
       write: false,
       unit: "\xB0C"
@@ -85,7 +85,7 @@ const TemperatureData = {
     common: {
       name: "Dew Point",
       type: "number",
-      role: "value.temperature",
+      role: "value.temperature.dewpoint",
       read: true,
       write: false,
       unit: "\xB0C"
@@ -639,7 +639,7 @@ const genericStateObjects = {
         common: {
           name: "High Apparent Temperature",
           type: "number",
-          role: "value.temperature.max",
+          role: "value.temperature.feelslike.max",
           read: true,
           write: false,
           unit: "\xB0C"
@@ -664,7 +664,7 @@ const genericStateObjects = {
         common: {
           name: "Low Apparent Temperature",
           type: "number",
-          role: "value.temperature.min",
+          role: "value.temperature.feelslike.min",
           read: true,
           write: false,
           unit: "\xB0C"
@@ -770,7 +770,7 @@ const genericStateObjects = {
         common: {
           name: "Minimum Apparent Temperature",
           type: "number",
-          role: "value.temperature.min",
+          role: "value.temperature.feelslike.min",
           read: true,
           write: false,
           unit: "\xB0C"
@@ -795,7 +795,7 @@ const genericStateObjects = {
         common: {
           name: "Maximum Apparent Temperature",
           type: "number",
-          role: "value.temperature.max",
+          role: "value.temperature.feelslike.max",
           read: true,
           write: false,
           unit: "\xB0C"

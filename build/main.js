@@ -87,6 +87,7 @@ class PirateWeather extends utils.Adapter {
     );
   }
   getPirateWeatherLoop = async () => {
+    var _a;
     let errorState = false;
     try {
       if (this.getWeatherLoopTimeout) {
@@ -100,7 +101,40 @@ class PirateWeather extends utils.Adapter {
       this.online = true;
     } catch (error) {
       if (error.name !== "AbortError") {
-        this.log.error(`Error in getPirateWeatherLoop: ${JSON.stringify(error)}`);
+        const errorDetails = [];
+        errorDetails.push(`Error in getPirateWeatherLoop:`);
+        if (error instanceof Error) {
+          errorDetails.push(`  Name: ${error.name}`);
+          errorDetails.push(`  Message: ${error.message}`);
+          const isHttpError = error.message.includes("HTTP") || error.status || error.url;
+          if (error.stack && !isHttpError) {
+            errorDetails.push(`  Stack: ${error.stack}`);
+          }
+          if (error.status) {
+            errorDetails.push(`  HTTP Status: ${error.status}`);
+          }
+          if (error.statusText) {
+            errorDetails.push(`  Status Text: ${error.statusText}`);
+          }
+          if (error.url) {
+            errorDetails.push(`  URL: ${error.url}`);
+          }
+        } else if (typeof error === "object" && error !== null) {
+          errorDetails.push(`  Type: ${((_a = error.constructor) == null ? void 0 : _a.name) || "Object"}`);
+          if (error.status) {
+            errorDetails.push(`  HTTP Status: ${error.status}`);
+          }
+          if (error.statusText) {
+            errorDetails.push(`  Status Text: ${error.statusText}`);
+          }
+          if (error.code) {
+            errorDetails.push(`  Error Code: ${error.code}`);
+          }
+          errorDetails.push(`  Full Error: ${JSON.stringify(error, null, 2)}`);
+        } else {
+          errorDetails.push(`  Raw Error: ${String(error)}`);
+        }
+        this.log.error(errorDetails.join("\n"));
       }
       await this.setState("info.connection", false, true);
       if (this.online !== false) {
@@ -354,13 +388,29 @@ class PirateWeather extends utils.Adapter {
       if (response.status === 200) {
         return await response.json();
       }
-      throw new Error({ status: response.status, statusText: response.statusText });
-    } finally {
+      const error = new Error(`HTTP ${response.status}: ${response.statusText || "Request failed"}`);
+      error.status = response.status;
+      error.statusText = response.statusText;
+      error.url = url;
+      throw error;
+    } catch (error) {
       const id = this.fetchs.get(controller);
       if (typeof id !== "undefined") {
         this.clearTimeout(id);
       }
       this.fetchs.delete(controller);
+      if (error.name === "AbortError") {
+        throw error;
+      }
+      if (!error.url) {
+        const enhancedError = new Error(
+          `Fetch failed for ${url}: ${error.message || String(error)}`
+        );
+        enhancedError.originalError = error;
+        enhancedError.url = url;
+        throw enhancedError;
+      }
+      throw error;
     }
   }
 }
