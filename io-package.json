@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "news": {
+      "0.7.1": {
+        "en": "Improved error logging",
+        "de": "Verbesserte Fehlermeldung",
+        "ru": "Улучшенная регистрация ошибок",
+        "pt": "Registo de erros melhorado",
+        "nl": "Verbeterde fout logging",
+        "fr": "Amélioration de l'enregistrement des erreurs",
+        "it": "Registrazione degli errori migliorata",
+        "es": "Registro de errores mejorado",
+        "pl": "Ulepszone rejestrowanie błędów",
+        "uk": "Покращувати журнал помилок",
+        "zh-cn": "改进错误记录"
+      },
       "0.7.0": {
         "en": "Added comprehensive astronomy data to daily forecast: twilight times, day/night length, solar noon, moonrise/moonset, and lunar transit\nAdded human-readable time formats (HH:MM:SS) for duration fields",
         "de": "Umfassende Astronomiedaten zur Tagesvorhersage hinzugefügt: Dämmerungszeiten, Tages-/Nachtlänge, Sonnenhöchststand, Mondaufgang/-untergang und Mondhöchststand. Lesbare Zeitformate (HH:MM:SS) für Dauerfelder hinzugefügt.",
@@ -80,19 +93,6 @@
         "pl": "Wilgotność jest teraz poprawnie wyświetlana w procentach.\nTekst kierunku wiatru jest teraz tłumaczony na język systemowy ioBroker.",
         "uk": "Вологість тепер правильно відображається у відсотках.\nТекст напрямку вітру тепер перекладено мовою системи ioBroker.",
         "zh-cn": "湿度现在正确显示为百分比。\n风向文本现在已翻译为 ioBroker 系统语言。"
-      },
-      "0.4.0": {
-        "en": "In the CA system of units, precipAccumulation is now output in mm.\nUse api version 2",
-        "de": "Im CA-System von Einheiten wird die FällungKumulation nun in mm ausgegeben.\nVerwenden Sie api Version 2",
-        "ru": "В системе единиц CA преципНакопление теперь выводится в мм.\nИспользование Api версии 2",
-        "pt": "No sistema CA de unidades, precipAcumulação agora é saída em mm.\nUsar api versão 2",
-        "nl": "In het CA systeem van eenheden, precipAccumulatie wordt nu output in mm.\nGebruik api versie 2",
-        "fr": "Dans le système d'unités CA, precipAccumulation est maintenant sortie en mm.\nUtiliser la version api 2",
-        "it": "Nel sistema CA delle unità, la precipAccumulation è ora in uscita in mm.\nUtilizzare la versione 2",
-        "es": "En el sistema CA de unidades, precipAccumulation es ahora la salida en mm.\nUsar la versión 2",
-        "pl": "W systemie jednostek CA, akumulacja jest obecnie wyjściowa w mm.\nUżyj wersji api 2",
-        "uk": "В Системі КС тепер виводиться калькумуляцію в мм.\nВикористання api версії 2",
-        "zh-cn": "在单位的CA系统中,预积现在以毫米输出.\n使用 api 版本 2"
       }
     },
     "titleLang": {
