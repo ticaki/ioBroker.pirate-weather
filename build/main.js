@@ -155,7 +155,7 @@ class PirateWeather extends utils.Adapter {
     }
   };
   getData = async () => {
-    const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}`;
+    const url = `https://dev.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}&include=day_night_forecast`;
     const response = await this.fetch(url);
     if (this.unload) {
       return;
