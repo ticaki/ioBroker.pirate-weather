@@ -67,6 +67,9 @@ class PirateWeather extends utils.Adapter {
             this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
             this.config.hours = 24; // Default to 24 hours if invalid
         }
+        if (this.config.dayNightEnabled !== true) {
+            this.delObject('weather.day_night', { recursive: true });
+        }
         this.lang = this.language ? this.language.split('-')[0] : 'en';
         setUnits(this.config.units);
         await this.library.init();
@@ -157,7 +160,7 @@ class PirateWeather extends utils.Adapter {
     getData = async (): Promise<void> => {
         const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || 'si'}&icon=pirate&version=2&lang=${this.lang}${
             !this.config.minutes ? '&exclude=minutely' : ''
-        }`;
+        }${this.config.dayNightEnabled ? `&include=day_night_forecast` : ``}`;
 
         const response = await this.fetch(url);
 
@@ -205,7 +208,7 @@ class PirateWeather extends utils.Adapter {
                                     : d[a].liquidAccumulation;
                             }
                         }
-                        if (d === data.daily.data) {
+                        if (d === data.daily.data || d === data.day_night?.data) {
                             d[a].moonPhase = Math.round(d[a].moonPhase * 100);
                             d[a].sunriseTime = d[a].sunriseTime * 1000; // Convert to milliseconds
                             d[a].sunsetTime = d[a].sunsetTime * 1000; // Convert to milliseconds
@@ -220,6 +223,11 @@ class PirateWeather extends utils.Adapter {
                             d[a].windGustTime = d[a].windGustTime * 1000; // Convert to milliseconds
                             d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1000; // Convert to milliseconds
                             d[a].uvIndexTime = d[a].uvIndexTime * 1000;
+                            d[a].rainIntensityMax = d[a].rainIntensityMax * 1000;
+                            d[a].snowIntensityMax = d[a].snowIntensityMax * 1000;
+                            d[a].iceIntensityMax = d[a].iceIntensityMax * 1000;
+                            d[a].capeMaxTime = d[a].capeMaxTime * 1000;
+                            d[a].solarMaxTime = d[a].solarMaxTime * 1000;
 
                             // Calculate astronomy data using suncalc
                             const [lat, lon] = this.config.position.split(',').map(parseFloat);
@@ -306,6 +314,9 @@ class PirateWeather extends utils.Adapter {
             'possible-smoke-night',
             'possible-snow-day',
             'possible-snow-night',
+            'haze-day',
+            'haze-night',
+            'haze',
         ]);
         // Mapping für Aliase auf Basis-Icons
         const aliasMap: Record<string, string> = {
