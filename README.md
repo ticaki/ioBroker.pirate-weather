@@ -28,7 +28,7 @@ Icons: from icebear (free to use)
 -->
 ### **WORK IN PROGRESS**
 - (ticaki) added day_night
-- (ticaki) added haze icon
+- (ticaki) added haze icon fixes #18
 
 ### 0.7.1 (2025-10-16)
 - (ticaki) Improved error logging
