@@ -12,6 +12,7 @@ declare global {
             "pollingInMinutes": boolean,
             "pollIntervalMinutes": number,
             "units": "si" | "us" | "ca" | "uk";
+            dayNightEnabled: boolean;
         }
     }
 }

@@ -216,6 +216,32 @@ const PressureVisibilityOzoneData: ChangeTypeOfKeysForState<PressureVisibilityOz
         },
         native: {},
     },
+    solar: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Solar Radiation',
+            type: 'number',
+            role: 'value',
+            read: true,
+            write: false,
+            unit: 'W/m²',
+        },
+        native: {},
+    },
+    cape: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'CAPE',
+            type: 'number',
+            role: 'value',
+            read: true,
+            write: false,
+            unit: 'J/kg',
+        },
+        native: {},
+    },
 };
 const CloudUvData: ChangeTypeOfKeysForState<CloudUvData, ioBroker.StateObject> = {
     cloudCover: {
@@ -399,6 +425,84 @@ const PrecipitationData: ChangeTypeOfKeysForState<PrecipitationData, ioBroker.St
         },
         native: {},
     },
+    rainIntensity: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Rain Intensity',
+            type: 'number',
+            role: 'value',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
+    snowIntensity: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Snow Intensity',
+            type: 'number',
+            role: 'value',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
+    iceIntensity: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Ice Intensity',
+            type: 'number',
+            role: 'value',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
+    rainIntensityMax: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Rain Intensity Max',
+            type: 'number',
+            role: 'date',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
+    snowIntensityMax: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Snow Intensity Max',
+            type: 'number',
+            role: 'date',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
+    iceIntensityMax: {
+        _id: '',
+        type: 'state',
+        common: {
+            name: 'Ice Intensity Max',
+            type: 'number',
+            role: 'date',
+            read: true,
+            write: false,
+            unit: 'mm/h',
+        },
+        native: {},
+    },
 };
 
 export const defaultChannel: ioBroker.ChannelObject = {
@@ -512,6 +616,7 @@ export const genericStateObjects: {
         daily: {
             ...WindData,
             ...MetaData,
+            ...PrecipitationData,
             _channel: {
                 _id: '',
                 type: 'folder',
@@ -528,6 +633,8 @@ export const genericStateObjects: {
                 },
                 native: {},
             },
+            temperature: TemperatureData.temperature,
+            apparentTemperature: TemperatureData.apparentTemperature,
             time: {
                 _id: '',
                 type: 'state',
@@ -1107,10 +1214,89 @@ export const genericStateObjects: {
                 },
                 native: {},
             },
+            solar: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'W/m²',
+                },
+                native: {},
+            },
+            cape: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'J/kg',
+                },
+                native: {},
+            },
+            capeMaxTime: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE Max Time ',
+                    type: 'number',
+                    role: 'date',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
+            capeMax: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE Max',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'J/kg',
+                },
+                native: {},
+            },
+            solarMax: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation Max',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'W/m²',
+                },
+                native: {},
+            },
+            solarMaxTime: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation Max Time',
+                    type: 'number',
+                    role: 'date',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
         },
         day_night: {
             ...WindData,
             ...MetaData,
+            ...PrecipitationData,
+            ...CloudUvData,
+            ...PressureVisibilityOzoneData,
             _channel: {
                 _id: '',
                 type: 'folder',
@@ -1124,6 +1310,86 @@ export const genericStateObjects: {
                 type: 'folder',
                 common: {
                     name: 'Daily',
+                },
+                native: {},
+            },
+
+            temperature: TemperatureData.temperature,
+
+            apparentTemperature: TemperatureData.apparentTemperature,
+            solar: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'W/m²',
+                },
+                native: {},
+            },
+            cape: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'J/kg',
+                },
+                native: {},
+            },
+            solarMax: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation Max',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'W/m²',
+                },
+                native: {},
+            },
+            solarMaxTime: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'Solar Radiation Max Time',
+                    type: 'number',
+                    role: 'date',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
+            capeMaxTime: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE Max Time ',
+                    type: 'number',
+                    role: 'date',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            },
+            capeMax: {
+                _id: '',
+                type: 'state',
+                common: {
+                    name: 'CAPE Max',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    unit: 'J/kg',
                 },
                 native: {},
             },
@@ -1963,6 +2229,12 @@ export type PrecipitationData = {
     liquidAccumulation: number;
     snowAccumulation: number;
     iceAccumulation: number;
+    rainIntensity: number;
+    snowIntensity: number;
+    iceIntensity: number;
+    rainIntensityMax: number;
+    snowIntensityMax: number;
+    iceIntensityMax: number;
 };
 
 export type TemperatureData = {
@@ -1983,6 +2255,8 @@ export type PressureVisibilityOzoneData = {
     visibility: number;
     ozone: number;
     smoke: number;
+    solar: number;
+    cape: number;
 };
 
 export type CloudUvData = {
@@ -2026,11 +2300,19 @@ export type HourlyData = WindData &
 export type DailyData = WindData &
     MetaData & {
         time: number;
+        temperature: number;
+        apparentTemperature: number;
         sunriseTime: number;
         sunsetTime: number;
         moonPhase: number;
         precipIntensity: number;
+        iceIntensity: number;
+        rainIntensity: number;
+        snowIntensity: number;
         precipIntensityMax: number;
+        iceIntensityMax: number;
+        rainIntensityMax: number;
+        snowIntensityMax: number;
         precipIntensityMaxTime: number;
         precipProbability: number;
         precipAccumulation: number;
@@ -2085,6 +2367,12 @@ export type DailyData = WindData &
         moonVisibleDuration?: number;
         moonVisibleDurationFormatted?: string;
         lunarTransit?: number;
+        solar: number;
+        cape: number;
+        capeMaxTime: number;
+        capeMax: number;
+        solarMax: number;
+        solarMaxTime: number;
     };
 type MetaData = {
     summary: string;
@@ -2112,7 +2400,7 @@ export type PirateWeatherTestdata = {
     daily: MetaData & {
         data: DailyData[];
     };
-    day_night: MetaData & {
+    day_night?: MetaData & {
         data: DailyData[];
     };
     flags?: {
@@ -2139,6 +2427,9 @@ export function setUnits(u: 'si' | 'us' | 'ca' | 'uk'): void {
             PressureVisibilityOzoneData.pressure.common.unit = 'mbar';
             PressureVisibilityOzoneData.visibility.common.unit = 'mi';
             PrecipitationData.precipIntensity.common.unit = 'in/h';
+            PrecipitationData.rainIntensity.common.unit = 'in/h';
+            PrecipitationData.snowIntensity.common.unit = 'in/h';
+            PrecipitationData.iceIntensity.common.unit = 'in/h';
             PrecipitationData.liquidAccumulation.common.unit = 'in';
             PrecipitationData.snowAccumulation.common.unit = 'in';
             PrecipitationData.iceAccumulation.common.unit = 'in';

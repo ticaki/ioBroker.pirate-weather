@@ -75,6 +75,9 @@ class PirateWeather extends utils.Adapter {
       this.log.warn(`Invalid hours to display: ${this.config.hours}. Using default value of 24 hours.`);
       this.config.hours = 24;
     }
+    if (this.config.dayNightEnabled !== true) {
+      this.delObject("weather.day_night", { recursive: true });
+    }
     this.lang = this.language ? this.language.split("-")[0] : "en";
     (0, import_definition.setUnits)(this.config.units);
     await this.library.init();
@@ -155,7 +158,8 @@ class PirateWeather extends utils.Adapter {
     }
   };
   getData = async () => {
-    const url = `https://dev.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}&include=day_night_forecast`;
+    var _a;
+    const url = `https://api.pirateweather.net/forecast/${this.config.apiToken}/${this.config.position}?units=${this.config.units || "si"}&icon=pirate&version=2&lang=${this.lang}${!this.config.minutes ? "&exclude=minutely" : ""}${this.config.dayNightEnabled ? `&include=day_night_forecast` : ``}`;
     const response = await this.fetch(url);
     if (this.unload) {
       return;
@@ -191,7 +195,7 @@ class PirateWeather extends utils.Adapter {
                 d[a].liquidAccumulation = d[a].liquidAccumulation ? Math.round(d[a].liquidAccumulation * 10) : d[a].liquidAccumulation;
               }
             }
-            if (d === data.daily.data) {
+            if (d === data.daily.data || d === ((_a = data.day_night) == null ? void 0 : _a.data)) {
               d[a].moonPhase = Math.round(d[a].moonPhase * 100);
               d[a].sunriseTime = d[a].sunriseTime * 1e3;
               d[a].sunsetTime = d[a].sunsetTime * 1e3;
@@ -206,6 +210,11 @@ class PirateWeather extends utils.Adapter {
               d[a].windGustTime = d[a].windGustTime * 1e3;
               d[a].precipIntensityMaxTime = d[a].precipIntensityMaxTime * 1e3;
               d[a].uvIndexTime = d[a].uvIndexTime * 1e3;
+              d[a].rainIntensityMax = d[a].rainIntensityMax * 1e3;
+              d[a].snowIntensityMax = d[a].snowIntensityMax * 1e3;
+              d[a].iceIntensityMax = d[a].iceIntensityMax * 1e3;
+              d[a].capeMaxTime = d[a].capeMaxTime * 1e3;
+              d[a].solarMaxTime = d[a].solarMaxTime * 1e3;
               const [lat, lon] = this.config.position.split(",").map(parseFloat);
               const dayDate = new Date(d[a].time * 1e3 + 12 * 60 * 60 * 1e3);
               const astronomy = (0, import_astronomy.calculateAstronomyData)(dayDate, lat, lon);
@@ -283,7 +292,10 @@ class PirateWeather extends utils.Adapter {
       "possible-smoke-day",
       "possible-smoke-night",
       "possible-snow-day",
-      "possible-snow-night"
+      "possible-snow-night",
+      "haze-day",
+      "haze-night",
+      "haze"
     ]);
     const aliasMap = {
       "light-rain": "rain",
