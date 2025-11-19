@@ -26,7 +26,7 @@ Icons: from icebear (free to use)
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.8.0 (2025-11-19)
 - (ticaki) added day_night
 - (ticaki) added haze icon fixes #18
 

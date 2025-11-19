@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pirate-weather",
-    "version": "0.7.1",
+    "version": "0.8.0",
     "news": {
+      "0.8.0": {
+        "en": "added day_night fixes #18\nadded haze icon ",
+        "de": "tag / nacht hinzugefügt fixes #18\n haze icon hinzugefügt",
+        "ru": "добавлено day_night\nобсуждение haze icon fixes #18",
+        "pt": "adicionado dia_ noite\ncorrige o ícone de neblina adicionado # 18",
+        "nl": "dag_nacht toegevoegd\ntoegevoegd haze pictogram fixes #18",
+        "fr": "_nuit ajoutée\najout de corrections d'icônes de brume #18",
+        "it": "aggiunto day_night\naggiunto haze icon fixs #18",
+        "es": "añadido día_noche\nícono de haze añadido fijas #18",
+        "pl": "dodano dzień _ noc\ndodano poprawki ikony # 18",
+        "uk": "доданий день_добу\nдодано іконки хазяї #18",
+        "zh-cn": "添加日夜\n添加雾霾图标修正 # 18"
+      },
       "0.7.1": {
         "en": "Improved error logging",
         "de": "Verbesserte Fehlermeldung",
@@ -80,19 +93,6 @@
         "pl": "Kod migracji z aksjozów do węzła: pobrać\nPoprawione role do wizualizacji (lovelance) poprawki # 19",
         "uk": "Переміщення коду з аксіосу в вузол:fetch\nВиправлені ролі для візуалізації (lovelance) виправити #19",
         "zh-cn": "代码从轴移到节点: fatch\n修正视觉角色(爱)修正 #19"
-      },
-      "0.4.1": {
-        "en": "Humidity is now displayed correctly in percent.\nWind direction text is now translated into the system iobroker language.",
-        "de": "Die Luftfeuchtigkeit wird nun korrekt in Prozent angezeigt.\nDer Windrichtungstext wird jetzt in die ioBroker-Systemsprache übersetzt.",
-        "ru": "Влажность теперь правильно отображается в процентах.\nТекст направления ветра теперь переводится на системный язык ioBroker.",
-        "pt": "A umidade agora é exibida corretamente em porcentagem.\nO texto da direção do vento agora é traduzido para o idioma do sistema ioBroker.",
-        "nl": "De luchtvochtigheid wordt nu correct in procenten weergegeven.\nDe windrichtingstekst wordt nu vertaald naar de ioBroker-systeemtaal.",
-        "fr": "L'humidité est maintenant affichée correctement en pourcentage.\nLe texte de la direction du vent est maintenant traduit dans la langue système ioBroker.",
-        "it": "L'umidità è ora visualizzata correttamente in percentuale.\nIl testo della direzione del vento è ora tradotto nella lingua di sistema di ioBroker.",
-        "es": "La humedad ahora se muestra correctamente en porcentaje.\nEl texto de la dirección del viento ahora se traduce al idioma del sistema ioBroker.",
-        "pl": "Wilgotność jest teraz poprawnie wyświetlana w procentach.\nTekst kierunku wiatru jest teraz tłumaczony na język systemowy ioBroker.",
-        "uk": "Вологість тепер правильно відображається у відсотках.\nТекст напрямку вітру тепер перекладено мовою системи ioBroker.",
-        "zh-cn": "湿度现在正确显示为百分比。\n风向文本现在已翻译为 ioBroker 系统语言。"
       }
     },
     "titleLang": {
