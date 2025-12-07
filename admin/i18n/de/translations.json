@@ -1,6 +1,5 @@
 {
     "pirate-weather adapter settings": "Adaptereinstellungen für pirate-weather",
-    "option1": "Option1",
     "option2": "Option2",
     "minute-by-minute": "Erstellt Datenpunkte für Minuten-Prognosen",
     "position": "Position",
@@ -10,7 +9,7 @@
     "Hours-to-display": "Stunden zum Anzeigen",
     "link to website for apiToken": "Link zur Website für den API-Token",
     "pollingInMinutes": "Aktiviere Abfrageintervall in Minuten. (Aktivierung nicht empfohlen.) Vorsicht, 5 Minuten sind der niedrigste Wert, der die 10000 Abfragen pro Monat mit einem kostenlosen Konto nicht überschreitet.",
-    "pollIntervalMinutes": "Abfrageintervall in Minuten.(1-60)",   
+    "pollIntervalMinutes": "Abfrageintervall in Minuten.(1-60)",
     "N": "N",
     "NNE": "NNO",
     "NE": "NO",
