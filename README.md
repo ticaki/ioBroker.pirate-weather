@@ -90,6 +90,8 @@ Icons: from icebear (free to use)
 ### 0.0.7 (2025-08-09)
 - (ticaki) data removed from enumeration names
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
